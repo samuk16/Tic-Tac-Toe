@@ -1,11 +1,23 @@
+
+:root{
+    --backgroundMain: #1C1B1F;
+    --backContainer: #381E72 ;
+    --backContainerSecond: #4F378B;
+    --backHoverBtn: #9A82DB ;
+}
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    
 }
 
+
+
 body{
-    background-color: #381B5C;
+    background-color: var(--backgroundMain);
     width: 100%;
     height: 100vh;
 
@@ -16,14 +28,18 @@ body{
 }
 p{
     color: white;
+    font-size: 1rem;
 }
 h1{
     color: white;
     position: absolute;
     top: 30px;
-    bottom: 0;
+    /* bottom: 0; */
     left: 30px;
-    right: 0;
+    /* right: 0; */
+
+    font-size: 3rem;
+    letter-spacing: -1.5;
 }
 
 .miniP{
@@ -49,35 +65,134 @@ h1{
 .containerTTT{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    /* align-items: center; */
+    gap: 60px;
 }
+
+.containerTTT > div:nth-child(3){
+    
+    align-self: center;
+
+    display: flex;
+    gap: 30px;
+}
+
+.containerTTT > div:nth-child(3) > div{
+    
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    color: white;
+
+    height: 40px;
+
+    font-size:  0,875 rem;
+
+    border-radius: 100px;
+
+    padding: 0 12px;
+
+    background-color: var(--backContainerSecond);
+
+    cursor: pointer;
+
+    transition: all .1s ease-in-out;
+}
+
+.containerTTT > div:nth-child(3) > div:hover{
+    transform-origin: center;
+    transform: scale(1.05);
+    background-color: var(--backHoverBtn);
+    color: #1C1B1F;
+}
+
+/* .containerTTT > div:nth-child(3){
+
+    align-self: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--backContainerSecond);
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+
+} */
+
+/* .containerTTT > div:nth-child(3):hover{
+
+    transform: scale(1.2);
+} */
 
 .containerScore{
 
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 640px;
-    height: 100px;
-    background-color: #42098B;
-    border-radius: 10px;
+    justify-content: space-between;
+    /* width: 640px;
+    height: 100px; */
+    /* background-color: #42098B; */
+    /* border-radius: 10px; */
 
     
 }
 
-.containerScore > div{
+/* .containerScore > div{
     display: flex;
     align-items: center;
     gap: 20px;
+} */
+
+.containerScore > div:nth-child(1){
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--backContainerSecond);
+    width: 110px;
+    height: 40px;
+    border-radius: 16px;
+}
+.containerScore > div:nth-child(2){
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    background-color: var(--backContainerSecond);
+    width: 110px;
+    height: 70px;
+    border-radius: 16px;
+}
+.containerScore > div:nth-child(3){
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--backContainerSecond);
+    width: 110px;
+    height: 40px;
+    border-radius: 16px;
 }
 
-.containerScore > div > .miniPScore1{
+/* .containerScore > div > .miniPScore1{
     background-image: url(./th\(1\).webp);
 }
 
 .containerScore > div > .miniPScore2{
     background-image: url(./th.webp);
-}
+} */
 
 .containerBoard{
 
@@ -90,8 +205,163 @@ h1{
     gap: 20px;
 }
 
-.boardItem{
+.containerBoard > div{
     height: 200px;
-    background-color: #42098B;
-    border-radius: 10px;
+    background-color: var(--backContainer);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    outline: solid 0px #DE1616;
 }
+
+
+.containerBoard > div:hover{
+
+    transform: scale(1.1);
+}
+
+@keyframes animationOutline {
+    0%{
+        outline-width: 10px;
+    }
+
+    25%{
+        outline-width: 55px;
+    }
+
+    50%{
+        outline-width: 80px;
+    }
+
+    75%{
+        outline-width: 55px;
+    }
+
+    100%{
+        outline-width: 10px;
+    }
+}
+
+.containerStartGame > form > div{
+
+    display: flex;
+    gap: 100px;
+}
+
+.containerStartGame > form {
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.containerStartGame > form > button{
+
+    align-self: center;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    color: white;
+    border-radius: 100px;
+
+    background-color: var(--backContainer);
+
+    transition: all .1s ease-in-out;
+}
+
+.containerStartGame > form > button:hover{
+    /* transform-origin: center; */
+    transform: scale(1.05);
+    background-color: var(--backHoverBtn);
+    color: #1C1B1F;
+}
+
+.containerStartGame > form > div > label {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.containerStartGame > form > div > label > p{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 30px;
+
+    border-radius: 16px 16px 0 0;
+
+    background-color: var(--backContainer);
+
+}
+
+.containerStartGame > form > div > label > div{
+    
+    display: flex;
+    align-items: center;
+
+    background-color: var(--backContainer);
+    width: 300px;
+    height: 40px;
+    border-radius: 0 25px 25px 25px;
+
+}
+
+.containerStartGame > form > div > label > div > div {
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: #DE1616;
+    
+
+}
+
+.containerStartGame > form > div > label > div > input{
+
+    
+    width: 265px;
+    height: 100%;
+
+    padding: 16px;
+    color: white;
+    font-size: 1rem;
+
+    border: none;
+    outline: none;
+    background-color: var(--backContainer);
+
+    border-radius: 0 100px 100px 100px;
+
+    transition: all .2s ease-in-out;
+}
+
+.containerStartGame > form > div > label > div > input:focus{
+
+    background-color: var(--backHoverBtn);
+    color: var(--backgroundMain);
+}
+
+.containerStartGame > form > div > label > div > div > input{
+
+
+    opacity: 0;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    border: none;
+
+    
+
+}
+
+

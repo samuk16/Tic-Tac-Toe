@@ -1,13 +1,4 @@
-const boardItem = document.querySelectorAll('.boardItem');
 
-// import { player } from './test.js'
-
-boardItem.forEach(e => e.addEventListener('click', (e) => {
-    let item = e.target;
-
-    item.style.animation = 'animationOutline 0.2s linear both' ;
-
-}))
 
 const gameBoard = (function(){
 
@@ -137,12 +128,12 @@ const Goku = players('goku','red');
 // console.log(Goku.getColor());
 
 
-let boardTest =['x','o','x',
+let boardTest =['x','x','x',
                 '','o','x',
                 'o','','x'
 ];
 
-let test6 = ['x','x','o'];
+let test6 = ['o','o','o'];
 
 function test2(arr) {
 
@@ -157,12 +148,14 @@ function test2(arr) {
     //     }
     // }
 
-    if (arr[0] == arr[1] && arr[1] == arr[2]) {
-        console.log(true);
-    }else{
-        console.log(false);
-    }
-    
+    // if (arr[0] == arr[1] && arr[1] == arr[2]) {
+    //     console.log(true);
+    // }else{
+    //     console.log(false);
+    // }
+
+    let test68 = arr[0] == arr[1] && arr[1] == arr[2]; 
+    console.log(test68);
 }
 
 test2(test6);
@@ -180,72 +173,190 @@ test2(test6);
 
 
 
-// function createElementsDom(elementType,attributes,innerHTML,innerText,appendChild) {
+function createElementsDom(elementType,attributes,innerHTML,innerText,appendChild) {
     
-//     if(elementType){
-//         let element = document.createElement(elementType);
+    if(elementType){
+        let element = document.createElement(elementType);
   
-//         if (attributes) {
-//             for (const key in attributes){
-//                 element.setAttribute(key,attributes[key])
-//             }
-//         }
+        if (attributes) {
+            for (const key in attributes){
+                element.setAttribute(key,attributes[key])
+            }
+        }
 
-//         if (innerHTML) {
-//             element.innerHTML= innerHTML;
+        if (innerHTML) {
+            element.innerHTML= innerHTML;
 
-//         }    
-//         if (innerText) {
-//             element.innerText = innerText;
+        }    
+        if (innerText) {
+            element.innerText = innerText;
 
-//         }
-//         if(appendChild) {
-//             appendChild.appendChild(element);
+        }
+        if(appendChild) {
+            appendChild.appendChild(element);
             
-//         } 
+        } 
 
-//         return element;
-//     }
+        return element;
+    }
     
-// }
-function createElementsDom(obj) {
-    
-    for (const key in obj) {
+}
+
+function domElementsGame() {
         
     
 
-        if(obj[key].elementType){
+    //  Contianer Main
 
-            let element = document.createElement(obj[key].elementType);
+    createElementsDom('div',{class:'containerTTT'},null,null,document.body)
+
+    //  childs containerTTT
+
+    createElementsDom('div',{class:'containerScore'},null,null,document.querySelector('.containerTTT'));
+    createElementsDom('div',{class:'containerBoard'},null,null,document.querySelector('.containerTTT'));
+    createElementsDom('div',{class:'containerBtns'},null,null,document.querySelector('.containerTTT'));
+
+    //  Child ContainerScore
+
+    createElementsDom('div',{class:'containerName1'},null,null,document.querySelector('.containerScore'));
+    createElementsDom('p',null,null,'Goku',document.querySelector('.containerName1'));
+
+    createElementsDom('div',{class:'containerScoreP'},null,null,document.querySelector('.containerScore'));
+    createElementsDom('p',null,null,'1 - 1',document.querySelector('.containerScoreP'));
+
+    createElementsDom('div',{class:'containerName2'},null,null,document.querySelector('.containerScore'));
+    createElementsDom('p',null,null,'Gohan',document.querySelector('.containerName2'));
+
+    // Childs ContainerBoard
+    
+    for (let i = 0; i <= 8; i++) {
+        createElementsDom('div',{class:'boardItem'},null,null,document.querySelector('.containerBoard'));
+    }
+
+    const boardItem = document.querySelectorAll('.boardItem');
+
+
+    boardItem.forEach(e => e.addEventListener('click', (e) => {
+        let item = e.target;
+    
+        item.style.animation = 'animationOutline 0.2s linear both' ;
+    
+    }))
+
+    //  Childs containerBtns
+
+    createElementsDom('div',null,null,'Rematch',document.querySelector('.containerBtns'));
+    createElementsDom('div',null,null,'New Game',document.querySelector('.containerBtns'));
+
+
+}
+
+domElementsGame();
+
+function domElementsMenu() {
+    
+    //  containerMain
+
+    createElementsDom('div',{class:'containerStartGame'},null,null,document.body);
+
+    //  child containerStartGame
+
+    createElementsDom('form',{class:'formPlayers'},null,null,document.querySelector('.containerStartGame'));
+    
+    //  childs formPlayers
+    
+    createElementsDom('div',{class:'containerLabels'},null,null,document.querySelector('.formPlayers'));
+
+    createElementsDom('button',{type: 'submit'},null,'Start Game',document.querySelector('.formPlayers'));
+
+    //  child containerLabels
+
+    createElementsDom('label',{class: 'label1'},null,null,document.querySelector('.containerLabels'));
+    
+    createElementsDom('label',{class: 'label2'},null,null,document.querySelector('.containerLabels'));
+    
+    //  cholds label1
+
+    createElementsDom('p',null,null,'Player 1',document.querySelector('.label1'));
+    
+    createElementsDom('div',{class: 'containerInputs'},null,null,document.querySelector('.label1'));
+
+    //  childs containerInputs
+
+    createElementsDom('input',{type: 'text', name:'namePlayer'},null,null,document.querySelector('.containerInputs'));
+
+    createElementsDom('div',{class: 'inputColor'},null,null,document.querySelector('.containerInputs'));
+
+    //  child inputColor
+
+    createElementsDom('input',{type: 'color',name:'color'},null,null,document.querySelector('.inputColor'));
+
+    //  cholds label2
+
+    createElementsDom('p',null,null,'Player 2',document.querySelector('.label2'));
+
+    createElementsDom('div',{class: 'containerInputs2'},null,null,document.querySelector('.label2'));
+
+    //  childs containerInputs
+
+    createElementsDom('input',{type: 'text', name:'namePlayer2'},null,null,document.querySelector('.containerInputs2'));
+
+    createElementsDom('div',{class: 'inputColor2'},null,null,document.querySelector('.containerInputs2'));
+
+    //  child inputColor
+    
+    createElementsDom('input',{type: 'color',name:'color2'},null,null,document.querySelector('.inputColor2'));
+    
+
+}
+
+// domElementsMenu()
+
+function createElementsDom2(arr) {
+    
+    
+    arr.forEach(elementObject => {
+
+        if(elementObject.elementType){
+            let element = document.createElement(elementObject.elementType);
+            // console.log(elementObject.elementType);
         
-            if (obj[key].attributes) {
+            if (elementObject.attributes) {
 
-                let test5 = obj[key].attributes;
+                // let test5 = elementObject.attributes;
                 
-                for (const key2 in test5){
-                    element.setAttribute(key2,test5[key2])
+                for (const key in elementObject.attributes){
+                    element.setAttribute(key,elementObject.attributes[key])
                 }
+                // console.log('atributos');
             }
 
             // if (innerHTML) {
             //     element.innerHTML= innerHTML;
 
             // }    
-            if (obj[key].innerText) {
+            if (elementObject.innerText) {
 
-                element.innerText = obj[key].innerText;
+                element.innerText = elementObject.innerText;
+                // console.log('text');
 
             }
-            if(obj[key].appendChild) {
+            if(elementObject.appendChild) {
 
-                obj[key].appendChild.appendChild(element);
+                elementObject.appendChild.appendChild(element);
+                console.log(elementObject.appendChild);
+                
 
             } 
 
-            // return element;
+            return element;
         }
+    })
 
-    }
+
+        
+
+    
     
 }
 
@@ -262,35 +373,52 @@ let objDomTest = {
             attributes: {class:'containerScore'},
             appendChild: document.querySelector('.containerTTT'),
         },
-            child1:{
-                elementType: 'div',
-                appendChild: document.querySelector('.containerScore'),
-            },
-            child2:{
-                elementType: 'div',
-                appendChild: document.querySelector('.containerScore'),
-            },
-            child3:{
-                elementType: 'div',
-                appendChild: document.querySelector('.containerScore'),
-            },
 
-        containerBoard:{
+        child1:{
             elementType: 'div',
-            attributes: {class:'containerBoard'},
-            appendChild: document.querySelector('.containerTTT'),
-        }
+            appendChild: document.querySelector('.containerScore'),
+        },
+        child2:{
+            elementType: 'div',
+            appendChild: document.querySelector('.containerScore'),
+        },
+        child3:{
+            elementType: 'div',
+            appendChild: document.querySelector('.containerScore'),
+        },
+
+    containerBoard:{
+        elementType: 'div',
+        attributes: {class:'containerBoard'},
+        appendChild: document.querySelector('.containerTTT'),
+    }
+       
 
 };
 
-function test67(obj) {
-    for (const key in obj) {
-        console.log(obj[key]);
-    }
+let arrObjTest = [
+    {
+        elementType: 'div',
+        attributes: {class:'containerTTT',id:'TTT'},
+        appendChild: document.body,
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'containerScore'},
+        appendChild: document.getElementById('TTT'),
+    },
+    {
+        elementType: 'div',
+        appendChild: document.getElementById('TTT'),
+    },
 
-}
-test67(objDomTest);
-createElementsDom(objDomTest);
+];
+
+// createElementsDom(arrObjTest);
+
+// console.log(arrObjTest[1]);
+// console.log(objDomTest.containerScore.appendChild);
+
 
 // createElementsDom('div',{'data-id':'1',class:'nashe',style:'background-color: violet',},null,'hola',document.body);
 // createElementsDom('div',{'data-id':'2',class:'nashe2',},null,'hola2',document.querySelector('.nashe'));

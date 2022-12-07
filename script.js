@@ -33,6 +33,7 @@ const arrDomObjGame = [
     {
         elementType: 'p',
         attributes: {class:'nameScore1'},
+        innerText: 'Roas' ,
         appendChild: '.name1',
     },
 
@@ -45,6 +46,7 @@ const arrDomObjGame = [
     {
         elementType: 'p',
         attributes: {class:'score'},
+        innerText: '0 - 0' ,
         appendChild: '.scoreP',
     },
 
@@ -57,6 +59,7 @@ const arrDomObjGame = [
     {
         elementType: 'p',
         attributes: {class:'nameScore2'},
+        innerText:'Gohan',
         appendChild: '.name2',
     },
 
@@ -136,7 +139,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'form',
-        attributes: {class: 'formStartGame'},
+        attributes: {class: 'formStartGame',id:'formMain'},
         appendChild: '.containerStartGame',
     },
 
@@ -442,13 +445,59 @@ function domElementsMenu(arr) {
         
     })
 
+    registerNames();
+    changeColor1();
+    changeColor2();
 }
+
+function registerNames() {
+
+    let form = document.forms.formMain;
+    
+
+    form.addEventListener('submit', (e)=> {
+        console.log(e.target.elements['namePlayer1'].value)
+        console.log(e.target.elements['namePlayer2'].value)
+        console.log(e.target.elements['color1'].value)
+        console.log(e.target.elements['color2'].value)
+        // console.log(e.target.elements['color1'].value)
+        
+        e.preventDefault();
+    });
+};
+
+function changeColor1() {
+    let inputColor = formMain.color1;
+    let divColorInput1 = document.querySelector('.inputColor1');
+    
+    inputColor.addEventListener('input', ()=> {
+        // console.log(inputColor.value);
+        // let saveColor1 = inputColor.value;
+        // document.documentElement.style.cssText = `--divColorInput1: ${saveColor1}`;
+        divColorInput1.style.backgroundColor = inputColor.value;
+    })
+
+    // console.log(inputColor.value);
+}
+function changeColor2() {
+    let inputColor2 = formMain.color2;
+    let divColorInput2 = document.querySelector('.inputColor2');
+    inputColor2.addEventListener('input', ()=> {
+        // console.log(inputColor.value);
+        // let saveColor2 = inputColor2.value;
+        // document.documentElement.style.cssText = `--divColorInput2: ${saveColor2}`;
+        divColorInput2.style.backgroundColor = inputColor2.value;
+    })
+
+    // console.log(inputColor.value);
+}
+
 
 
 
 // domElementsGame(arrDomObjGame);
 domElementsMenu(arrDomObjStart);
-
+console.log(document.forms);
 
 
 

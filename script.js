@@ -426,15 +426,10 @@ function domElementsGame(arr) {
         
     })
 
-    const boardItem = document.querySelectorAll('.boardItem');
-
-
-    boardItem.forEach(e => e.addEventListener('click', (e) => {
-        let item = e.target;
+    animationBoardItem();
+    newGame()
+    rematch()
     
-        item.style.animation = 'animationOutline 0.2s linear both' ;
-    
-    }))
 }
 
 function domElementsMenu(arr) {
@@ -456,44 +451,109 @@ function registerNames() {
     
 
     form.addEventListener('submit', (e)=> {
-        console.log(e.target.elements['namePlayer1'].value)
-        console.log(e.target.elements['namePlayer2'].value)
+
         console.log(e.target.elements['color1'].value)
         console.log(e.target.elements['color2'].value)
+        let name1 = e.target.elements['namePlayer1'].value ;
+        let name2 = e.target.elements['namePlayer2'].value ;
+
+        arrDomObjGame[5].innerText = name1;
+        arrDomObjGame[9].innerText = name2;
+    
         // console.log(e.target.elements['color1'].value)
-        
+        delDomElementsMenu()
+        // game(name1, name2)
+        domElementsGame(arrDomObjGame);
         e.preventDefault();
     });
 };
 
 function changeColor1() {
+
     let inputColor = formMain.color1;
     let divColorInput1 = document.querySelector('.inputColor1');
     
     inputColor.addEventListener('input', ()=> {
-        // console.log(inputColor.value);
-        // let saveColor1 = inputColor.value;
-        // document.documentElement.style.cssText = `--divColorInput1: ${saveColor1}`;
-        divColorInput1.style.backgroundColor = inputColor.value;
+        document.documentElement.style.setProperty("--divColorInput1", inputColor.value);
+        // divColorInput1.style.backgroundColor = inputColor.value;
     })
-
-    // console.log(inputColor.value);
 }
 function changeColor2() {
+
     let inputColor2 = formMain.color2;
     let divColorInput2 = document.querySelector('.inputColor2');
     inputColor2.addEventListener('input', ()=> {
-        // console.log(inputColor.value);
-        // let saveColor2 = inputColor2.value;
-        // document.documentElement.style.cssText = `--divColorInput2: ${saveColor2}`;
-        divColorInput2.style.backgroundColor = inputColor2.value;
+        document.documentElement.style.setProperty("--divColorInput2", inputColor2.value);
+
+        // divColorInput2.style.backgroundColor = inputColor2.value;
+    })
+}
+
+function delDomElementsMenu() {
+
+    const formStart = document.querySelector('.containerStartGame');
+
+    document.body.removeChild(formStart)
+
+}
+function delDomElementsGame() {
+
+    const containerGame = document.querySelector('.containerTTT');
+
+    document.body.removeChild(containerGame)
+
+}
+
+function animationBoardItem() {
+    const boardItem = document.querySelectorAll('.boardItem');
+
+
+    boardItem.forEach(e => e.addEventListener('click', (e) => {
+        let item = e.target;
+    
+        item.style.animation = 'animationOutline 0.2s linear both' ;
+    
+    }))
+}
+
+function newGame() {
+    const btnNewGame = document.querySelector('.btnNewGame');
+
+    btnNewGame.addEventListener('click', ()=> {
+
+        delDomElementsGame()
+
+        domElementsMenu(arrDomObjStart);
+
+
     })
 
-    // console.log(inputColor.value);
+
+}
+
+function rematch() {
+
+    const btnNewGame = document.querySelector('.btnRematch');
+
+    btnNewGame.addEventListener('click', ()=> {
+
+        delDomElementsGame();
+
+        domElementsGame(arrDomObjGame);
+
+    })
+
+    
 }
 
 
+// function game(name1,name2) {
 
+//     arrDomObjGame[5].innerText = name1;
+//     // arrDomObjGame[7].innerText = ;
+//     arrDomObjGame[9].innerText = name2;
+
+// }
 
 // domElementsGame(arrDomObjGame);
 domElementsMenu(arrDomObjStart);

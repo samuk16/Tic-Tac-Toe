@@ -203,7 +203,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'p',
-        attributes: null,
+        attributes: {class: 'labelP1'},
         innerText: 'Player 1' ,
         appendChild: '.label1',
     },
@@ -240,7 +240,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'p',
-        attributes: null,
+        attributes: {class: 'labelP2'},
         innerText: 'Player 2' ,
         appendChild: '.label2',
     },
@@ -472,6 +472,7 @@ function domElementsMenu(arr) {
     registerNames();
     changeColor1();
     changeColor2();
+    transitionForms();
 }
 
 function registerNames() {
@@ -483,8 +484,8 @@ function registerNames() {
 
         // console.log(e.target.elements['color1'].value)
         // console.log(e.target.elements['color2'].value)
-        console.log(e.target.elements['namePlayer1'].value)
-        console.log(e.target.elements['namePlayer2'].value)
+        // console.log(e.target.elements['namePlayer1'].value)
+        // console.log(e.target.elements['namePlayer2'].value)
         let name1 = e.target.elements['namePlayer1'].value ;
         let name2 = e.target.elements['namePlayer2'].value ;
 
@@ -557,7 +558,82 @@ function animationAndOthers() {
     
     }))
 
-    const titleMove  = document.querySelector('.title');
+    // const titleMove  = document.querySelector('.title');
+
+
+    // change input color and others
+    
+    // if (document.forms) {
+        
+    
+
+    //     const containerInputs1 = document.querySelector('.containerInputs1');
+    //     const player1P = document.querySelector('.labelP1');
+
+    //     const inputNamePlayer1 = formMain.namePlayer1;
+        
+
+    //     inputNamePlayer1.addEventListener('focus', ()=> {
+
+
+    //         inputNamePlayer1.style.backgroundColor = '#9A82DB';
+    //         inputNamePlayer1.style.color = '#1C1B1F';
+
+    //         containerInputs1.style.backgroundColor = '#9A82DB';
+
+    //         player1P.style.backgroundColor = '#9A82DB';
+    //         player1P.style.color = '#1C1B1F';
+
+    //     })
+
+    //     inputNamePlayer1.addEventListener('blur', ()=> {
+
+
+    //         inputNamePlayer1.style.backgroundColor = '#381E72';
+    //         inputNamePlayer1.style.color = 'white';
+
+    //         containerInputs1.style.backgroundColor = '#381E72';
+
+    //         player1P.style.backgroundColor = '#381E72';
+    //         player1P.style.color = 'white';
+
+    //     })
+
+
+    //     const containerInputs2 = document.querySelector('.containerInputs2');
+    //     const player2P = document.querySelector('.labelP2');
+
+    //     const inputNamePlayer2 = formMain.namePlayer2;
+
+
+    //     inputNamePlayer2.addEventListener('focus', ()=> {
+
+
+    //         inputNamePlayer2.style.backgroundColor = '#9A82DB';
+    //         inputNamePlayer2.style.color = '#1C1B1F';
+
+    //         containerInputs2.style.backgroundColor = '#9A82DB';
+
+    //         player2P.style.backgroundColor = '#9A82DB';
+    //         player2P.style.color = '#1C1B1F';
+
+    //     })
+
+    //     inputNamePlayer2.addEventListener('blur', ()=> {
+
+
+    //         inputNamePlayer2.style.backgroundColor = '#381E72';
+    //         inputNamePlayer2.style.color = 'white';
+
+    //         containerInputs2.style.backgroundColor = '#381E72';
+
+    //         player2P.style.backgroundColor = '#381E72';
+    //         player2P.style.color = 'white';
+
+    //     })
+
+    // }
+
 }
 
 function newGame() {
@@ -590,6 +666,73 @@ function rematch() {
     
 }
 
+function transitionForms() {
+
+    const containerInputs1 = document.querySelector('.containerInputs1');
+    const player1P = document.querySelector('.labelP1');
+
+    const inputNamePlayer1 = formMain.namePlayer1;
+    
+
+    inputNamePlayer1.addEventListener('focus', ()=> {
+
+
+        inputNamePlayer1.style.backgroundColor = '#9A82DB';
+        inputNamePlayer1.style.color = '#1C1B1F';
+
+        containerInputs1.style.backgroundColor = '#9A82DB';
+
+        player1P.style.backgroundColor = '#9A82DB';
+        player1P.style.color = '#1C1B1F';
+
+    })
+
+    inputNamePlayer1.addEventListener('blur', ()=> {
+
+
+        inputNamePlayer1.style.backgroundColor = '#381E72';
+        inputNamePlayer1.style.color = 'white';
+
+        containerInputs1.style.backgroundColor = '#381E72';
+
+        player1P.style.backgroundColor = '#381E72';
+        player1P.style.color = 'white';
+
+    })
+
+
+    const containerInputs2 = document.querySelector('.containerInputs2');
+    const player2P = document.querySelector('.labelP2');
+
+    const inputNamePlayer2 = formMain.namePlayer2;
+
+
+    inputNamePlayer2.addEventListener('focus', ()=> {
+
+
+        inputNamePlayer2.style.backgroundColor = '#9A82DB';
+        inputNamePlayer2.style.color = '#1C1B1F';
+
+        containerInputs2.style.backgroundColor = '#9A82DB';
+
+        player2P.style.backgroundColor = '#9A82DB';
+        player2P.style.color = '#1C1B1F';
+
+    })
+
+    inputNamePlayer2.addEventListener('blur', ()=> {
+
+
+        inputNamePlayer2.style.backgroundColor = '#381E72';
+        inputNamePlayer2.style.color = 'white';
+
+        containerInputs2.style.backgroundColor = '#381E72';
+
+        player2P.style.backgroundColor = '#381E72';
+        player2P.style.color = 'white';
+
+    })
+}
 
 // function game(name1,name2) {
 

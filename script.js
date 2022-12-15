@@ -1,6 +1,20 @@
 import createElementsDom from './domCreation.js';
 
 const arrDomObjGame = [
+
+    //  child body
+
+    {
+        elementType: 'h1',
+        attributes: {class:'title'},
+        innerText: 'Tic Tac Toe' ,
+        appendChild: 'body',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'miniPerfil'},
+        appendChild: 'body',
+    },
     {
         elementType: 'div',
         attributes: {class:'containerTTT'},
@@ -129,6 +143,21 @@ const arrDomObjGame = [
 ];
 
 const arrDomObjStart = [
+
+    //  child body
+
+    {
+        elementType: 'h1',
+        attributes: {class:'title'},
+        innerText: 'Tic Tac Toe' ,
+        appendChild: 'body',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'miniPerfil'},
+        appendChild: 'body',
+    },
+
     {
         elementType: 'div',
         attributes: {class:'containerStartGame'},
@@ -426,7 +455,7 @@ function domElementsGame(arr) {
         
     })
 
-    animationBoardItem();
+    animationAndOthers();
     newGame()
     rematch()
     
@@ -452,13 +481,15 @@ function registerNames() {
 
     form.addEventListener('submit', (e)=> {
 
-        console.log(e.target.elements['color1'].value)
-        console.log(e.target.elements['color2'].value)
+        // console.log(e.target.elements['color1'].value)
+        // console.log(e.target.elements['color2'].value)
+        console.log(e.target.elements['namePlayer1'].value)
+        console.log(e.target.elements['namePlayer2'].value)
         let name1 = e.target.elements['namePlayer1'].value ;
         let name2 = e.target.elements['namePlayer2'].value ;
 
-        arrDomObjGame[5].innerText = name1;
-        arrDomObjGame[9].innerText = name2;
+        arrDomObjGame[7].innerText = name1;
+        arrDomObjGame[11].innerText = name2;
     
         // console.log(e.target.elements['color1'].value)
         delDomElementsMenu()
@@ -470,8 +501,8 @@ function registerNames() {
 
 function changeColor1() {
 
-    let inputColor = formMain.color1;
-    let divColorInput1 = document.querySelector('.inputColor1');
+    const inputColor = formMain.color1;
+    // let divColorInput1 = document.querySelector('.inputColor1');
     
     inputColor.addEventListener('input', ()=> {
         document.documentElement.style.setProperty("--divColorInput1", inputColor.value);
@@ -480,8 +511,8 @@ function changeColor1() {
 }
 function changeColor2() {
 
-    let inputColor2 = formMain.color2;
-    let divColorInput2 = document.querySelector('.inputColor2');
+    const inputColor2 = formMain.color2;
+    // let divColorInput2 = document.querySelector('.inputColor2');
     inputColor2.addEventListener('input', ()=> {
         document.documentElement.style.setProperty("--divColorInput2", inputColor2.value);
 
@@ -492,19 +523,30 @@ function changeColor2() {
 function delDomElementsMenu() {
 
     const formStart = document.querySelector('.containerStartGame');
-
+    const title = document.querySelector('.title')
+    const miniPerfil = document.querySelector('.miniPerfil')
+    
+    ;
     document.body.removeChild(formStart)
+    document.body.removeChild(title)
+    document.body.removeChild(miniPerfil)
 
 }
 function delDomElementsGame() {
 
     const containerGame = document.querySelector('.containerTTT');
+    const title = document.querySelector('.title')
+    const miniPerfil = document.querySelector('.miniPerfil')
 
     document.body.removeChild(containerGame)
-
+    document.body.removeChild(title)
+    document.body.removeChild(miniPerfil)
 }
 
-function animationBoardItem() {
+function animationAndOthers() {
+
+    //  animation for boardItems
+
     const boardItem = document.querySelectorAll('.boardItem');
 
 
@@ -514,6 +556,8 @@ function animationBoardItem() {
         item.style.animation = 'animationOutline 0.2s linear both' ;
     
     }))
+
+    const titleMove  = document.querySelector('.title');
 }
 
 function newGame() {

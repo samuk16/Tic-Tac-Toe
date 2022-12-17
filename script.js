@@ -320,7 +320,7 @@ const gameBoard = (function(){
                 // console.log(board[obj.row[0][i]]);
                 let test = []
                 test.push(board[vericationObj.row[0][i]]);
-                test.forEach(e => e == e ? console.log('ganaste'): '');            
+                // test.forEach(e => e == e ? console.log('ganaste'): '');            
             }
     
             if (count > 2 && count <= 5) {
@@ -433,7 +433,7 @@ function test2(arr) {
     console.log(test68);
 }
 
-test2(test6);
+// test2(test6);
 
 
 
@@ -458,6 +458,7 @@ function domElementsGame(arr) {
     animationAndOthers();
     newGame()
     rematch()
+    createXO()
     
 }
 
@@ -550,91 +551,25 @@ function animationAndOthers() {
 
     const boardItem = document.querySelectorAll('.boardItem');
 
+    // let x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
+    // let o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
 
     boardItem.forEach(e => e.addEventListener('click', (e) => {
         let item = e.target;
     
         item.style.animation = 'animationOutline 0.2s linear both' ;
+
+        // createElementsDom('div',{class:'x'},x,null,item);
+        // createElementsDom('div',{class:'o'},o,null,item);
     
     }))
 
+
+
     // const titleMove  = document.querySelector('.title');
 
-
-    // change input color and others
-    
-    // if (document.forms) {
-        
-    
-
-    //     const containerInputs1 = document.querySelector('.containerInputs1');
-    //     const player1P = document.querySelector('.labelP1');
-
-    //     const inputNamePlayer1 = formMain.namePlayer1;
-        
-
-    //     inputNamePlayer1.addEventListener('focus', ()=> {
-
-
-    //         inputNamePlayer1.style.backgroundColor = '#9A82DB';
-    //         inputNamePlayer1.style.color = '#1C1B1F';
-
-    //         containerInputs1.style.backgroundColor = '#9A82DB';
-
-    //         player1P.style.backgroundColor = '#9A82DB';
-    //         player1P.style.color = '#1C1B1F';
-
-    //     })
-
-    //     inputNamePlayer1.addEventListener('blur', ()=> {
-
-
-    //         inputNamePlayer1.style.backgroundColor = '#381E72';
-    //         inputNamePlayer1.style.color = 'white';
-
-    //         containerInputs1.style.backgroundColor = '#381E72';
-
-    //         player1P.style.backgroundColor = '#381E72';
-    //         player1P.style.color = 'white';
-
-    //     })
-
-
-    //     const containerInputs2 = document.querySelector('.containerInputs2');
-    //     const player2P = document.querySelector('.labelP2');
-
-    //     const inputNamePlayer2 = formMain.namePlayer2;
-
-
-    //     inputNamePlayer2.addEventListener('focus', ()=> {
-
-
-    //         inputNamePlayer2.style.backgroundColor = '#9A82DB';
-    //         inputNamePlayer2.style.color = '#1C1B1F';
-
-    //         containerInputs2.style.backgroundColor = '#9A82DB';
-
-    //         player2P.style.backgroundColor = '#9A82DB';
-    //         player2P.style.color = '#1C1B1F';
-
-    //     })
-
-    //     inputNamePlayer2.addEventListener('blur', ()=> {
-
-
-    //         inputNamePlayer2.style.backgroundColor = '#381E72';
-    //         inputNamePlayer2.style.color = 'white';
-
-    //         containerInputs2.style.backgroundColor = '#381E72';
-
-    //         player2P.style.backgroundColor = '#381E72';
-    //         player2P.style.color = 'white';
-
-    //     })
-
-    // }
-
 }
+
 
 function newGame() {
     const btnNewGame = document.querySelector('.btnNewGame');
@@ -744,7 +679,52 @@ function transitionForms() {
 
 // domElementsGame(arrDomObjGame);
 domElementsMenu(arrDomObjStart);
-console.log(document.forms);
+// console.log(document.forms);
+
+function createXO() {
+    
+    const boardItem = document.querySelectorAll('.boardItem');
+
+    let x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
+    let o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
+
+    // let oEntry = document.querySelector('.o');
+
+    let count = [];
+
+     
+
+    boardItem.forEach(e => e.addEventListener('click', (e) => {
+        let item = e.target;
+    
+        // createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+        // createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
+
+        if (count.length == 0) {
+
+            createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+            count.push('x');
+            console.log(count);
+            // console.log(count[count.length - 1]);
 
 
+        }else if(count[count.length - 1] == 'x'){
+
+            createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
+            count.push('o');
+            console.log(count);
+
+            
+        }else{
+            createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+            count.push('x');
+            console.log(count);
+
+        }
+
+    }))
+
+    
+    
+}
 

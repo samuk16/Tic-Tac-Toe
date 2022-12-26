@@ -81,47 +81,47 @@ const arrDomObjGame = [
 
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'0'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'1'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'2'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'3'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'4'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'5'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'6'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'7'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem'},
+        attributes: {class:'boardItem','data-board':'8'},
         appendChild: '.containerBoard',
     },
 
@@ -232,7 +232,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'input',
-        attributes: {type: 'color', name: 'color1'},
+        attributes: {type: 'color', name: 'color1',value:'#DE1616'},
         appendChild: '.inputColor1',
     },
 
@@ -269,7 +269,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'input',
-        attributes: {type: 'color', name: 'color2'},
+        attributes: {type: 'color', name: 'color2',value:'#DE1616'},
         appendChild: '.inputColor2',
     },
     
@@ -294,11 +294,11 @@ const gameBoard = (function(){
     
     };
 
-    function playFunction(dataId,player){
+    function playFunction(dataId,xo){
 
         if (!(board[dataId] != 'null')) {
             
-            board.splice(dataId,1,player);
+            board.splice(dataId,1,xo);
             console.log(board);     
         }
 
@@ -310,80 +310,158 @@ const gameBoard = (function(){
     }
 
 
-    function hirozontalVerification(obj,arr) {
-       
+    function hirozontalVerification() {
+
+        const testRow1 = [];
+        const testRow2 = [];
+        const testRow3 = [];
+
+        for (let i = 0; i < board.length; i++) {
+                
+            let count = i;
+            
+            if (count <= 2) {
+
+                testRow1.push(board[vericationObj.row[0][i]]);
+                
+                if (testRow1.length == 3 && (testRow1[0] == 'x' || testRow1[0] == 'o')) {
+
+                    testRow1.every(elemento => elemento === testRow1[0]) ? console.log('GANASTE!! en la row1') : console.log(''); 
+                }
+         
+            }
+            
+            
+            if (count > 2 && count <= 5) {
+ 
+                testRow2.push(board[vericationObj.row[1][i - 3]])
+
+                if (testRow2.length == 3 && (testRow2[0] == 'x' || testRow2[0] == 'o')) {
+
+                    testRow2.every(elemento => elemento == testRow2[0]) ? console.log('GANASTE!! en la row2') : console.log(''); 
+                }
+                         
+            }
+    
+            if (count >= 5) {
+
+                testRow3.push(board[vericationObj.row[2][i - 5]])          
+
+                if (testRow3.length == 3 && (testRow3[0] == 'x' || testRow3[0] == 'o')) {
+
+                    testRow3.every(elemento => elemento == testRow3[0]) ? console.log('GANASTE!! en la row3') : console.log('');
+                }
+            }
+    
+        }
+    }
+    function verticalVerification() {
+        
+        const testColumn1 = [];
+        const testColumn2 = [];
+        const testColumn3 = [];
+
+
         for (let i = 0; i < board.length; i++) {
                 
             let count = i;
     
             if (count <= 2) {
-                // console.log(board[obj.row[0][i]]);
-                let test = []
-                test.push(board[vericationObj.row[0][i]]);
-                // test.forEach(e => e == e ? console.log('ganaste'): '');            
+
+                testColumn1.push(board[vericationObj.column[0][i]]);
+                
+                if (testColumn1.length == 3 && (testColumn1[0] == 'x' || testColumn1[0] == 'o')) {
+
+                    testColumn1.every(elemento => elemento === testColumn1[0]) ? console.log('GANASTE!! en la columna1') : console.log(''); 
+                }
             }
     
             if (count > 2 && count <= 5) {
-                console.log(board[vericationObj.row[1][i - 3]]);            
+
+                testColumn2.push(board[vericationObj.column[1][i - 3]]);
+                
+                if (testColumn2.length == 3 && (testColumn2[0] == 'x' || testColumn2[0] == 'o')) {
+
+                    testColumn2.every(elemento => elemento === testColumn2[0]) ? console.log('GANASTE!! en la columna2') : console.log(''); 
+                }
             }
     
             if (count >= 5) {
-                console.log(board[vericationObj.row[2][i - 5]]);            
+
+                testColumn3.push(board[vericationObj.column[2][i - 5]]);
+                
+                if (testColumn3.length == 3 && (testColumn3[0] == 'x' || testColumn3[0] == 'o')) {
+
+                    testColumn3.every(elemento => elemento === testColumn3[0]) ? console.log('GANASTE!! en la columna3') : console.log(''); 
+                }
+                // console.log(board[vericationObj.column[2][i - 5]]);            
             }
     
         }
     }
-    function verticalVerification(obj,arr) {
-            
-        for (let i = 0; i < arr.length; i++) {
+    function diagonalVerification() {
+        const testDiagonal1 = [];
+        const testDiagonal2 = [];
+        // const testDiagonal3 = [];
+        for (let i = 0; i < board.length; i++) {
                 
             let count = i;
     
             if (count <= 2) {
-                console.log(arr[obj.column[0][i]]);            
-            }
-    
-            if (count > 2 && count <= 5) {
-                console.log(arr[obj.column[1][i - 3]]);            
-            }
-    
-            if (count >= 5) {
-                console.log(arr[obj.column[2][i - 5]]);            
-            }
-    
-        }
-    }
-    function diagonalVerification(obj,arr) {
-              
-        for (let i = 0; i < arr.length; i++) {
+
+                testDiagonal1.push(board[vericationObj.diagonal[0][i]]);
                 
-            let count = i;
-    
-            if (count <= 2) {
-                console.log(arr[obj.diagonal[0][i]]);            
+                if (testDiagonal1.length == 3 && (testDiagonal1[0] == 'x' || testDiagonal1[0] == 'o')) {
+
+                    testDiagonal1.every(elemento => elemento === testDiagonal1[0]) ? console.log('GANASTE!! en la diagonal1') : console.log(''); 
+                }
+                // console.log(board[vericationObj.diagonal[0][i]]);
+
             }
     
             if (count > 2 && count <= 5) {
-                console.log(arr[obj.diagonal[1][i - 3]]);            
+
+                testDiagonal2.push(board[vericationObj.diagonal[1][i - 3]]);
+                
+                if (testDiagonal2.length == 3 && (testDiagonal2[0] == 'x' || testDiagonal2[0] == 'o')) {
+
+                    testDiagonal2.every(elemento => elemento === testDiagonal2[0]) ? console.log('GANASTE!! en la diagonal2') : console.log(''); 
+                }
+                // console.log(board[vericationObj.diagonal[1][i - 3]]);            
             }
     
-            if (count >= 5) {
-                console.log(arr[obj.diagonal[2][i - 5]]);            
-            }
+            // if (count >= 5) {
+
+            //     testDiagonal3.push(board[vericationObj.diagonal[2][i - 5]]);
+                
+            //     if (testDiagonal3.length == 3 && (testDiagonal3[0] == 'x' || testDiagonal3[0] == 'o')) {
+
+            //         testDiagonal3.every(elemento => elemento === testDiagonal3[0]) ? console.log('GANASTE!! en la diagonal1') : console.log(''); 
+            //     }
+            //     console.log(board[vericationObj.diagonal[2][i - 5]]);            
+            // }
     
         }
     }
 
 
-    return{playFunction,cleanBoard,hirozontalVerification}
+    return{playFunction,cleanBoard,hirozontalVerification,verticalVerification,diagonalVerification}
 
 
 })();
 
 // gameBoard.playFunction(0,'x')
-// gameBoard.playFunction(1,'x')
-// gameBoard.playFunction(2,'o')
+// gameBoard.playFunction(1,'0')
+// gameBoard.playFunction(2,'x')
+// gameBoard.playFunction(3,'o')
+// gameBoard.playFunction(4,'x')
+// gameBoard.playFunction(5,'x')
+// gameBoard.playFunction(6,'x')
+// gameBoard.playFunction(7,'o')
+// gameBoard.playFunction(8,'o')
 // gameBoard.hirozontalVerification();
+// gameBoard.verticalVerification()
+// gameBoard.diagonalVerification();
 // gameBoard.playFunction(2,'x')
 // gameBoard.cleanBoard();
 
@@ -398,6 +476,9 @@ const players = (name, color) => {
     return{getName,getColor}
 };
 
+let player1;
+let player2;
+
 const Goku = players('goku','red');
 
 // console.log(Goku.getColor());
@@ -408,7 +489,7 @@ let boardTest =['x','x','x',
                 'o','','x'
 ];
 
-let test6 = ['o','o','o'];
+let test6 = ['x','x','o'];
 
 function test2(arr) {
 
@@ -429,11 +510,14 @@ function test2(arr) {
     //     console.log(false);
     // }
 
-    let test68 = arr[0] == arr[1] && arr[1] == arr[2]; 
-    console.log(test68);
+    return arr.every(elemento => elemento === arr[0])
+
+    // let test68 = arr[0] == arr[1] && arr[1] == arr[2]; 
+    // console.log(test68);
 }
 
-// test2(test6);
+
+// console.log(test2(test6));
 
 
 
@@ -490,10 +574,21 @@ function registerNames() {
         let name1 = e.target.elements['namePlayer1'].value ;
         let name2 = e.target.elements['namePlayer2'].value ;
 
+        let color1 = e.target.elements['color1'].value ;
+        let color2 = e.target.elements['color2'].value ;
+
         arrDomObjGame[7].innerText = name1;
         arrDomObjGame[11].innerText = name2;
     
         // console.log(e.target.elements['color1'].value)
+        player1 = players(name1,color1);
+        player2 = players(name2,color2);
+
+        // console.log(player1.getName());
+        // console.log(player1.getColor());
+        // console.log(player2.getName());
+        // console.log(player2.getColor());
+
         delDomElementsMenu()
         // game(name1, name2)
         domElementsGame(arrDomObjGame);
@@ -505,10 +600,11 @@ function changeColor1() {
 
     const inputColor = formMain.color1;
     // let divColorInput1 = document.querySelector('.inputColor1');
-    
     inputColor.addEventListener('input', ()=> {
         document.documentElement.style.setProperty("--divColorInput1", inputColor.value);
-        // divColorInput1.style.backgroundColor = inputColor.value;
+
+            // divColorInput1.style.backgroundColor = '#DE1616';
+
     })
 }
 function changeColor2() {
@@ -692,35 +788,59 @@ function createXO() {
 
     let count = [];
 
+    let element = document.querySelector('.boardItem');
+    let computedStyle = window.getComputedStyle(element);
+    // let colorPrimary = computedStyle.getPropertyValue('--color-primary');
+
+    let color1 = computedStyle.getPropertyValue('--divColorInput1');
+    let color2 = computedStyle.getPropertyValue('--divColorInput2');
      
 
+    
     boardItem.forEach(e => e.addEventListener('click', (e) => {
         let item = e.target;
-    
-        // createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
-        // createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
-
+         
         if (count.length == 0) {
 
             createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+            item.classList.add('x');
             count.push('x');
-            console.log(count);
+            // console.log(count);
             // console.log(count[count.length - 1]);
+            item.style.outlineColor = color1;
+            item.style.pointerEvents = 'none';
 
 
-        }else if(count[count.length - 1] == 'x'){
+        } 
+        
+        if (item.classList.contains('x') || item.classList.contains('o') ) {
 
-            createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
-            count.push('o');
-            console.log(count);
-
-            
         }else{
-            createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
-            count.push('x');
-            console.log(count);
+        
+            if(!item.classList.contains('x') && count[count.length - 1] == 'x'){
 
+                createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
+                item.classList.add('o');
+                count.push('o');
+                // console.log(count);
+                item.style.outlineColor = color2;
+                item.style.pointerEvents = 'none';
+
+
+            }else if(count[count.length - 1] == 'o'){
+
+                createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+                item.classList.add('x');
+                count.push('x');
+                // console.log(count);
+                item.style.outlineColor = color1;
+                item.style.pointerEvents = 'none';
+
+
+            }
         }
+        
+
 
     }))
 

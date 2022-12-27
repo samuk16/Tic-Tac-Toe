@@ -81,47 +81,47 @@ const arrDomObjGame = [
 
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'0'},
+        attributes: {class:'boardItem','data-index':'0'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'1'},
+        attributes: {class:'boardItem','data-index':'1'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'2'},
+        attributes: {class:'boardItem','data-index':'2'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'3'},
+        attributes: {class:'boardItem','data-index':'3'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'4'},
+        attributes: {class:'boardItem','data-index':'4'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'5'},
+        attributes: {class:'boardItem','data-index':'5'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'6'},
+        attributes: {class:'boardItem','data-index':'6'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'7'},
+        attributes: {class:'boardItem','data-index':'7'},
         appendChild: '.containerBoard',
     },
     {
         elementType: 'div',
-        attributes: {class:'boardItem','data-board':'8'},
+        attributes: {class:'boardItem','data-index':'8'},
         appendChild: '.containerBoard',
     },
 
@@ -281,7 +281,11 @@ const gameBoard = (function(){
                 'null','null','null',
                 'null','null','null'
     ];
+
+    let moveCount = 0;
     
+    let countWin = 0;
+
     const vericationObj = {
 
         combinatiosForWins: [3,12,21,9,15],
@@ -299,16 +303,47 @@ const gameBoard = (function(){
         if (!(board[dataId] != 'null')) {
             
             board.splice(dataId,1,xo);
+            moveCount++
             console.log(board);     
+            console.log(moveCount);     
         }
 
     };
 
     function cleanBoard() {
         board = ['null','null','null','null','null','null','null','null','null'];
+        moveCount = 0;
+        countWin = 0;
         console.log(board);
     }
 
+    function verificationWin() {
+        
+        if (moveCount >= 5) {
+            
+            hirozontalVerification();
+            verticalVerification();
+            diagonalVerification();
+            tie()
+        }
+    }
+    
+    function win() {
+        
+        console.log('WIN!');
+        countWin++;
+    }
+
+    function nothing() {
+        
+        
+    }
+
+    function tie() {
+        if (!board.includes('null')) {
+            countWin == 0 ? console.log('TIE!!'): nothing();    
+        }
+    }
 
     function hirozontalVerification() {
 
@@ -326,7 +361,7 @@ const gameBoard = (function(){
                 
                 if (testRow1.length == 3 && (testRow1[0] == 'x' || testRow1[0] == 'o')) {
 
-                    testRow1.every(elemento => elemento === testRow1[0]) ? console.log('GANASTE!! en la row1') : console.log(''); 
+                    testRow1.every(elemento => elemento === testRow1[0]) ? win() : nothing(); 
                 }
          
             }
@@ -338,7 +373,7 @@ const gameBoard = (function(){
 
                 if (testRow2.length == 3 && (testRow2[0] == 'x' || testRow2[0] == 'o')) {
 
-                    testRow2.every(elemento => elemento == testRow2[0]) ? console.log('GANASTE!! en la row2') : console.log(''); 
+                    testRow2.every(elemento => elemento == testRow2[0]) ? win() : nothing(); 
                 }
                          
             }
@@ -349,7 +384,7 @@ const gameBoard = (function(){
 
                 if (testRow3.length == 3 && (testRow3[0] == 'x' || testRow3[0] == 'o')) {
 
-                    testRow3.every(elemento => elemento == testRow3[0]) ? console.log('GANASTE!! en la row3') : console.log('');
+                    testRow3.every(elemento => elemento == testRow3[0]) ? win() : nothing();
                 }
             }
     
@@ -372,7 +407,7 @@ const gameBoard = (function(){
                 
                 if (testColumn1.length == 3 && (testColumn1[0] == 'x' || testColumn1[0] == 'o')) {
 
-                    testColumn1.every(elemento => elemento === testColumn1[0]) ? console.log('GANASTE!! en la columna1') : console.log(''); 
+                    testColumn1.every(elemento => elemento === testColumn1[0]) ? win() : nothing(); 
                 }
             }
     
@@ -382,7 +417,7 @@ const gameBoard = (function(){
                 
                 if (testColumn2.length == 3 && (testColumn2[0] == 'x' || testColumn2[0] == 'o')) {
 
-                    testColumn2.every(elemento => elemento === testColumn2[0]) ? console.log('GANASTE!! en la columna2') : console.log(''); 
+                    testColumn2.every(elemento => elemento === testColumn2[0]) ? win() : nothing(); 
                 }
             }
     
@@ -392,7 +427,7 @@ const gameBoard = (function(){
                 
                 if (testColumn3.length == 3 && (testColumn3[0] == 'x' || testColumn3[0] == 'o')) {
 
-                    testColumn3.every(elemento => elemento === testColumn3[0]) ? console.log('GANASTE!! en la columna3') : console.log(''); 
+                    testColumn3.every(elemento => elemento === testColumn3[0]) ? win() : nothing(); 
                 }
                 // console.log(board[vericationObj.column[2][i - 5]]);            
             }
@@ -413,7 +448,7 @@ const gameBoard = (function(){
                 
                 if (testDiagonal1.length == 3 && (testDiagonal1[0] == 'x' || testDiagonal1[0] == 'o')) {
 
-                    testDiagonal1.every(elemento => elemento === testDiagonal1[0]) ? console.log('GANASTE!! en la diagonal1') : console.log(''); 
+                    testDiagonal1.every(elemento => elemento === testDiagonal1[0]) ? win() : nothing(); 
                 }
                 // console.log(board[vericationObj.diagonal[0][i]]);
 
@@ -425,7 +460,7 @@ const gameBoard = (function(){
                 
                 if (testDiagonal2.length == 3 && (testDiagonal2[0] == 'x' || testDiagonal2[0] == 'o')) {
 
-                    testDiagonal2.every(elemento => elemento === testDiagonal2[0]) ? console.log('GANASTE!! en la diagonal2') : console.log(''); 
+                    testDiagonal2.every(elemento => elemento === testDiagonal2[0]) ? win() : nothing(); 
                 }
                 // console.log(board[vericationObj.diagonal[1][i - 3]]);            
             }
@@ -445,7 +480,7 @@ const gameBoard = (function(){
     }
 
 
-    return{playFunction,cleanBoard,hirozontalVerification,verticalVerification,diagonalVerification}
+    return{playFunction,cleanBoard,hirozontalVerification,verticalVerification,diagonalVerification,verificationWin}
 
 
 })();
@@ -673,7 +708,7 @@ function newGame() {
     btnNewGame.addEventListener('click', ()=> {
 
         delDomElementsGame()
-
+        gameBoard.cleanBoard();
         domElementsMenu(arrDomObjStart);
 
 
@@ -689,7 +724,7 @@ function rematch() {
     btnNewGame.addEventListener('click', ()=> {
 
         delDomElementsGame();
-
+        gameBoard.cleanBoard();
         domElementsGame(arrDomObjGame);
 
     })
@@ -803,13 +838,19 @@ function createXO() {
         if (count.length == 0) {
 
             createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+
             item.classList.add('x');
+            item.setAttribute('data-board','x');
             count.push('x');
+
             // console.log(count);
             // console.log(count[count.length - 1]);
             item.style.outlineColor = color1;
             item.style.pointerEvents = 'none';
-
+            
+            gameBoard.playFunction(item.dataset.index,item.dataset.board)
+            gameBoard.verificationWin();
+            // console.log(item.dataset.board);
 
         } 
         
@@ -820,22 +861,34 @@ function createXO() {
             if(!item.classList.contains('x') && count[count.length - 1] == 'x'){
 
                 createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
+
                 item.classList.add('o');
+                item.setAttribute('data-board','o');
+
                 count.push('o');
+                
                 // console.log(count);
                 item.style.outlineColor = color2;
                 item.style.pointerEvents = 'none';
+
+                gameBoard.playFunction(item.dataset.index,item.dataset.board)
+                gameBoard.verificationWin();
 
 
             }else if(count[count.length - 1] == 'o'){
 
                 createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+
                 item.classList.add('x');
+                item.setAttribute('data-board','x');
+
                 count.push('x');
                 // console.log(count);
                 item.style.outlineColor = color1;
                 item.style.pointerEvents = 'none';
 
+                gameBoard.playFunction(item.dataset.index,item.dataset.board)
+                gameBoard.verificationWin();
 
             }
         }

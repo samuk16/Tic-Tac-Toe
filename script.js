@@ -275,6 +275,9 @@ const arrDomObjStart = [
     
 ];
 
+let player1;
+let player2;
+
 const gameBoard = (function(){
 
     let board =['null','null','null',
@@ -310,6 +313,13 @@ const gameBoard = (function(){
 
     };
 
+    function updatePoints(player1,player2) {
+        
+        const scoreP = document.querySelector('.score');
+
+        scoreP.innerText = `${player1.getWins()} - ${player2.getWins()}`;
+    }
+
     function cleanBoard() {
         board = ['null','null','null','null','null','null','null','null','null'];
         moveCount = 0;
@@ -334,13 +344,24 @@ const gameBoard = (function(){
         let item1 = boardItems[rcd[0]];
         let item2 = boardItems[rcd[1]];
         let item3 = boardItems[rcd[2]];
-        
 
         item1.style.animation = 'tie2 .8s ease-in-out both';
-
         item2.style.animation = 'tie2 .8s ease-in-out both';
-
         item3.style.animation = 'tie2 .8s ease-in-out both';
+
+
+        if (boardItems[rcd[0]].dataset.board == 'x') {
+
+            player1.wl('w')
+            player2.wl('l')
+
+        }else{
+
+            player2.wl('w')
+            player1.wl('l')
+        }
+
+        updatePoints(player1,player2);
 
         console.log('WIN!');
         countWin++;
@@ -380,10 +401,7 @@ const gameBoard = (function(){
                 testRow1.push(board[vericationObj.row[0][i]]);
                 
                 if (testRow1.length == 3 && (testRow1[0] == 'x' || testRow1[0] == 'o')) {
-                    const row1 = {
-                        row:'row',
-                        index: 0,
-                    };
+                    
                     testRow1.every(elemento => elemento === testRow1[0]) ? win(vericationObj.row[0]) : nothing(); 
                 }
          
@@ -499,29 +517,59 @@ const gameBoard = (function(){
 
 const players = (name, color) => {
 
+    let countWins = 0;
+    let countLoses = 0;
+
     const getName = () => name;
     const getColor = () => color;
+    const getWins = () => countWins;
+    const getLoses = () => countLoses;
+
+    function rematch() {
+
+        countWins > 0 ? countWins--: countWins = 0;
+        // countWins = 0;
+        // countLoses = 0;
+
+        // if (countWins > 0) {
+        //     countWins--;
+            
+        // }else if(countWins == 0){
+        //     countWins = 0;
+        // }
+    }
+
+    function wl(result) {
+
+        result == 'w' ? countWins++:countLoses++;
+    }
 
 
-    return{getName,getColor}
+
+    return{getName,getColor,getWins,getLoses,wl,rematch}
 };
 
-let player1;
-let player2;
 
 function domElementsGame(arr) {
     
+
+
     arr.forEach(elementObject => {
     
         createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
         
-    })
+    });
+
+    
 
     animationAndOthers();
     newGame()
     rematch()
     createXO()
-    
+    const scoreP = document.querySelector('.score');
+
+    scoreP.innerText = `${player1.getWins()} - ${player2.getWins()}`;
+    //  Esto posiblemente funcione mal
 }
 
 function domElementsMenu(arr) {
@@ -668,6 +716,9 @@ function rematch() {
 
         delDomElementsGame();
         gameBoard.cleanBoard();
+        player1.rematch()
+        player2.rematch()
+        //  esto posiblemente funcione mal porque cuando vayan por ej 1-1 y el player 1 gane, ahora el puntaje seria 2-1 pero si el usuario le de a rematch le va a restar 1 puntoWin a los 2 y no solo al player 1  
         domElementsGame(arrDomObjGame);
 
     })
@@ -781,7 +832,6 @@ function createXO() {
             
             gameBoard.playFunction(item.dataset.index,item.dataset.board)
             gameBoard.verificationWin();
-            // console.log(item.dataset.board);
 
         } 
         

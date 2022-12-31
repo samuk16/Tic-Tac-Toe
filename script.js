@@ -314,7 +314,6 @@ const gameBoard = (function(){
         board = ['null','null','null','null','null','null','null','null','null'];
         moveCount = 0;
         countWin = 0;
-        console.log(board);
     }
 
     function verificationWin() {
@@ -328,8 +327,21 @@ const gameBoard = (function(){
         }
     }
     
-    function win() {
+    function win(rcd) {
         
+        let boardItems = document.querySelectorAll('.boardItem');
+
+        let item1 = boardItems[rcd[0]];
+        let item2 = boardItems[rcd[1]];
+        let item3 = boardItems[rcd[2]];
+        
+
+        item1.style.animation = 'tie2 .8s ease-in-out both';
+
+        item2.style.animation = 'tie2 .8s ease-in-out both';
+
+        item3.style.animation = 'tie2 .8s ease-in-out both';
+
         console.log('WIN!');
         countWin++;
     }
@@ -340,8 +352,16 @@ const gameBoard = (function(){
     }
 
     function tie() {
+
+        function animationTie() {
+            let boardItems = document.querySelectorAll('.boardItem');
+
+            boardItems.forEach(item => item.style.animation = 'tie2 .8s ease-in-out both')
+        }
+
         if (!board.includes('null')) {
-            countWin == 0 ? console.log('TIE!!'): nothing();    
+            countWin == 0 ? animationTie(): nothing();
+
         }
     }
 
@@ -360,8 +380,11 @@ const gameBoard = (function(){
                 testRow1.push(board[vericationObj.row[0][i]]);
                 
                 if (testRow1.length == 3 && (testRow1[0] == 'x' || testRow1[0] == 'o')) {
-
-                    testRow1.every(elemento => elemento === testRow1[0]) ? win() : nothing(); 
+                    const row1 = {
+                        row:'row',
+                        index: 0,
+                    };
+                    testRow1.every(elemento => elemento === testRow1[0]) ? win(vericationObj.row[0]) : nothing(); 
                 }
          
             }
@@ -373,7 +396,7 @@ const gameBoard = (function(){
 
                 if (testRow2.length == 3 && (testRow2[0] == 'x' || testRow2[0] == 'o')) {
 
-                    testRow2.every(elemento => elemento == testRow2[0]) ? win() : nothing(); 
+                    testRow2.every(elemento => elemento == testRow2[0]) ? win(vericationObj.row[1]) : nothing(); 
                 }
                          
             }
@@ -384,7 +407,7 @@ const gameBoard = (function(){
 
                 if (testRow3.length == 3 && (testRow3[0] == 'x' || testRow3[0] == 'o')) {
 
-                    testRow3.every(elemento => elemento == testRow3[0]) ? win() : nothing();
+                    testRow3.every(elemento => elemento == testRow3[0]) ? win(vericationObj.row[2]) : nothing();
                 }
             }
     
@@ -407,7 +430,7 @@ const gameBoard = (function(){
                 
                 if (testColumn1.length == 3 && (testColumn1[0] == 'x' || testColumn1[0] == 'o')) {
 
-                    testColumn1.every(elemento => elemento === testColumn1[0]) ? win() : nothing(); 
+                    testColumn1.every(elemento => elemento === testColumn1[0]) ? win(vericationObj.column[0]) : nothing(); 
                 }
             }
     
@@ -417,7 +440,7 @@ const gameBoard = (function(){
                 
                 if (testColumn2.length == 3 && (testColumn2[0] == 'x' || testColumn2[0] == 'o')) {
 
-                    testColumn2.every(elemento => elemento === testColumn2[0]) ? win() : nothing(); 
+                    testColumn2.every(elemento => elemento === testColumn2[0]) ? win(vericationObj.column[1]) : nothing(); 
                 }
             }
     
@@ -427,9 +450,9 @@ const gameBoard = (function(){
                 
                 if (testColumn3.length == 3 && (testColumn3[0] == 'x' || testColumn3[0] == 'o')) {
 
-                    testColumn3.every(elemento => elemento === testColumn3[0]) ? win() : nothing(); 
+                    testColumn3.every(elemento => elemento === testColumn3[0]) ? win(vericationObj.column[2]) : nothing(); 
                 }
-                // console.log(board[vericationObj.column[2][i - 5]]);            
+                   
             }
     
         }
@@ -437,7 +460,7 @@ const gameBoard = (function(){
     function diagonalVerification() {
         const testDiagonal1 = [];
         const testDiagonal2 = [];
-        // const testDiagonal3 = [];
+        
         for (let i = 0; i < board.length; i++) {
                 
             let count = i;
@@ -448,9 +471,8 @@ const gameBoard = (function(){
                 
                 if (testDiagonal1.length == 3 && (testDiagonal1[0] == 'x' || testDiagonal1[0] == 'o')) {
 
-                    testDiagonal1.every(elemento => elemento === testDiagonal1[0]) ? win() : nothing(); 
+                    testDiagonal1.every(elemento => elemento === testDiagonal1[0]) ? win(vericationObj.diagonal[0]) : nothing(); 
                 }
-                // console.log(board[vericationObj.diagonal[0][i]]);
 
             }
     
@@ -460,46 +482,19 @@ const gameBoard = (function(){
                 
                 if (testDiagonal2.length == 3 && (testDiagonal2[0] == 'x' || testDiagonal2[0] == 'o')) {
 
-                    testDiagonal2.every(elemento => elemento === testDiagonal2[0]) ? win() : nothing(); 
+                    testDiagonal2.every(elemento => elemento === testDiagonal2[0]) ? win(vericationObj.diagonal[1]) : nothing(); 
                 }
-                // console.log(board[vericationObj.diagonal[1][i - 3]]);            
+                           
             }
-    
-            // if (count >= 5) {
-
-            //     testDiagonal3.push(board[vericationObj.diagonal[2][i - 5]]);
-                
-            //     if (testDiagonal3.length == 3 && (testDiagonal3[0] == 'x' || testDiagonal3[0] == 'o')) {
-
-            //         testDiagonal3.every(elemento => elemento === testDiagonal3[0]) ? console.log('GANASTE!! en la diagonal1') : console.log(''); 
-            //     }
-            //     console.log(board[vericationObj.diagonal[2][i - 5]]);            
-            // }
     
         }
     }
 
 
-    return{playFunction,cleanBoard,hirozontalVerification,verticalVerification,diagonalVerification,verificationWin}
+    return{playFunction,cleanBoard,verificationWin}
 
 
 })();
-
-// gameBoard.playFunction(0,'x')
-// gameBoard.playFunction(1,'0')
-// gameBoard.playFunction(2,'x')
-// gameBoard.playFunction(3,'o')
-// gameBoard.playFunction(4,'x')
-// gameBoard.playFunction(5,'x')
-// gameBoard.playFunction(6,'x')
-// gameBoard.playFunction(7,'o')
-// gameBoard.playFunction(8,'o')
-// gameBoard.hirozontalVerification();
-// gameBoard.verticalVerification()
-// gameBoard.diagonalVerification();
-// gameBoard.playFunction(2,'x')
-// gameBoard.cleanBoard();
-
 
 
 const players = (name, color) => {
@@ -513,58 +508,6 @@ const players = (name, color) => {
 
 let player1;
 let player2;
-
-const Goku = players('goku','red');
-
-// console.log(Goku.getColor());
-
-
-let boardTest =['x','x','x',
-                '','o','x',
-                'o','','x'
-];
-
-let test6 = ['x','x','o'];
-
-function test2(arr) {
-
-    // let tempValue;
-    // for (let i = 0; i < arr.length; i++) {
-    //     tempValue = arr[i]
-
-    //     if (arr[i] != arr[0]) {
-    //         console.log(false);
-    //     }else{
-    //         console.log(true);
-    //     }
-    // }
-
-    // if (arr[0] == arr[1] && arr[1] == arr[2]) {
-    //     console.log(true);
-    // }else{
-    //     console.log(false);
-    // }
-
-    return arr.every(elemento => elemento === arr[0])
-
-    // let test68 = arr[0] == arr[1] && arr[1] == arr[2]; 
-    // console.log(test68);
-}
-
-
-// console.log(test2(test6));
-
-
-
-
-//      Empezar a verificar a partir del 5to movimiento
-
-
-
-// hirozontalVerification(vericationObj,boardTest);
-// verticalVerification(vericationObj,boardTest);
-// diagonalVerification(vericationObj,boardTest)
-
 
 function domElementsGame(arr) {
     
@@ -800,18 +743,6 @@ function transitionForms() {
     })
 }
 
-// function game(name1,name2) {
-
-//     arrDomObjGame[5].innerText = name1;
-//     // arrDomObjGame[7].innerText = ;
-//     arrDomObjGame[9].innerText = name2;
-
-// }
-
-// domElementsGame(arrDomObjGame);
-domElementsMenu(arrDomObjStart);
-// console.log(document.forms);
-
 function createXO() {
     
     const boardItem = document.querySelectorAll('.boardItem');
@@ -901,3 +832,4 @@ function createXO() {
     
 }
 
+domElementsMenu(arrDomObjStart);

@@ -142,6 +142,54 @@ const arrDomObjGame = [
 
 ];
 
+const arrItemsBoard = [
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'0'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'1'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'2'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'3'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'4'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'5'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'6'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'7'},
+        appendChild: '.containerBoard',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'boardItem','data-index':'8'},
+        appendChild: '.containerBoard',
+    },
+];
+
 const arrDomObjStart = [
 
     //  child body
@@ -341,10 +389,14 @@ const gameBoard = (function(){
         
         let boardItems = document.querySelectorAll('.boardItem');
 
+        const containerBtns = document.querySelector('.containerBtns');
+
+        const testBtnContinue = document.querySelector('.continueBtn');
+
         let item1 = boardItems[rcd[0]];
         let item2 = boardItems[rcd[1]];
         let item3 = boardItems[rcd[2]];
-
+        
         item1.style.animation = 'tie2 .8s ease-in-out both';
         item2.style.animation = 'tie2 .8s ease-in-out both';
         item3.style.animation = 'tie2 .8s ease-in-out both';
@@ -362,6 +414,15 @@ const gameBoard = (function(){
         }
 
         updatePoints(player1,player2);
+
+
+        if (testBtnContinue == null) {
+            createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
+        }
+
+        
+        cleanBoard();
+        nextRound();
 
         console.log('WIN!');
         countWin++;
@@ -384,6 +445,31 @@ const gameBoard = (function(){
             countWin == 0 ? animationTie(): nothing();
 
         }
+    }
+
+    function nextRound() {
+        
+        const btnContinue = document.querySelector('.continueBtn');
+
+        const containerBoard = document.querySelector('.containerBoard');
+        btnContinue.addEventListener('click', cleanItemBoard)
+
+        function cleanItemBoard() {
+            
+            while (containerBoard.hasChildNodes()) {
+                containerBoard.removeChild(containerBoard.firstChild);
+            }
+
+            arrItemsBoard.forEach(elementObject => {
+    
+                createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
+                
+            });
+            animationAndOthers();
+            createXO();
+            
+        }
+
     }
 
     function hirozontalVerification() {

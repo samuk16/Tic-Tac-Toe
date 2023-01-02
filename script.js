@@ -337,6 +337,15 @@ const gameBoard = (function(){
     
     let countWin = 0;
 
+    let currentWinner = '';
+
+    const getCurrentWinner = () => currentWinner;
+
+    function clearCurrentWinner() {
+        
+        currentWinner = '';
+    }
+
     const vericationObj = {
 
         combinatiosForWins: [3,12,21,9,15],
@@ -406,15 +415,18 @@ const gameBoard = (function(){
 
             player1.wl('w')
             player2.wl('l')
+            currentWinner = player1.getName();
 
         }else{
 
             player2.wl('w')
             player1.wl('l')
+            currentWinner = player2.getName();
+
         }
 
         updatePoints(player1,player2);
-
+        
 
         if (testBtnContinue == null) {
             createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
@@ -595,7 +607,7 @@ const gameBoard = (function(){
     }
 
 
-    return{playFunction,cleanBoard,verificationWin}
+    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner}
 
 
 })();
@@ -617,6 +629,14 @@ const players = (name, color) => {
         // countWins = 0;
         // countLoses = 0;
 
+        // if (gameBoard.getCurrentWinner() == player1.getName()) {
+        //     countWins--
+        // }else if(gameBoard.getCurrentWinner() == player2.getName()){
+        //     countWins--
+        // }
+
+        // console.log(player1.getWins());
+        // console.log(player2.getWins());
         // if (countWins > 0) {
         //     countWins--;
             
@@ -802,13 +822,22 @@ function rematch() {
 
         delDomElementsGame();
         gameBoard.cleanBoard();
-        player1.rematch()
-        player2.rematch()
-        //  esto posiblemente funcione mal porque cuando vayan por ej 1-1 y el player 1 gane, ahora el puntaje seria 2-1 pero si el usuario le de a rematch le va a restar 1 puntoWin a los 2 y no solo al player 1  
+        rematchUpdatePoints();
         domElementsGame(arrDomObjGame);
 
     })
 
+    function rematchUpdatePoints() {
+        
+        if (gameBoard.getCurrentWinner() == player1.getName()) {
+            player1.rematch()
+            gameBoard.clearCurrentWinner()
+        }else{
+            player2.rematch()
+            gameBoard.clearCurrentWinner()
+        }
+
+    }
     
 }
 

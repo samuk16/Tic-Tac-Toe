@@ -340,6 +340,7 @@ const gameBoard = (function(){
     let currentWinner = '';
 
     const getCurrentWinner = () => currentWinner;
+    const getMoveCount = () => moveCount;
 
     function clearCurrentWinner() {
         
@@ -390,6 +391,9 @@ const gameBoard = (function(){
             hirozontalVerification();
             verticalVerification();
             diagonalVerification();
+            
+        }
+        if (moveCount == 9) {
             tie()
         }
     }
@@ -402,13 +406,19 @@ const gameBoard = (function(){
 
         const testBtnContinue = document.querySelector('.continueBtn');
 
+        const btnRematch = document.querySelector('.btnRematch');
+
         let item1 = boardItems[rcd[0]];
         let item2 = boardItems[rcd[1]];
         let item3 = boardItems[rcd[2]];
         
-        item1.style.animation = 'tie2 .8s ease-in-out both';
-        item2.style.animation = 'tie2 .8s ease-in-out both';
-        item3.style.animation = 'tie2 .8s ease-in-out both';
+        item1.style.animation = 'tieandWin .8s ease-in-out both';
+        item2.style.animation = 'tieandWin .8s ease-in-out both';
+        item3.style.animation = 'tieandWin .8s ease-in-out both';
+
+        // item1.classList.add('tieandWin');
+        // item2.classList.add('tieandWin');
+        // item3.classList.add('tieandWin');
 
 
         if (boardItems[rcd[0]].dataset.board == 'x') {
@@ -434,8 +444,10 @@ const gameBoard = (function(){
 
         
         cleanBoard();
-        nextRound();
-
+        
+        nextRound();    
+        // clearCurrentWinner();
+        btnRematch.style.pointerEvents = 'auto';
         console.log('WIN!');
         countWin++;
     }
@@ -447,16 +459,35 @@ const gameBoard = (function(){
 
     function tie() {
 
+        const containerBtns = document.querySelector('.containerBtns');
+        const testBtnContinue = document.querySelector('.continueBtn'); 
+        const btnRematch = document.querySelector('.btnRematch');
+
         function animationTie() {
+
             let boardItems = document.querySelectorAll('.boardItem');
 
-            boardItems.forEach(item => item.style.animation = 'tie2 .8s ease-in-out both')
-        }
+            boardItems.forEach(item => item.style.animation = 'tieandWin .8s ease-in-out both')
+            // boardItems.forEach(item => item.classList.add('tieandWin'))
 
+
+        }
+        
         if (!board.includes('null')) {
-            countWin == 0 ? animationTie(): nothing();
 
+            animationTie();
+            cleanBoard();
+
+            btnRematch.style.pointerEvents = 'none';
+
+
+            if (testBtnContinue == null) {
+                createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
+            }
+
+            nextRound();
         }
+
     }
 
     function nextRound() {
@@ -464,6 +495,8 @@ const gameBoard = (function(){
         const btnContinue = document.querySelector('.continueBtn');
 
         const containerBoard = document.querySelector('.containerBoard');
+
+        const btnRematch = document.querySelector('.btnRematch');
         btnContinue.addEventListener('click', cleanItemBoard)
 
         function cleanItemBoard() {
@@ -478,8 +511,9 @@ const gameBoard = (function(){
                 
             });
             animationAndOthers();
+
             createXO();
-            
+            btnRematch.style.pointerEvents = 'auto';
         }
 
     }
@@ -607,7 +641,7 @@ const gameBoard = (function(){
     }
 
 
-    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner}
+    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner,getMoveCount}
 
 
 })();
@@ -626,23 +660,6 @@ const players = (name, color) => {
     function rematch() {
 
         countWins > 0 ? countWins--: countWins = 0;
-        // countWins = 0;
-        // countLoses = 0;
-
-        // if (gameBoard.getCurrentWinner() == player1.getName()) {
-        //     countWins--
-        // }else if(gameBoard.getCurrentWinner() == player2.getName()){
-        //     countWins--
-        // }
-
-        // console.log(player1.getWins());
-        // console.log(player2.getWins());
-        // if (countWins > 0) {
-        //     countWins--;
-            
-        // }else if(countWins == 0){
-        //     countWins = 0;
-        // }
     }
 
     function wl(result) {
@@ -658,7 +675,7 @@ const players = (name, color) => {
 
 function domElementsGame(arr) {
     
-
+    
 
     arr.forEach(elementObject => {
     
@@ -666,14 +683,15 @@ function domElementsGame(arr) {
         
     });
 
-    
+    const btnRematch = document.querySelector('.btnRematch');
+    const scoreP = document.querySelector('.score');
 
     animationAndOthers();
     newGame()
     rematch()
     createXO()
-    const scoreP = document.querySelector('.score');
-
+    animationOutlineNames();
+    btnRematch.style.pointerEvents = 'none';
     scoreP.innerText = `${player1.getWins()} - ${player2.getWins()}`;
     //  Esto posiblemente funcione mal
 }
@@ -779,17 +797,27 @@ function animationAndOthers() {
 
     const boardItem = document.querySelectorAll('.boardItem');
 
+    
+
     // let x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
     // let o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
 
+
+    
+
     boardItem.forEach(e => e.addEventListener('click', (e) => {
         let item = e.target;
-    
+        
+        
+
+        
+
+
         item.style.animation = 'animationOutline 0.2s linear both' ;
 
         // createElementsDom('div',{class:'x'},x,null,item);
         // createElementsDom('div',{class:'o'},o,null,item);
-    
+        console.log(gameBoard.getMoveCount());
     }))
 
 
@@ -798,6 +826,52 @@ function animationAndOthers() {
 
 }
 
+function animationOutlineNames() {
+    
+
+    const boardItem = document.querySelectorAll('.boardItem');
+
+    const divName1 = document.querySelector('.name1');
+    const divName2 = document.querySelector('.name2');
+
+    let turn = 0;
+
+    divName1.classList.add('startAnimationOutlineName');
+    turn++;
+
+
+    boardItem.forEach(e => e.addEventListener('click', (e) => {
+        let item = e.target;
+        
+        if (gameBoard.getMoveCount() == 8) {
+            console.log('no funca');
+    
+        }else{
+            if (turn == 0) {
+    
+                divName2.classList.remove('startAnimationOutlineName')
+                divName1.classList.remove('endAnimationOutlineName')
+    
+                divName2.classList.add('endAnimationOutlineName')
+                divName1.classList.add('startAnimationOutlineName');
+                turn++;
+                console.log('funca');
+            }else{
+    
+                divName1.classList.remove('startAnimationOutlineName')
+                divName2.classList.remove('endAnimationOutlineName')
+    
+                divName1.classList.add('endAnimationOutlineName')
+                divName2.classList.add('startAnimationOutlineName');
+                turn--;
+                console.log('funca');
+            }
+        }
+        
+    }))
+
+    
+}
 
 function newGame() {
     const btnNewGame = document.querySelector('.btnNewGame');
@@ -913,26 +987,30 @@ function createXO() {
     
     const boardItem = document.querySelectorAll('.boardItem');
 
-    let x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
-    let o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
+    const x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
+    const o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
 
     // let oEntry = document.querySelector('.o');
 
     let count = [];
 
-    let element = document.querySelector('.boardItem');
-    let computedStyle = window.getComputedStyle(element);
+    const element = document.querySelector('.boardItem');
+    const computedStyle = window.getComputedStyle(element);
     // let colorPrimary = computedStyle.getPropertyValue('--color-primary');
 
     let color1 = computedStyle.getPropertyValue('--divColorInput1');
     let color2 = computedStyle.getPropertyValue('--divColorInput2');
      
+    const divName1 = document.querySelector('.name1');
+    const divName2 = document.querySelector('.name2');
 
     
     boardItem.forEach(e => e.addEventListener('click', (e) => {
         let item = e.target;
          
         if (count.length == 0) {
+
+            // divName1.style.animation = 'animationOutlineName .2s linear both';
 
             createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
 
@@ -947,6 +1025,7 @@ function createXO() {
             
             gameBoard.playFunction(item.dataset.index,item.dataset.board)
             gameBoard.verificationWin();
+            
 
         } 
         
@@ -988,6 +1067,7 @@ function createXO() {
 
             }
         }
+
         
 
 

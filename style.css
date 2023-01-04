@@ -167,7 +167,7 @@ h1{
     height: 40px;
     border-radius: 16px;
 
-    outline: solid 4px var(--divColorInput1);
+    outline: solid 0px var(--divColorInput1);
 }
 .containerScore > div:nth-child(2){
 
@@ -192,7 +192,7 @@ h1{
     height: 40px;
     border-radius: 16px;
 
-    outline: solid 4px var(--divColorInput2);
+    outline: solid 0px var(--divColorInput2);
 
 }
 
@@ -420,23 +420,44 @@ h1{
     }
 }
 
-
-@keyframes tie {
+.startAnimationOutlineName{animation: startAnimationOutlineName .1s linear both}
+@keyframes startAnimationOutlineName{
     0% {
-      transform: scale(1);
-      outline-width:7px;
+      /* transform: scale(1); */
+      outline-width:0px;
     }
     50% {
-      transform: scale(1.1);
-      outline-width:7px;
+      /* transform: scale(1.1); */
+      outline-width:2px;
     }
     100% {
-      transform: scale(1);
+      /* transform: scale(1); */
+      outline-width:4px;
+
       
     }
-  }
+}
 
-@keyframes tie2 {
+.endAnimationOutlineName{animation: endAnimationOutlineName .1s linear both}
+@keyframes endAnimationOutlineName{
+    0% {
+      /* transform: scale(1); */
+      outline-width:4px;
+    }
+    50% {
+      /* transform: scale(1.1); */
+      outline-width:2px;
+    }
+    100% {
+      /* transform: scale(1); */
+      outline-width:0px;
+
+      
+    }
+}
+
+.tieandWin{animation: tieandWin .8s ease-in-out both}
+@keyframes tieandWin {
     0%{
         transform: scale(1);
         outline-width:7px;

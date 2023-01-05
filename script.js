@@ -339,6 +339,8 @@ const gameBoard = (function(){
 
     let currentWinner = '';
 
+    const gameHistory = []; 
+
     const getCurrentWinner = () => currentWinner;
     const getMoveCount = () => moveCount;
 
@@ -416,11 +418,6 @@ const gameBoard = (function(){
         item2.style.animation = 'tieandWin .8s ease-in-out both';
         item3.style.animation = 'tieandWin .8s ease-in-out both';
 
-        // item1.classList.add('tieandWin');
-        // item2.classList.add('tieandWin');
-        // item3.classList.add('tieandWin');
-
-
         if (boardItems[rcd[0]].dataset.board == 'x') {
 
             player1.wl('w')
@@ -435,14 +432,18 @@ const gameBoard = (function(){
 
         }
 
-        updatePoints(player1,player2);
-        
-
         if (testBtnContinue == null) {
             createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
         }
 
+        boardItems.forEach(item => item.style.pointerEvents = 'none')
+
+        gameHistory.push('win')
+
+        console.log(gameHistory);
         
+        updatePoints(player1,player2);
+
         cleanBoard();
         
         nextRound();    
@@ -450,6 +451,17 @@ const gameBoard = (function(){
         btnRematch.style.pointerEvents = 'auto';
         console.log('WIN!');
         countWin++;
+        winGame();
+    }
+
+    function winGame() {
+        
+        if (player1.getWins() == 3) {
+            console.log(`The winner is ${player1.getName()}`);
+        }else if(player2.getWins() == 3){
+            console.log(`The winner is ${player2.getName()}`);
+
+        }
     }
 
     function nothing() {
@@ -485,6 +497,8 @@ const gameBoard = (function(){
                 createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
             }
 
+            gameHistory.push('tie')
+            console.log(gameHistory);
             nextRound();
         }
 
@@ -497,6 +511,7 @@ const gameBoard = (function(){
         const containerBoard = document.querySelector('.containerBoard');
 
         const btnRematch = document.querySelector('.btnRematch');
+
         btnContinue.addEventListener('click', cleanItemBoard)
 
         function cleanItemBoard() {
@@ -511,9 +526,10 @@ const gameBoard = (function(){
                 
             });
             animationAndOthers();
-
+            
             createXO();
-            btnRematch.style.pointerEvents = 'auto';
+            animationOutlineNames();
+            btnRematch.style.pointerEvents = 'none';
         }
 
     }
@@ -797,32 +813,13 @@ function animationAndOthers() {
 
     const boardItem = document.querySelectorAll('.boardItem');
 
-    
-
-    // let x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
-    // let o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
-
-
-    
-
     boardItem.forEach(e => e.addEventListener('click', (e) => {
+
         let item = e.target;
         
-        
-
-        
-
-
         item.style.animation = 'animationOutline 0.2s linear both' ;
 
-        // createElementsDom('div',{class:'x'},x,null,item);
-        // createElementsDom('div',{class:'o'},o,null,item);
-        console.log(gameBoard.getMoveCount());
     }))
-
-
-
-    // const titleMove  = document.querySelector('.title');
 
 }
 
@@ -836,15 +833,24 @@ function animationOutlineNames() {
 
     let turn = 0;
 
+    divName2.classList.remove('endAnimationOutlineName');
+    divName2.classList.remove('startAnimationOutlineName');    
+
+    divName1.classList.remove('endAnimationOutlineName');
+    divName1.classList.remove('startAnimationOutlineName');
+
     divName1.classList.add('startAnimationOutlineName');
+
     turn++;
 
 
     boardItem.forEach(e => e.addEventListener('click', (e) => {
         let item = e.target;
         
-        if (gameBoard.getMoveCount() == 8) {
-            console.log('no funca');
+        if (gameBoard.getMoveCount() >= 9) {
+
+            divName2.classList.remove('endAnimationOutlineName');
+            divName2.classList.remove('startAnimationOutlineName');
     
         }else{
             if (turn == 0) {
@@ -855,7 +861,7 @@ function animationOutlineNames() {
                 divName2.classList.add('endAnimationOutlineName')
                 divName1.classList.add('startAnimationOutlineName');
                 turn++;
-                console.log('funca');
+
             }else{
     
                 divName1.classList.remove('startAnimationOutlineName')
@@ -864,7 +870,6 @@ function animationOutlineNames() {
                 divName1.classList.add('endAnimationOutlineName')
                 divName2.classList.add('startAnimationOutlineName');
                 turn--;
-                console.log('funca');
             }
         }
         
@@ -990,22 +995,18 @@ function createXO() {
     const x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
     const o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
 
-    // let oEntry = document.querySelector('.o');
-
     let count = [];
 
     const element = document.querySelector('.boardItem');
+
     const computedStyle = window.getComputedStyle(element);
     // let colorPrimary = computedStyle.getPropertyValue('--color-primary');
 
     let color1 = computedStyle.getPropertyValue('--divColorInput1');
     let color2 = computedStyle.getPropertyValue('--divColorInput2');
-     
-    const divName1 = document.querySelector('.name1');
-    const divName2 = document.querySelector('.name2');
-
     
     boardItem.forEach(e => e.addEventListener('click', (e) => {
+
         let item = e.target;
          
         if (count.length == 0) {

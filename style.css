@@ -157,7 +157,20 @@ h1{
     gap: 20px;
 } */
 
-.containerScore > div:nth-child(1){
+/* .containerScore > div:nth-child(1){
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--backContainerSecond);
+    width: 110px;
+    height: 40px;
+    border-radius: 16px;
+
+    outline: solid 0px var(--divColorInput1);
+} */
+.containerScore > .name1{
 
     display: flex;
     justify-content: center;
@@ -170,7 +183,19 @@ h1{
 
     outline: solid 0px var(--divColorInput1);
 }
-.containerScore > div:nth-child(2){
+/* .containerScore > div:nth-child(2){
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    background-color: var(--backContainerSecond);
+    width: 110px;
+    height: 70px;
+    border-radius: 16px;
+} */
+.containerScore > .scoreP{
 
     display: flex;
     justify-content: space-evenly;
@@ -182,7 +207,21 @@ h1{
     height: 70px;
     border-radius: 16px;
 }
-.containerScore > div:nth-child(3){
+/* .containerScore > div:nth-child(3){
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--backContainerSecond);
+    width: 110px;
+    height: 40px;
+    border-radius: 16px;
+
+    outline: solid 0px var(--divColorInput2);
+
+} */
+.containerScore > .name2{
 
     display: flex;
     justify-content: center;
@@ -519,18 +558,20 @@ h1{
     background-color: var(--backContainer);
 }
 
-.bajar{animation: bajar .5s ease-in-out both}
+.animationWinGame{animation: animationWinGame .4s ease-in-out both}
 
-@keyframes bajar {
+@keyframes animationWinGame {
     
     from {
+        position: absolute;
+        /* top: 0;  */
+        transform: translate(0, 0); 
 
-        top: 0; 
-        transform: translate(-50%, 0); 
     }
 
     to {
-        
+        z-index: 1;
+        position:absolute;
         width: 200px;
         height: 70px;
         box-shadow: 0px 0px 50px 40px rgba(0, 0, 0, 0.5);
@@ -538,4 +579,28 @@ h1{
         left: 50%;
         transform: translate(-50%, -50%); 
     }
-  }
+}
+
+
+.replacement{
+    background-color: transparent;
+    width: 110px;
+    height: 40px;
+}
+
+.blur-in{
+    animation:blur-in .25s linear both
+} 
+
+@keyframes blur-in{
+    0%{
+        filter:blur(12px);
+        opacity:0
+    }
+    100%{
+            filter:blur(0);
+            opacity:1
+    }
+}
+
+  

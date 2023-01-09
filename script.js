@@ -211,6 +211,12 @@ const arrDomObjStart = [
         attributes: {class:'containerStartGame'},
         appendChild: 'body',
     },
+    {
+        elementType: 'div',
+        attributes: {class:'containerSvgTheme'},
+        innerHTML: '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="pathTheme" d="M15 3.75V5M15 25V26.25M26.25 15H25M5 15H3.75M22.955 22.955L22.0711 22.0711M7.92893 7.92893L7.04505 7.04505M22.955 7.04512L22.0711 7.929M7.929 22.0711L7.04511 22.955M20 15C20 17.7614 17.7614 20 15 20C12.2386 20 10 17.7614 10 15C10 12.2386 12.2386 10 15 10C17.7614 10 20 12.2386 20 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        appendChild: 'body',
+    },
 
     //  childs containerStartGame
 
@@ -229,7 +235,7 @@ const arrDomObjStart = [
     },
     {
         elementType: 'button',
-        attributes: {type: 'submit'},
+        attributes: {type: 'submit',name: 'submit'},
         innerText: 'Start Game' ,
         appendChild: '.formStartGame',
     },
@@ -348,6 +354,10 @@ const gameBoard = (function(){
         
         currentWinner = '';
     }
+    function clearCurrentRound() {
+        
+        gameHistory.pop();
+    }
 
     const vericationObj = {
 
@@ -384,6 +394,7 @@ const gameBoard = (function(){
         board = ['null','null','null','null','null','null','null','null','null'];
         moveCount = 0;
         countWin = 0;
+        gameHistory.splice(0, gameBoard.length)
     }
 
     function verificationWin() {
@@ -434,6 +445,8 @@ const gameBoard = (function(){
 
         if (testBtnContinue == null) {
             createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
+            const continueBtn = document.querySelector('.continueBtn');
+            continueBtn.classList.add('blur-in-expandTest2')
         }
 
         boardItems.forEach(item => item.style.pointerEvents = 'none')
@@ -464,17 +477,26 @@ const gameBoard = (function(){
         const nameScore1 = document.querySelector('.nameScore1');
         const nameScore2 = document.querySelector('.nameScore2');
 
+        const btnRematch = document.querySelector('.btnRematch');
+        const continueBtn = document.querySelector('.continueBtn');
+
         const replacement = document.createElement('div');
         const replacement2 = document.createElement('div');
 
         replacement.classList.add('replacement');
         replacement2.classList.add('replacement');
 
+        
+
         if (player1.getWins() == 3) {
 
             // console.log(`The winner is ${player1.getName()}`);
 
-            // player1Name.classList.add('animationWinGame');
+            btnRematch.classList.remove('blur-in-expandTest2')
+            continueBtn.classList.remove('blur-in-expandTest2')
+        
+            btnRematch.classList.add('blur-out-contract3')
+            continueBtn.classList.add('blur-out-contract3')
 
             player1Name.classList.add('blur-out-contract');
 
@@ -491,6 +513,12 @@ const gameBoard = (function(){
 
             // console.log(`The winner is ${player2.getName()}`);
             
+            btnRematch.classList.remove('blur-in-expandTest2')
+            continueBtn.classList.remove('blur-in-expandTest2')
+        
+            btnRematch.classList.add('blur-out-contract3')
+            continueBtn.classList.add('blur-out-contract3')
+
             player2Name.classList.add('blur-out-contract2');
 
             setTimeout(()=> {
@@ -708,7 +736,7 @@ const gameBoard = (function(){
     }
 
 
-    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner,getMoveCount}
+    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner,getMoveCount,clearCurrentRound}
 
 
 })();
@@ -751,7 +779,7 @@ function domElementsGame(arr) {
     const btnRematch = document.querySelector('.btnRematch');
     const scoreP = document.querySelector('.score');
 
-    
+
     animationNewGame()
     animationAndOthers();
     newGame()
@@ -769,31 +797,27 @@ function domElementsMenu(arr) {
     
     arr.forEach(elementObject => {
     
-        createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
+        createElementsDom(elementObject.elementType,elementObject.attributes,elementObject.innerHTML,elementObject.innerText,document.querySelector(elementObject.appendChild));
         
     })
     const form = document.forms.formMain;
     const titleStart = document.querySelector('.title');
     const miniPerfil = document.querySelector('.miniPerfil');
-    // btnTestAnime.addEventListener('click', (e) => {
-    //     console.log('hola');
-    //     testAnime.classList.add('blur-out-contract')
-
-    //     setTimeout(() => {
-            
-    //         testAnime.classList.add('blur-in-expand')
-    //     },150);
-       
-    // })
+    const containerSvgTheme = document.querySelector('.containerSvgTheme');
 
     form.classList.add('blur-in-expandTest');
+    containerSvgTheme.classList.add('blur-in-expandTest');
+    setTimeout(() => {
+        containerSvgTheme.classList.remove('blur-in-expandTest');
+    },350)
     titleStart.classList.add('blur-in2');
     miniPerfil.classList.add('blur-in2');
 
     registerNames();
     changeColor1();
     changeColor2();
-    transitionForms();
+    // transitionForms();
+    changeTheme();
 }
 
 function registerNames() {
@@ -871,8 +895,11 @@ function delDomElementsGame() {
     const containerGame = document.querySelector('.containerTTT');
     const title = document.querySelector('.title')
     const miniPerfil = document.querySelector('.miniPerfil')
+    const containerSvgTheme = document.querySelector('.containerSvgTheme');
+
 
     document.body.removeChild(containerGame)
+    document.body.removeChild(containerSvgTheme)
     document.body.removeChild(title)
     document.body.removeChild(miniPerfil)
 }
@@ -996,6 +1023,7 @@ function rematch() {
         animationAndOthers();
         createXO();
         animationOutlineNames();
+        gameBoard.clearCurrentRound();
         btnRematch.style.pointerEvents = 'none';
         
 
@@ -1018,12 +1046,23 @@ function rematch() {
 function animationNewGame() {
 
     const containerBoard = document.querySelector('.containerBoard');
-    let children = containerBoard.children;
+    let boardItemchildren = containerBoard.children;
     const boardItem = document.querySelectorAll('.boardItem');
+    const containerBtns = document.querySelector('.containerBtns');
+    let btnsChildren = containerBtns.children;
+
+
+    // console.log(btnsChildren);
 
     // Recorrer cada hijo del contenedor
-    for (let i = 0; i < children.length; i++) {
-      let child = children[i];
+    for (let i = 0; i < btnsChildren.length; i++) {
+      let child = btnsChildren[i];
+
+      child.classList.add('blur-in-expandTest2')
+
+    }
+    for (let i = 0; i < boardItemchildren.length; i++) {
+      let child = boardItemchildren[i];
       // Programar la animación de cada hijo con un delay de 500 milisegundos
       setTimeout(function() {
         // child.classList.add("blur-in-expandTest2");
@@ -1063,6 +1102,242 @@ function animationNextRoundOrRematch() {
     },500)
 }
 
+function changeTheme() {
+    
+    const containerSvgTheme = document.querySelector('.containerSvgTheme');
+    const body = document.body ;
+
+    const currentTheme = ['dark'];
+
+    const titleP = document.querySelector('.title');
+
+    const containerInputs1 = document.querySelector('.containerInputs1');
+    const player1P = document.querySelector('.labelP1');
+    const inputNamePlayer1 = formMain.namePlayer1;
+    
+    const containerInputs2 = document.querySelector('.containerInputs2');
+    const player2P = document.querySelector('.labelP2');
+    const inputNamePlayer2 = formMain.namePlayer2;
+
+    const btnSubmit = formMain.submit;
+
+    changeColorItems()
+
+    containerSvgTheme.addEventListener('click', () => {
+
+        if (currentTheme[0] == 'dark') {
+
+            body.style.setProperty("background-color", "var(--backgroundLight)");
+
+            currentTheme.pop();
+            currentTheme.push('light')
+
+            titleP.style.setProperty('color', 'var(--textLight)')
+
+            btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+
+            btnSubmit.style.setProperty('color', 'var(--textLight)')
+
+            containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+            containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player1P.style.setProperty("background-color", "var(--backContainerLight)")
+            player2P.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player1P.style.setProperty("color", "var(--textLight)")
+            player2P.style.setProperty("color", "var(--textLight)")
+            
+            inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")            
+            inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+            inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+            inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+            changeColorItems();
+            
+
+        }else if(currentTheme[0] == 'light'){
+
+            body.style.setProperty("background-color", "var(--backgroundMain)");
+
+            currentTheme.pop()
+            currentTheme.push('dark');
+
+            titleP.style.setProperty('color', 'var(--textDark)')
+
+            btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+
+            btnSubmit.style.setProperty('color', 'var(--textDark)')
+
+            containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+            containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+            
+            player1P.style.setProperty("background-color", "var(--backContainer)")
+            player2P.style.setProperty("background-color", "var(--backContainer)")
+            
+            player1P.style.setProperty("color", "var(--textDark)")
+            player2P.style.setProperty("color", "var(--textDark)")
+            
+            inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
+            inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
+            inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+            inputNamePlayer2.style.setProperty("color", "var(--textDark)")            
+
+            changeColorItems();
+
+        }
+
+
+    })
+
+    function changeColorItems() {
+        
+
+        if (currentTheme[0] == 'light') {
+            
+            btnSubmit.addEventListener('mouseenter', () => {
+
+                btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+                btnSubmit.style.setProperty('color', 'var(--textDark)')
+                btnSubmit.style.setProperty('transform', 'scale(1.05)')
+            })
+
+            btnSubmit.addEventListener('mouseleave', () => {
+
+                btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+                btnSubmit.style.setProperty('color', 'var(--textLight)')
+                btnSubmit.style.setProperty('transform', 'scale(1)')
+
+            })
+
+
+
+            inputNamePlayer1.addEventListener('focus', () => {
+
+                containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+                
+                player1P.style.setProperty("background-color", "var(--backContainer)")
+                
+                player1P.style.setProperty("color", "var(--textDark)")
+                
+                inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
+                inputNamePlayer1.style.setProperty("color", "var(--textDark)")
+
+            })
+
+            inputNamePlayer1.addEventListener('blur', () => {
+
+                containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player1P.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player1P.style.setProperty("color", "var(--textLight)")
+                
+                inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
+                inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+
+            })
+
+            inputNamePlayer2.addEventListener('focus', () => {
+
+                containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+                
+                player2P.style.setProperty("background-color", "var(--backContainer)")
+                
+                player2P.style.setProperty("color", "var(--textDark)")
+                
+                inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+                inputNamePlayer2.style.setProperty("color", "var(--textDark)")
+
+            })
+
+            inputNamePlayer2.addEventListener('blur', () => {
+
+                containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player2P.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player2P.style.setProperty("color", "var(--textLight)")
+                
+                inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+                inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+            })
+        }else if(currentTheme[0] == 'dark'){
+
+            btnSubmit.addEventListener('mouseenter', () => {
+
+                btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+                btnSubmit.style.setProperty('color', 'var(--textLight)')
+                btnSubmit.style.setProperty('transform', 'scale(1.05)')
+            })
+
+            btnSubmit.addEventListener('mouseleave', () => {
+
+                btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+                btnSubmit.style.setProperty('color', 'var(--textDark)')
+                btnSubmit.style.setProperty('transform', 'scale(1)')
+
+            })
+
+            inputNamePlayer1.addEventListener('focus', () => {
+
+                containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player1P.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player1P.style.setProperty("color", "var(--textLight)")
+                
+                inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
+                inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+
+            })
+
+            inputNamePlayer1.addEventListener('blur', () => {
+
+                containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+                
+                player1P.style.setProperty("background-color", "var(--backContainer)")
+                
+                player1P.style.setProperty("color", "var(--textDark)")
+                
+                inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
+                inputNamePlayer1.style.setProperty("color", "var(--textDark)")
+
+            })
+
+            inputNamePlayer2.addEventListener('focus', () => {
+
+                containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player2P.style.setProperty("background-color", "var(--backContainerLight)")
+                
+                player2P.style.setProperty("color", "var(--textLight)")
+                
+                inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+                inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+            })
+
+            inputNamePlayer2.addEventListener('blur', () => {
+
+                containerInputs2.style.setProperty("background-color", "var(--backContainer")
+                
+                player2P.style.setProperty("background-color", "var(--backContainer)")
+                
+                player2P.style.setProperty("color", "var(--textDark)")
+                
+                inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+                inputNamePlayer2.style.setProperty("color", "var(--textDark)")
+
+            })
+
+        }
+
+        
+    }
+
+}
+
 function transitionForms() {
 
     const containerInputs1 = document.querySelector('.containerInputs1');
@@ -1070,6 +1345,12 @@ function transitionForms() {
 
     const inputNamePlayer1 = formMain.namePlayer1;
     
+
+    const containerInputs2 = document.querySelector('.containerInputs2');
+    const player2P = document.querySelector('.labelP2');
+
+    const inputNamePlayer2 = formMain.namePlayer2;
+
 
     inputNamePlayer1.addEventListener('focus', ()=> {
 
@@ -1098,10 +1379,7 @@ function transitionForms() {
     })
 
 
-    const containerInputs2 = document.querySelector('.containerInputs2');
-    const player2P = document.querySelector('.labelP2');
-
-    const inputNamePlayer2 = formMain.namePlayer2;
+    
 
 
     inputNamePlayer2.addEventListener('focus', ()=> {

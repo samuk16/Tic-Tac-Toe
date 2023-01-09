@@ -456,10 +456,58 @@ const gameBoard = (function(){
 
     function winGame() {
         
+        const player1Name = document.querySelector('.name1');
+        const player2Name = document.querySelector('.name2');
+
+        const containerScore = document.querySelector('.containerScore');
+
+        const nameScore1 = document.querySelector('.nameScore1');
+        const nameScore2 = document.querySelector('.nameScore2');
+
+        const replacement = document.createElement('div');
+        const replacement2 = document.createElement('div');
+
+        replacement.classList.add('replacement');
+        replacement2.classList.add('replacement');
+
         if (player1.getWins() == 3) {
-            console.log(`The winner is ${player1.getName()}`);
+
+            // console.log(`The winner is ${player1.getName()}`);
+
+            // player1Name.classList.add('animationWinGame');
+
+            player1Name.classList.add('blur-out-contract');
+
+            setTimeout(() => {
+                player1Name.classList.add('blur-in-expandWin');
+
+                nameScore1.classList.add('blur-in')
+                nameScore1.textContent = `The Winner is ${player1.getName()}`;
+            
+            },170);
+            containerScore.insertBefore(replacement,containerScore.firstChild);
+
         }else if(player2.getWins() == 3){
-            console.log(`The winner is ${player2.getName()}`);
+
+            // console.log(`The winner is ${player2.getName()}`);
+            
+            player2Name.classList.add('blur-out-contract2');
+
+            setTimeout(()=> {
+                containerScore.appendChild(replacement2)
+
+            },100)
+            setTimeout(() => {
+
+                player2Name.classList.add('blur-in-expandWin');
+
+                nameScore2.classList.add('blur-in')
+                nameScore2.textContent = `The Winner is ${player2.getName()}`;
+            
+            },170);
+
+            // containerScore.insertBefore(replacement2,containerScore.firstChild);
+            
 
         }
     }
@@ -525,6 +573,9 @@ const gameBoard = (function(){
                 createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
                 
             });
+            
+            animationNextRoundOrRematch()
+
             animationAndOthers();
             
             createXO();
@@ -691,8 +742,6 @@ const players = (name, color) => {
 
 function domElementsGame(arr) {
     
-    
-
     arr.forEach(elementObject => {
     
         createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
@@ -702,6 +751,8 @@ function domElementsGame(arr) {
     const btnRematch = document.querySelector('.btnRematch');
     const scoreP = document.querySelector('.score');
 
+    
+    animationNewGame()
     animationAndOthers();
     newGame()
     rematch()
@@ -713,12 +764,31 @@ function domElementsGame(arr) {
 }
 
 function domElementsMenu(arr) {
+    // const btnTestAnime = document.querySelector('.btnTestAnime');
+    // const testAnime = document.querySelector('.testAnime');
     
     arr.forEach(elementObject => {
     
         createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
         
     })
+    const form = document.forms.formMain;
+    const titleStart = document.querySelector('.title');
+    const miniPerfil = document.querySelector('.miniPerfil');
+    // btnTestAnime.addEventListener('click', (e) => {
+    //     console.log('hola');
+    //     testAnime.classList.add('blur-out-contract')
+
+    //     setTimeout(() => {
+            
+    //         testAnime.classList.add('blur-in-expand')
+    //     },150);
+       
+    // })
+
+    form.classList.add('blur-in-expandTest');
+    titleStart.classList.add('blur-in2');
+    miniPerfil.classList.add('blur-in2');
 
     registerNames();
     changeColor1();
@@ -733,10 +803,6 @@ function registerNames() {
 
     form.addEventListener('submit', (e)=> {
 
-        // console.log(e.target.elements['color1'].value)
-        // console.log(e.target.elements['color2'].value)
-        // console.log(e.target.elements['namePlayer1'].value)
-        // console.log(e.target.elements['namePlayer2'].value)
         let name1 = e.target.elements['namePlayer1'].value ;
         let name2 = e.target.elements['namePlayer2'].value ;
 
@@ -746,18 +812,18 @@ function registerNames() {
         arrDomObjGame[7].innerText = name1;
         arrDomObjGame[11].innerText = name2;
     
-        // console.log(e.target.elements['color1'].value)
         player1 = players(name1,color1);
         player2 = players(name2,color2);
 
-        // console.log(player1.getName());
-        // console.log(player1.getColor());
-        // console.log(player2.getName());
-        // console.log(player2.getColor());
+        form.classList.remove('blur-in-expandTest')
+        form.classList.add('blur-out-contract3')
 
         delDomElementsMenu()
         // game(name1, name2)
-        domElementsGame(arrDomObjGame);
+        setTimeout(()=> {
+            domElementsGame(arrDomObjGame);
+        },411)
+        
         e.preventDefault();
     });
 };
@@ -789,11 +855,15 @@ function delDomElementsMenu() {
     const formStart = document.querySelector('.containerStartGame');
     const title = document.querySelector('.title')
     const miniPerfil = document.querySelector('.miniPerfil')
+
+
+    setTimeout(() => {
+
+        document.body.removeChild(formStart)
+        document.body.removeChild(title)
+        document.body.removeChild(miniPerfil)
+    },410)
     
-    ;
-    document.body.removeChild(formStart)
-    document.body.removeChild(title)
-    document.body.removeChild(miniPerfil)
 
 }
 function delDomElementsGame() {
@@ -808,6 +878,8 @@ function delDomElementsGame() {
 }
 
 function animationAndOthers() {
+
+
 
     //  animation for boardItems
 
@@ -895,14 +967,37 @@ function newGame() {
 
 function rematch() {
 
-    const btnNewGame = document.querySelector('.btnRematch');
+    const scoreP = document.querySelector('.score');
 
-    btnNewGame.addEventListener('click', ()=> {
+    const containerBoard = document.querySelector('.containerBoard');
 
-        delDomElementsGame();
+    const btnRematch = document.querySelector('.btnRematch');
+
+    btnRematch.addEventListener('click', ()=> {
+
+        // delDomElementsGame();
+        while (containerBoard.hasChildNodes()) {
+            containerBoard.removeChild(containerBoard.firstChild);
+        }
         gameBoard.cleanBoard();
         rematchUpdatePoints();
-        domElementsGame(arrDomObjGame);
+        // domElementsGame(arrDomObjGame)        
+
+        arrItemsBoard.forEach(elementObject => {
+
+            createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
+            
+        });
+        
+        animationNextRoundOrRematch()
+
+        scoreP.innerText = `${player1.getWins()} - ${player2.getWins()}`;
+
+        animationAndOthers();
+        createXO();
+        animationOutlineNames();
+        btnRematch.style.pointerEvents = 'none';
+        
 
     })
 
@@ -918,6 +1013,54 @@ function rematch() {
 
     }
     
+}
+
+function animationNewGame() {
+
+    const containerBoard = document.querySelector('.containerBoard');
+    let children = containerBoard.children;
+    const boardItem = document.querySelectorAll('.boardItem');
+
+    // Recorrer cada hijo del contenedor
+    for (let i = 0; i < children.length; i++) {
+      let child = children[i];
+      // Programar la animación de cada hijo con un delay de 500 milisegundos
+      setTimeout(function() {
+        // child.classList.add("blur-in-expandTest2");
+        child.classList.add("blur-in");
+      }, 100 * i);
+    }
+
+    setTimeout(() => {
+        // boardItem.forEach(item => console.log(item))
+        boardItem.forEach(item => item.classList.remove('blur-in-expandTest2'))
+        boardItem.forEach(item => item.style.opacity = '1')
+        
+    },900)
+}
+
+function animationNextRoundOrRematch() {
+
+    const containerBoard = document.querySelector('.containerBoard');
+    let children = containerBoard.children;
+    const boardItem = document.querySelectorAll('.boardItem');
+
+    // Recorrer cada hijo del contenedor
+    for (let i = 0; i < children.length; i++) {
+      let child = children[i];
+      // Programar la animación de cada hijo con un delay de 500 milisegundos
+      child.classList.add("blur-in");
+    //   setTimeout(function() {
+    //     child.classList.add("blur-in");
+    //   }, 100 * i);
+    }
+
+    setTimeout(() => {
+        // boardItem.forEach(item => console.log(item))
+        boardItem.forEach(item => item.classList.remove('blur-in'))
+        boardItem.forEach(item => item.style.opacity = '1')
+        
+    },500)
 }
 
 function transitionForms() {

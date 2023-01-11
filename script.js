@@ -4,17 +4,17 @@ const arrDomObjGame = [
 
     //  child body
 
-    {
-        elementType: 'h1',
-        attributes: {class:'title'},
-        innerText: 'Tic Tac Toe' ,
-        appendChild: 'body',
-    },
-    {
-        elementType: 'div',
-        attributes: {class:'miniPerfil'},
-        appendChild: 'body',
-    },
+    // {
+    //     elementType: 'h1',
+    //     attributes: {class:'title'},
+    //     innerText: 'Tic Tac Toe' ,
+    //     appendChild: 'body',
+    // },
+    // {
+    //     elementType: 'div',
+    //     attributes: {class:'miniPerfil'},
+    //     appendChild: 'body',
+    // },
     {
         elementType: 'div',
         attributes: {class:'containerTTT'},
@@ -47,7 +47,7 @@ const arrDomObjGame = [
     {
         elementType: 'p',
         attributes: {class:'nameScore1'},
-        innerText: 'Roas' ,
+        innerText: '' ,
         appendChild: '.name1',
     },
 
@@ -73,7 +73,7 @@ const arrDomObjGame = [
     {
         elementType: 'p',
         attributes: {class:'nameScore2'},
-        innerText:'Gohan',
+        innerText:'',
         appendChild: '.name2',
     },
 
@@ -347,8 +347,13 @@ const gameBoard = (function(){
 
     const gameHistory = []; 
 
+    const currentTheme = ['dark'];
+
     const getCurrentWinner = () => currentWinner;
     const getMoveCount = () => moveCount;
+    const getCurrentTheme = () => currentTheme[0];
+    const popCurrentTheme = () => currentTheme.pop();
+    const pushCurrentTheme = (theme) => currentTheme.push(theme);
 
     function clearCurrentWinner() {
         
@@ -444,9 +449,23 @@ const gameBoard = (function(){
         }
 
         if (testBtnContinue == null) {
+
             createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
+
             const continueBtn = document.querySelector('.continueBtn');
+
             continueBtn.classList.add('blur-in-expandTest2')
+
+            setTimeout(() => {
+                continueBtn.classList.remove('blur-in-expandTest2')
+            },505)
+
+            // continueBtn.classList.remove('blur-in-expandTest2')
+            continueBtn.style.pointerEvents = 'auto';
+
+        }else{
+
+            testBtnContinue.style.pointerEvents = 'auto';
         }
 
         boardItems.forEach(item => item.style.pointerEvents = 'none')
@@ -462,6 +481,7 @@ const gameBoard = (function(){
         nextRound();    
         // clearCurrentWinner();
         btnRematch.style.pointerEvents = 'auto';
+        // testBtnContinue.style.pointerEvents = 'auto';
         console.log('WIN!');
         countWin++;
         winGame();
@@ -609,6 +629,7 @@ const gameBoard = (function(){
             createXO();
             animationOutlineNames();
             btnRematch.style.pointerEvents = 'none';
+            btnContinue.style.pointerEvents = 'none';
         }
 
     }
@@ -736,7 +757,7 @@ const gameBoard = (function(){
     }
 
 
-    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner,getMoveCount,clearCurrentRound}
+    return{playFunction,cleanBoard,verificationWin,getCurrentWinner,clearCurrentWinner,getMoveCount,clearCurrentRound,getCurrentTheme,popCurrentTheme,pushCurrentTheme}
 
 
 })();
@@ -833,8 +854,10 @@ function registerNames() {
         let color1 = e.target.elements['color1'].value ;
         let color2 = e.target.elements['color2'].value ;
 
-        arrDomObjGame[7].innerText = name1;
-        arrDomObjGame[11].innerText = name2;
+        // arrDomObjGame[7].innerText = name1;
+        // arrDomObjGame[11].innerText = name2;
+        arrDomObjGame[5].innerText = name1;
+        arrDomObjGame[9].innerText = name2;
     
         player1 = players(name1,color1);
         player2 = players(name2,color2);
@@ -884,8 +907,8 @@ function delDomElementsMenu() {
     setTimeout(() => {
 
         document.body.removeChild(formStart)
-        document.body.removeChild(title)
-        document.body.removeChild(miniPerfil)
+        // document.body.removeChild(title)
+        // document.body.removeChild(miniPerfil)
     },410)
     
 
@@ -900,7 +923,7 @@ function delDomElementsGame() {
 
     document.body.removeChild(containerGame)
     document.body.removeChild(containerSvgTheme)
-    document.body.removeChild(title)
+    // document.body.removeChild(title)
     document.body.removeChild(miniPerfil)
 }
 
@@ -980,8 +1003,16 @@ function animationOutlineNames() {
 function newGame() {
     const btnNewGame = document.querySelector('.btnNewGame');
 
+    const svgThemeDark = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.4427 19.1928C24.147 19.7136 22.732 20.0001 21.25 20.0001C15.0368 20.0001 10 14.9633 10 8.75011C10 7.26814 10.2865 5.8531 10.8073 4.55737C6.6706 6.21978 3.75 10.2689 3.75 15.0001C3.75 21.2133 8.7868 26.2501 15 26.2501C19.7312 26.2501 23.7803 23.3295 25.4427 19.1928Z" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const svgThemeLight ='<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="pathTheme" d="M15 3.75V5M15 25V26.25M26.25 15H25M5 15H3.75M22.955 22.955L22.0711 22.0711M7.92893 7.92893L7.04505 7.04505M22.955 7.04512L22.0711 7.929M7.929 22.0711L7.04511 22.955M20 15C20 17.7614 17.7614 20 15 20C12.2386 20 10 17.7614 10 15C10 12.2386 12.2386 10 15 10C17.7614 10 20 12.2386 20 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
     btnNewGame.addEventListener('click', ()=> {
 
+        if (gameBoard.getCurrentTheme() == 'light') {
+            arrDomObjStart[3].innerHTML = svgThemeDark;
+            
+        }
+        gameBoard.getCurrentTheme() == 'light' ? arrDomObjStart[3].innerHTML = svgThemeDark: arrDomObjStart[3].innerHTML = svgThemeLight;
         delDomElementsGame()
         gameBoard.cleanBoard();
         domElementsMenu(arrDomObjStart);
@@ -1060,6 +1091,11 @@ function animationNewGame() {
 
       child.classList.add('blur-in-expandTest2')
 
+      setTimeout(() => {
+        child.classList.remove('blur-in-expandTest2')
+        
+      },505)
+
     }
     for (let i = 0; i < boardItemchildren.length; i++) {
       let child = boardItemchildren[i];
@@ -1105,7 +1141,10 @@ function animationNextRoundOrRematch() {
 function changeTheme() {
     
     const containerSvgTheme = document.querySelector('.containerSvgTheme');
-    const body = document.body ;
+    const body = document.body ;    
+
+    const svgThemeDark = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.4427 19.1928C24.147 19.7136 22.732 20.0001 21.25 20.0001C15.0368 20.0001 10 14.9633 10 8.75011C10 7.26814 10.2865 5.8531 10.8073 4.55737C6.6706 6.21978 3.75 10.2689 3.75 15.0001C3.75 21.2133 8.7868 26.2501 15 26.2501C19.7312 26.2501 23.7803 23.3295 25.4427 19.1928Z" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const svgThemeLight ='<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="pathTheme" d="M15 3.75V5M15 25V26.25M26.25 15H25M5 15H3.75M22.955 22.955L22.0711 22.0711M7.92893 7.92893L7.04505 7.04505M22.955 7.04512L22.0711 7.929M7.929 22.0711L7.04511 22.955M20 15C20 17.7614 17.7614 20 15 20C12.2386 20 10 17.7614 10 15C10 12.2386 12.2386 10 15 10C17.7614 10 20 12.2386 20 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
     const currentTheme = ['dark'];
 
@@ -1127,10 +1166,24 @@ function changeTheme() {
 
         if (currentTheme[0] == 'dark') {
 
+            containerSvgTheme.classList.add('blur-out-contract3');
+            containerSvgTheme.classList.remove('blur-out-contract3');
+            containerSvgTheme.innerHTML = '';
+            containerSvgTheme.innerHTML = svgThemeDark;
+            containerSvgTheme.classList.add('blur-in-expandTest');
+            setTimeout(() => {
+                containerSvgTheme.classList.remove('blur-in-expandTest');
+            },305)
+            
+
+
             body.style.setProperty("background-color", "var(--backgroundLight)");
 
             currentTheme.pop();
             currentTheme.push('light')
+
+            gameBoard.popCurrentTheme()
+            gameBoard.pushCurrentTheme('light')
 
             titleP.style.setProperty('color', 'var(--textLight)')
 
@@ -1157,10 +1210,22 @@ function changeTheme() {
 
         }else if(currentTheme[0] == 'light'){
 
+            containerSvgTheme.classList.add('blur-out-contract3');
+            containerSvgTheme.classList.remove('blur-out-contract3');
+            containerSvgTheme.innerHTML = '';
+            containerSvgTheme.innerHTML = svgThemeLight;
+            containerSvgTheme.classList.add('blur-in-expandTest');
+            setTimeout(() => {
+                containerSvgTheme.classList.remove('blur-in-expandTest');
+            },305)
+
             body.style.setProperty("background-color", "var(--backgroundMain)");
 
             currentTheme.pop()
             currentTheme.push('dark');
+
+            gameBoard.popCurrentTheme()
+            gameBoard.pushCurrentTheme('dark')
 
             titleP.style.setProperty('color', 'var(--textDark)')
 

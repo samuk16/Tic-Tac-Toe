@@ -4,8 +4,16 @@
     --backContainer: #381E72 ;
     --backContainerSecond: #4F378B;
     --backHoverBtn: #9A82DB ;
+    --textDark: #FFFFFF ;
+
     --divColorInput1:#DE1616 ;
     --divColorInput2:#DE1616 ;
+
+    --backgroundLight: #E7E0EC;
+    --backContainerLight: #9A82DB ;
+    --backContainerSecondLight: #4F378B;
+    --backHoverBtnLight: #381E72 ;
+    --textLight: #1C1B1F ;
 }
 
 *{
@@ -28,6 +36,9 @@ body{
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
+
+    transition: all .2s ease-in-out;
+
 }
 p{
     color: white;
@@ -43,6 +54,10 @@ h1{
 
     font-size: 3rem;
     letter-spacing: -1.5;
+
+    transition: all .2s ease-in-out;
+
+
 }
 
 /* .miniP{
@@ -326,6 +341,10 @@ h1{
     justify-content: center;
     align-items: center;
     
+    user-select: none;
+
+    font-size: 1rem;
+
     width: 100px;
     height: 40px;
     cursor: pointer;
@@ -338,12 +357,11 @@ h1{
     transition: all .1s ease-in-out;
 }
 
-.containerStartGame > form > button:hover{
-    /* transform-origin: center; */
+/* .containerStartGame > form > button:hover{
     transform: scale(1.05);
     background-color: var(--backHoverBtn);
     color: #1C1B1F;
-}
+} */
 
 .containerStartGame > form > div > label {
     color: white;
@@ -360,6 +378,8 @@ h1{
 
     width: 100px;
     height: 30px;
+
+    user-select: none;
 
     border-radius: 16px 16px 0 0;
 
@@ -698,7 +718,7 @@ h1{
     100%{
         z-index: 1;
         /* position:absolute; */
-        box-shadow: 0px 0px 50px 40px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 90px 60px rgba(0, 0, 0, 0.7);
         /* top: 50%;  */
         /* left: 50%; */
         position: absolute;
@@ -779,3 +799,35 @@ h1{
         opacity:1;
     }
 }
+
+.containerSvgTheme{
+
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+
+    cursor: pointer;
+
+    width: 40px;
+    height: 50px;
+    border-radius: 50px;
+    transition: all .12s ease-in-out;
+
+}
+
+.containerSvgTheme:hover{
+
+    background-color: var(--backHoverBtn);
+    transform: scale(1.1);
+}
+
+.containerSvgTheme:hover > svg > .pathTheme{
+    stroke: #1C1B1F;
+}
+

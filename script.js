@@ -329,6 +329,126 @@ const arrDomObjStart = [
     
 ];
 
+const arrDomFormStart= [
+    {
+        elementType: 'div',
+        attributes: {class:'containerSvgTheme'},
+        innerHTML: '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="pathTheme" d="M15 3.75V5M15 25V26.25M26.25 15H25M5 15H3.75M22.955 22.955L22.0711 22.0711M7.92893 7.92893L7.04505 7.04505M22.955 7.04512L22.0711 7.929M7.929 22.0711L7.04511 22.955M20 15C20 17.7614 17.7614 20 15 20C12.2386 20 10 17.7614 10 15C10 12.2386 12.2386 10 15 10C17.7614 10 20 12.2386 20 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        appendChild: 'body',
+    },
+    {
+        elementType: 'div',
+        attributes: {class:'containerStartGame'},
+        appendChild: 'body',
+    },
+    {
+        elementType: 'form',
+        attributes: {class: 'formStartGame',id:'formMain'},
+        appendChild: '.containerStartGame',
+    },
+
+    //  childs formStartGame
+
+    {
+        elementType: 'div',
+        attributes: {class: 'containerLabels'},
+        appendChild: '.formStartGame',
+    },
+    {
+        elementType: 'button',
+        attributes: {type: 'submit',name: 'submit'},
+        innerText: 'Start Game' ,
+        appendChild: '.formStartGame',
+    },
+
+    //  childs containerLabels
+
+    {
+        elementType: 'label',
+        attributes: {class: 'label1'},
+        appendChild: '.containerLabels',
+    },
+    {
+        elementType: 'label',
+        attributes: {class: 'label2'},
+        appendChild: '.containerLabels',
+    },
+
+    //  childs label1
+
+    {
+        elementType: 'p',
+        attributes: {class: 'labelP1'},
+        innerText: 'Player 1' ,
+        appendChild: '.label1',
+    },
+
+    {
+        elementType: 'div',
+        attributes: {class: 'containerInputs1'},
+        appendChild: '.label1',
+    },
+
+    //  childs containerInputs1
+
+    {
+        elementType: 'input',
+        attributes: {type: 'text', name: 'namePlayer1'},
+        appendChild: '.containerInputs1',
+    },
+
+    {
+        elementType: 'div',
+        attributes: {class: 'inputColor1'},
+        appendChild: '.containerInputs1',
+    },
+
+    //  child inputColor1
+
+    {
+        elementType: 'input',
+        attributes: {type: 'color', name: 'color1',value:'#DE1616'},
+        appendChild: '.inputColor1',
+    },
+
+    //  childs label2
+
+    {
+        elementType: 'p',
+        attributes: {class: 'labelP2'},
+        innerText: 'Player 2' ,
+        appendChild: '.label2',
+    },
+
+    {
+        elementType: 'div',
+        attributes: {class: 'containerInputs2'},
+        appendChild: '.label2',
+    },
+
+    //  childs containerInputs2
+
+    {
+        elementType: 'input',
+        attributes: {type: 'text', name: 'namePlayer2'},
+        appendChild: '.containerInputs2',
+    },
+
+    {
+        elementType: 'div',
+        attributes: {class: 'inputColor2'},
+        appendChild: '.containerInputs2',
+    },
+
+    //  child inputColor2
+
+    {
+        elementType: 'input',
+        attributes: {type: 'color', name: 'color2',value:'#DE1616'},
+        appendChild: '.inputColor2',
+    },
+]
+
 let player1;
 let player2;
 
@@ -924,7 +1044,7 @@ function delDomElementsGame() {
     document.body.removeChild(containerGame)
     document.body.removeChild(containerSvgTheme)
     // document.body.removeChild(title)
-    document.body.removeChild(miniPerfil)
+    // document.body.removeChild(miniPerfil)
 }
 
 function animationAndOthers() {
@@ -1008,15 +1128,17 @@ function newGame() {
 
     btnNewGame.addEventListener('click', ()=> {
 
-        if (gameBoard.getCurrentTheme() == 'light') {
-            arrDomObjStart[3].innerHTML = svgThemeDark;
+        // if (gameBoard.getCurrentTheme() == 'light') {
+        //     arrDomObjStart[3].innerHTML = svgThemeDark;
             
-        }
-        gameBoard.getCurrentTheme() == 'light' ? arrDomObjStart[3].innerHTML = svgThemeDark: arrDomObjStart[3].innerHTML = svgThemeLight;
+        // }
+        gameBoard.getCurrentTheme() == 'light' ? arrDomFormStart[0].innerHTML = svgThemeDark: arrDomFormStart[0].innerHTML = svgThemeLight;
         delDomElementsGame()
         gameBoard.cleanBoard();
-        domElementsMenu(arrDomObjStart);
-
+        // domElementsMenu(arrDomObjStart);
+        domElementsMenu(arrDomFormStart);
+        // console.log(gameBoard.getCurrentTheme());
+        // changeTheme()
 
     })
 
@@ -1146,7 +1268,7 @@ function changeTheme() {
     const svgThemeDark = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.4427 19.1928C24.147 19.7136 22.732 20.0001 21.25 20.0001C15.0368 20.0001 10 14.9633 10 8.75011C10 7.26814 10.2865 5.8531 10.8073 4.55737C6.6706 6.21978 3.75 10.2689 3.75 15.0001C3.75 21.2133 8.7868 26.2501 15 26.2501C19.7312 26.2501 23.7803 23.3295 25.4427 19.1928Z" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     const svgThemeLight ='<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="pathTheme" d="M15 3.75V5M15 25V26.25M26.25 15H25M5 15H3.75M22.955 22.955L22.0711 22.0711M7.92893 7.92893L7.04505 7.04505M22.955 7.04512L22.0711 7.929M7.929 22.0711L7.04511 22.955M20 15C20 17.7614 17.7614 20 15 20C12.2386 20 10 17.7614 10 15C10 12.2386 12.2386 10 15 10C17.7614 10 20 12.2386 20 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-    const currentTheme = ['dark'];
+    let currentTheme = ['dark'];
 
     const titleP = document.querySelector('.title');
 
@@ -1160,11 +1282,54 @@ function changeTheme() {
 
     const btnSubmit = formMain.submit;
 
-    changeColorItems()
+    // console.log(gameBoard.getCurrentTheme());
+
+    if (gameBoard.getCurrentTheme() === 'dark' ) {
+        
+        btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+
+        btnSubmit.style.setProperty('color', 'var(--textDark)')
+        containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+        containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+        
+        player1P.style.setProperty("background-color", "var(--backContainer)")
+        player2P.style.setProperty("background-color", "var(--backContainer)")
+        
+        player1P.style.setProperty("color", "var(--textDark)")
+        player2P.style.setProperty("color", "var(--textDark)")
+        
+        inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
+        inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
+        inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+        inputNamePlayer2.style.setProperty("color", "var(--textDark)") 
+        
+
+    }else if(gameBoard.getCurrentTheme() === 'light') {
+
+        btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+        btnSubmit.style.setProperty('color', 'var(--textLight)')
+        containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+        containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+        
+        player1P.style.setProperty("background-color", "var(--backContainerLight)")
+        player2P.style.setProperty("background-color", "var(--backContainerLight)")
+        
+        player1P.style.setProperty("color", "var(--textLight)")
+        player2P.style.setProperty("color", "var(--textLight)")
+        
+        inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")            
+        inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+        inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+        inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+        
+    }
+
+    changeColor()
 
     containerSvgTheme.addEventListener('click', () => {
 
-        if (currentTheme[0] == 'dark') {
+        if (gameBoard.getCurrentTheme() === 'dark') {
 
             containerSvgTheme.classList.add('blur-out-contract3');
             containerSvgTheme.classList.remove('blur-out-contract3');
@@ -1205,10 +1370,14 @@ function changeTheme() {
             inputNamePlayer1.style.setProperty("color", "var(--textLight)")
             inputNamePlayer2.style.setProperty("color", "var(--textLight)")
 
-            changeColorItems();
+            changeColor();
+            // console.log(gameBoard.getCurrentTheme());
+            console.log(currentTheme);
+            console.log(`tema en funcion ${currentTheme}`);
+
             
 
-        }else if(currentTheme[0] == 'light'){
+        }else if(gameBoard.getCurrentTheme() === 'light'){
 
             containerSvgTheme.classList.add('blur-out-contract3');
             containerSvgTheme.classList.remove('blur-out-contract3');
@@ -1247,37 +1416,51 @@ function changeTheme() {
             inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
             inputNamePlayer2.style.setProperty("color", "var(--textDark)")            
 
-            changeColorItems();
+            changeColor();
+            // console.log(gameBoard.getCurrentTheme());
+            console.log(currentTheme);
+
+            console.log(`tema en funcion ${currentTheme}`);
+
 
         }
 
 
     })
 
-    function changeColorItems() {
+    function changeColor() {
+    
+        // const containerInputs1 = document.querySelector('.containerInputs1');
+        // const player1P = document.querySelector('.labelP1');
+        // const inputNamePlayer1 = formMain.namePlayer1;
         
-
+        // const containerInputs2 = document.querySelector('.containerInputs2');
+        // const player2P = document.querySelector('.labelP2');
+        // const inputNamePlayer2 = formMain.namePlayer2;
+    
+        // const btnSubmit = formMain.submit;
+    
         if (currentTheme[0] == 'light') {
             
             btnSubmit.addEventListener('mouseenter', () => {
-
+    
                 btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
                 btnSubmit.style.setProperty('color', 'var(--textDark)')
                 btnSubmit.style.setProperty('transform', 'scale(1.05)')
             })
-
+    
             btnSubmit.addEventListener('mouseleave', () => {
-
+    
                 btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
                 btnSubmit.style.setProperty('color', 'var(--textLight)')
                 btnSubmit.style.setProperty('transform', 'scale(1)')
-
+    
             })
-
-
-
+    
+    
+    
             inputNamePlayer1.addEventListener('focus', () => {
-
+    
                 containerInputs1.style.setProperty("background-color", "var(--backContainer)")
                 
                 player1P.style.setProperty("background-color", "var(--backContainer)")
@@ -1286,11 +1469,11 @@ function changeTheme() {
                 
                 inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
                 inputNamePlayer1.style.setProperty("color", "var(--textDark)")
-
+    
             })
-
+    
             inputNamePlayer1.addEventListener('blur', () => {
-
+    
                 containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
                 
                 player1P.style.setProperty("background-color", "var(--backContainerLight)")
@@ -1299,11 +1482,11 @@ function changeTheme() {
                 
                 inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
                 inputNamePlayer1.style.setProperty("color", "var(--textLight)")
-
+    
             })
-
+    
             inputNamePlayer2.addEventListener('focus', () => {
-
+    
                 containerInputs2.style.setProperty("background-color", "var(--backContainer)")
                 
                 player2P.style.setProperty("background-color", "var(--backContainer)")
@@ -1312,11 +1495,11 @@ function changeTheme() {
                 
                 inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
                 inputNamePlayer2.style.setProperty("color", "var(--textDark)")
-
+    
             })
-
+    
             inputNamePlayer2.addEventListener('blur', () => {
-
+    
                 containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
                 
                 player2P.style.setProperty("background-color", "var(--backContainerLight)")
@@ -1325,27 +1508,28 @@ function changeTheme() {
                 
                 inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
                 inputNamePlayer2.style.setProperty("color", "var(--textLight)")
-
+    
             })
+
         }else if(currentTheme[0] == 'dark'){
-
+    
             btnSubmit.addEventListener('mouseenter', () => {
-
+    
                 btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
                 btnSubmit.style.setProperty('color', 'var(--textLight)')
                 btnSubmit.style.setProperty('transform', 'scale(1.05)')
             })
-
+    
             btnSubmit.addEventListener('mouseleave', () => {
-
+    
                 btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
                 btnSubmit.style.setProperty('color', 'var(--textDark)')
                 btnSubmit.style.setProperty('transform', 'scale(1)')
-
+    
             })
-
+    
             inputNamePlayer1.addEventListener('focus', () => {
-
+    
                 containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
                 
                 player1P.style.setProperty("background-color", "var(--backContainerLight)")
@@ -1354,11 +1538,11 @@ function changeTheme() {
                 
                 inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
                 inputNamePlayer1.style.setProperty("color", "var(--textLight)")
-
+    
             })
-
+    
             inputNamePlayer1.addEventListener('blur', () => {
-
+    
                 containerInputs1.style.setProperty("background-color", "var(--backContainer)")
                 
                 player1P.style.setProperty("background-color", "var(--backContainer)")
@@ -1367,11 +1551,11 @@ function changeTheme() {
                 
                 inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
                 inputNamePlayer1.style.setProperty("color", "var(--textDark)")
-
+    
             })
-
+    
             inputNamePlayer2.addEventListener('focus', () => {
-
+    
                 containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
                 
                 player2P.style.setProperty("background-color", "var(--backContainerLight)")
@@ -1380,11 +1564,11 @@ function changeTheme() {
                 
                 inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
                 inputNamePlayer2.style.setProperty("color", "var(--textLight)")
-
+    
             })
-
+    
             inputNamePlayer2.addEventListener('blur', () => {
-
+    
                 containerInputs2.style.setProperty("background-color", "var(--backContainer")
                 
                 player2P.style.setProperty("background-color", "var(--backContainer)")
@@ -1393,15 +1577,16 @@ function changeTheme() {
                 
                 inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
                 inputNamePlayer2.style.setProperty("color", "var(--textDark)")
-
+    
             })
-
+    
         }
-
+    
         
     }
 
 }
+
 
 function transitionForms() {
 

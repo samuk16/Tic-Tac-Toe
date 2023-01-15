@@ -357,6 +357,56 @@ h1{
     transition: all .1s ease-in-out;
 }
 
+.themeLight{
+
+    background-color: var(--backContainerLight);
+
+}
+.themeDark{
+
+    background-color: var(--backContainer);
+
+}
+
+.themeLight:hover{
+
+    transform: scale(1.05);
+    background-color: var(--backHoverBtnLight);
+    color: var(--textLight);
+
+}
+.themeDark:hover{
+
+    transform: scale(1.05);
+    background-color: var(--backHoverBtn);
+    color: var(--textDark);
+
+}
+
+.containerStartGameLight > form > button{
+
+    align-self: center;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    user-select: none;
+
+    font-size: 1rem;
+
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    color: white;
+    border-radius: 100px;
+    border: none;
+
+    background-color: var(--backContainer);
+
+    transition: all .1s ease-in-out;
+}
+
 /* .containerStartGame > form > button:hover{
     transform: scale(1.05);
     background-color: var(--backHoverBtn);

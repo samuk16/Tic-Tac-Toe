@@ -235,7 +235,7 @@ const arrDomObjStart = [
     },
     {
         elementType: 'button',
-        attributes: {type: 'submit',name: 'submit'},
+        attributes: {type: 'submit', class: 'submit' ,name: 'submit'},
         innerText: 'Start Game' ,
         appendChild: '.formStartGame',
     },
@@ -272,7 +272,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'input',
-        attributes: {type: 'text', name: 'namePlayer1'},
+        attributes: {type: 'text',class: 'nameplayer1', name: 'namePlayer1'},
         appendChild: '.containerInputs1',
     },
 
@@ -309,7 +309,7 @@ const arrDomObjStart = [
 
     {
         elementType: 'input',
-        attributes: {type: 'text', name: 'namePlayer2'},
+        attributes: {type: 'text', class: 'nameplayer2' , name: 'namePlayer2'},
         appendChild: '.containerInputs2',
     },
 
@@ -356,7 +356,7 @@ const arrDomFormStart= [
     },
     {
         elementType: 'button',
-        attributes: {type: 'submit',name: 'submit'},
+        attributes: {type: 'submit', class: 'submit' ,name: 'submit'},
         innerText: 'Start Game' ,
         appendChild: '.formStartGame',
     },
@@ -393,7 +393,7 @@ const arrDomFormStart= [
 
     {
         elementType: 'input',
-        attributes: {type: 'text', name: 'namePlayer1'},
+        attributes: {type: 'text', class: 'nameplayer1' , name: 'namePlayer1'},
         appendChild: '.containerInputs1',
     },
 
@@ -430,7 +430,7 @@ const arrDomFormStart= [
 
     {
         elementType: 'input',
-        attributes: {type: 'text', name: 'namePlayer2'},
+        attributes: {type: 'text', class: 'nameplayer2', name: 'namePlayer2'},
         appendChild: '.containerInputs2',
     },
 
@@ -451,6 +451,8 @@ const arrDomFormStart= [
 
 let player1;
 let player2;
+
+let scene = ['start'];
 
 const gameBoard = (function(){
 
@@ -954,11 +956,16 @@ function domElementsMenu(arr) {
     titleStart.classList.add('blur-in2');
     miniPerfil.classList.add('blur-in2');
 
+
     registerNames();
     changeColor1();
     changeColor2();
     // transitionForms();
     changeTheme();
+    // changeThemeForm();
+    // 2(); 
+    // hoverForm();
+
 }
 
 function registerNames() {
@@ -983,8 +990,9 @@ function registerNames() {
         player2 = players(name2,color2);
 
         form.classList.remove('blur-in-expandTest')
-        form.classList.add('blur-out-contract3')
-
+        form.classList.add('blur-out-contract3');
+        scene.pop();
+        scene.push('game');
         delDomElementsMenu()
         // game(name1, name2)
         setTimeout(()=> {
@@ -1026,7 +1034,12 @@ function delDomElementsMenu() {
 
     setTimeout(() => {
 
-        document.body.removeChild(formStart)
+        // while (formStart.hasChildNodes()) {
+        //     formStart.removeChild(formStart.firstChild);
+        // }
+
+        // document.body.removeChild(formStart)
+        formStart.remove();
         // document.body.removeChild(title)
         // document.body.removeChild(miniPerfil)
     },410)
@@ -1137,8 +1150,11 @@ function newGame() {
         gameBoard.cleanBoard();
         // domElementsMenu(arrDomObjStart);
         domElementsMenu(arrDomFormStart);
+        changeThemeForm();
         // console.log(gameBoard.getCurrentTheme());
         // changeTheme()
+        scene.pop();
+        scene.push('start')
 
     })
 
@@ -1260,6 +1276,8 @@ function animationNextRoundOrRematch() {
     },500)
 }
 
+
+
 function changeTheme() {
     
     const containerSvgTheme = document.querySelector('.containerSvgTheme');
@@ -1268,64 +1286,15 @@ function changeTheme() {
     const svgThemeDark = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.4427 19.1928C24.147 19.7136 22.732 20.0001 21.25 20.0001C15.0368 20.0001 10 14.9633 10 8.75011C10 7.26814 10.2865 5.8531 10.8073 4.55737C6.6706 6.21978 3.75 10.2689 3.75 15.0001C3.75 21.2133 8.7868 26.2501 15 26.2501C19.7312 26.2501 23.7803 23.3295 25.4427 19.1928Z" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     const svgThemeLight ='<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="pathTheme" d="M15 3.75V5M15 25V26.25M26.25 15H25M5 15H3.75M22.955 22.955L22.0711 22.0711M7.92893 7.92893L7.04505 7.04505M22.955 7.04512L22.0711 7.929M7.929 22.0711L7.04511 22.955M20 15C20 17.7614 17.7614 20 15 20C12.2386 20 10 17.7614 10 15C10 12.2386 12.2386 10 15 10C17.7614 10 20 12.2386 20 15Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-    let currentTheme = ['dark'];
-
     const titleP = document.querySelector('.title');
 
-    const containerInputs1 = document.querySelector('.containerInputs1');
-    const player1P = document.querySelector('.labelP1');
-    const inputNamePlayer1 = formMain.namePlayer1;
-    
-    const containerInputs2 = document.querySelector('.containerInputs2');
-    const player2P = document.querySelector('.labelP2');
-    const inputNamePlayer2 = formMain.namePlayer2;
 
-    const btnSubmit = formMain.submit;
-
-    // console.log(gameBoard.getCurrentTheme());
-
-    if (gameBoard.getCurrentTheme() === 'dark' ) {
+    if (scene[0] === 'start') {
+        changeThemeForm();
         
-        btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
-
-        btnSubmit.style.setProperty('color', 'var(--textDark)')
-        containerInputs1.style.setProperty("background-color", "var(--backContainer)")
-        containerInputs2.style.setProperty("background-color", "var(--backContainer)")
-        
-        player1P.style.setProperty("background-color", "var(--backContainer)")
-        player2P.style.setProperty("background-color", "var(--backContainer)")
-        
-        player1P.style.setProperty("color", "var(--textDark)")
-        player2P.style.setProperty("color", "var(--textDark)")
-        
-        inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
-        inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
-        inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
-        inputNamePlayer2.style.setProperty("color", "var(--textDark)") 
-        
-
-    }else if(gameBoard.getCurrentTheme() === 'light') {
-
-        btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
-        btnSubmit.style.setProperty('color', 'var(--textLight)')
-        containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
-        containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
-        
-        player1P.style.setProperty("background-color", "var(--backContainerLight)")
-        player2P.style.setProperty("background-color", "var(--backContainerLight)")
-        
-        player1P.style.setProperty("color", "var(--textLight)")
-        player2P.style.setProperty("color", "var(--textLight)")
-        
-        inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")            
-        inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
-        inputNamePlayer1.style.setProperty("color", "var(--textLight)")
-        inputNamePlayer2.style.setProperty("color", "var(--textLight)")
-
-        
+    }else if(scene[0] === 'game'){
     }
 
-    changeColor()
 
     containerSvgTheme.addEventListener('click', () => {
 
@@ -1344,37 +1313,20 @@ function changeTheme() {
 
             body.style.setProperty("background-color", "var(--backgroundLight)");
 
-            currentTheme.pop();
-            currentTheme.push('light')
+            gameBoard.popCurrentTheme();
+            gameBoard.pushCurrentTheme('light');
 
-            gameBoard.popCurrentTheme()
-            gameBoard.pushCurrentTheme('light')
-
-            titleP.style.setProperty('color', 'var(--textLight)')
-
-            btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
-
-            btnSubmit.style.setProperty('color', 'var(--textLight)')
-
-            containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
-            containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
             
-            player1P.style.setProperty("background-color", "var(--backContainerLight)")
-            player2P.style.setProperty("background-color", "var(--backContainerLight)")
-            
-            player1P.style.setProperty("color", "var(--textLight)")
-            player2P.style.setProperty("color", "var(--textLight)")
-            
-            inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")            
-            inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
-            inputNamePlayer1.style.setProperty("color", "var(--textLight)")
-            inputNamePlayer2.style.setProperty("color", "var(--textLight)")
 
-            changeColor();
-            // console.log(gameBoard.getCurrentTheme());
-            console.log(currentTheme);
-            console.log(`tema en funcion ${currentTheme}`);
+            titleP.style.setProperty('color', 'var(--textLight)');
 
+
+            if (scene[0] === 'start') {
+                changeThemeForm();
+                
+            }else if(scene[0] === 'game'){
+                changeColorBoardItems();
+            }
             
 
         }else if(gameBoard.getCurrentTheme() === 'light'){
@@ -1390,203 +1342,312 @@ function changeTheme() {
 
             body.style.setProperty("background-color", "var(--backgroundMain)");
 
-            currentTheme.pop()
-            currentTheme.push('dark');
-
             gameBoard.popCurrentTheme()
             gameBoard.pushCurrentTheme('dark')
 
             titleP.style.setProperty('color', 'var(--textDark)')
+      
+            if (scene[0] === 'start') {
+                changeThemeForm();
+                
+            }else if(scene[0] === 'game'){
+                changeColorBoardItems();
 
-            btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
-
-            btnSubmit.style.setProperty('color', 'var(--textDark)')
-
-            containerInputs1.style.setProperty("background-color", "var(--backContainer)")
-            containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+            }
             
-            player1P.style.setProperty("background-color", "var(--backContainer)")
-            player2P.style.setProperty("background-color", "var(--backContainer)")
-            
-            player1P.style.setProperty("color", "var(--textDark)")
-            player2P.style.setProperty("color", "var(--textDark)")
-            
-            inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
-            inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
-            inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
-            inputNamePlayer2.style.setProperty("color", "var(--textDark)")            
-
-            changeColor();
-            // console.log(gameBoard.getCurrentTheme());
-            console.log(currentTheme);
-
-            console.log(`tema en funcion ${currentTheme}`);
-
 
         }
 
 
     })
 
-    function changeColor() {
     
-        // const containerInputs1 = document.querySelector('.containerInputs1');
-        // const player1P = document.querySelector('.labelP1');
-        // const inputNamePlayer1 = formMain.namePlayer1;
-        
-        // const containerInputs2 = document.querySelector('.containerInputs2');
-        // const player2P = document.querySelector('.labelP2');
-        // const inputNamePlayer2 = formMain.namePlayer2;
-    
-        // const btnSubmit = formMain.submit;
-    
-        if (currentTheme[0] == 'light') {
-            
-            btnSubmit.addEventListener('mouseenter', () => {
-    
-                btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
-                btnSubmit.style.setProperty('color', 'var(--textDark)')
-                btnSubmit.style.setProperty('transform', 'scale(1.05)')
-            })
-    
-            btnSubmit.addEventListener('mouseleave', () => {
-    
-                btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
-                btnSubmit.style.setProperty('color', 'var(--textLight)')
-                btnSubmit.style.setProperty('transform', 'scale(1)')
-    
-            })
-    
-    
-    
-            inputNamePlayer1.addEventListener('focus', () => {
-    
-                containerInputs1.style.setProperty("background-color", "var(--backContainer)")
-                
-                player1P.style.setProperty("background-color", "var(--backContainer)")
-                
-                player1P.style.setProperty("color", "var(--textDark)")
-                
-                inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
-                inputNamePlayer1.style.setProperty("color", "var(--textDark)")
-    
-            })
-    
-            inputNamePlayer1.addEventListener('blur', () => {
-    
-                containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player1P.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player1P.style.setProperty("color", "var(--textLight)")
-                
-                inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
-                inputNamePlayer1.style.setProperty("color", "var(--textLight)")
-    
-            })
-    
-            inputNamePlayer2.addEventListener('focus', () => {
-    
-                containerInputs2.style.setProperty("background-color", "var(--backContainer)")
-                
-                player2P.style.setProperty("background-color", "var(--backContainer)")
-                
-                player2P.style.setProperty("color", "var(--textDark)")
-                
-                inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
-                inputNamePlayer2.style.setProperty("color", "var(--textDark)")
-    
-            })
-    
-            inputNamePlayer2.addEventListener('blur', () => {
-    
-                containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player2P.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player2P.style.setProperty("color", "var(--textLight)")
-                
-                inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
-                inputNamePlayer2.style.setProperty("color", "var(--textLight)")
-    
-            })
-
-        }else if(currentTheme[0] == 'dark'){
-    
-            btnSubmit.addEventListener('mouseenter', () => {
-    
-                btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
-                btnSubmit.style.setProperty('color', 'var(--textLight)')
-                btnSubmit.style.setProperty('transform', 'scale(1.05)')
-            })
-    
-            btnSubmit.addEventListener('mouseleave', () => {
-    
-                btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
-                btnSubmit.style.setProperty('color', 'var(--textDark)')
-                btnSubmit.style.setProperty('transform', 'scale(1)')
-    
-            })
-    
-            inputNamePlayer1.addEventListener('focus', () => {
-    
-                containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player1P.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player1P.style.setProperty("color", "var(--textLight)")
-                
-                inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
-                inputNamePlayer1.style.setProperty("color", "var(--textLight)")
-    
-            })
-    
-            inputNamePlayer1.addEventListener('blur', () => {
-    
-                containerInputs1.style.setProperty("background-color", "var(--backContainer)")
-                
-                player1P.style.setProperty("background-color", "var(--backContainer)")
-                
-                player1P.style.setProperty("color", "var(--textDark)")
-                
-                inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
-                inputNamePlayer1.style.setProperty("color", "var(--textDark)")
-    
-            })
-    
-            inputNamePlayer2.addEventListener('focus', () => {
-    
-                containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player2P.style.setProperty("background-color", "var(--backContainerLight)")
-                
-                player2P.style.setProperty("color", "var(--textLight)")
-                
-                inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
-                inputNamePlayer2.style.setProperty("color", "var(--textLight)")
-    
-            })
-    
-            inputNamePlayer2.addEventListener('blur', () => {
-    
-                containerInputs2.style.setProperty("background-color", "var(--backContainer")
-                
-                player2P.style.setProperty("background-color", "var(--backContainer)")
-                
-                player2P.style.setProperty("color", "var(--textDark)")
-                
-                inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
-                inputNamePlayer2.style.setProperty("color", "var(--textDark)")
-    
-            })
-    
-        }
-    
-        
-    }
 
 }
 
+function changeThemeForm() {
+    
+    const containerInputs1 = document.querySelector('.containerInputs1');
+    const player1P = document.querySelector('.labelP1');
+    // const inputNamePlayer1 = formMain.namePlayer1;
+    const inputNamePlayer1 = document.querySelector('.nameplayer1');
+    const inputNamePlayer2 = document.querySelector('.nameplayer2');
+    
+    const containerInputs2 = document.querySelector('.containerInputs2');
+    const player2P = document.querySelector('.labelP2');
+
+    const btnSubmit = document.querySelector('.submit');
+
+
+    if (gameBoard.getCurrentTheme() === 'dark') {
+
+        btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+
+        btnSubmit.style.setProperty('color', 'var(--textDark)')
+        containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+        containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+        
+        player1P.style.setProperty("background-color", "var(--backContainer)")
+        player2P.style.setProperty("background-color", "var(--backContainer)")
+        
+        player1P.style.setProperty("color", "var(--textDark)")
+        player2P.style.setProperty("color", "var(--textDark)")
+        
+        inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
+        inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
+        inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+        inputNamePlayer2.style.setProperty("color", "var(--textDark)") 
+
+        hoverForm()
+
+    }else if(gameBoard.getCurrentTheme() === 'light'){
+
+        btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+
+        btnSubmit.style.setProperty('color', 'var(--textLight)')
+        containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+        containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+        
+        player1P.style.setProperty("background-color", "var(--backContainerLight)")
+        player2P.style.setProperty("background-color", "var(--backContainerLight)")
+        
+        player1P.style.setProperty("color", "var(--textLight)")
+        player2P.style.setProperty("color", "var(--textLight)")
+        
+        inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")            
+        inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+        inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+        inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+        hoverForm();
+
+    }
+
+
+    
+    
+
+    
+
+}
+
+function changeColorBoardItems() {
+    
+    
+    const boardItems = document.querySelectorAll('.boardItem');
+
+
+    if (gameBoard.getCurrentTheme() === 'light' ) {
+        
+
+        // boardItems.style.setProperty('background-color', 'var(--backContainerLight)');
+
+        boardItems.forEach(item => item.style.setProperty('background-color', 'var(--backContainerLight)'))
+        // btnSubmit.style.setProperty('color', 'var(--textLight)');
+        // containerInputs1.style.setProperty("background-color", "var(--backContainerLight)");
+        // containerInputs2.style.setProperty("background-color", "var(--backContainerLight)");
+        
+        
+
+    }else if(gameBoard.getCurrentTheme() === 'dark') {
+
+        
+
+        // boardItems.style.setProperty('background-color', 'var(--backContainer)')
+        boardItems.forEach(item => item.style.setProperty('background-color', 'var(--backContainer)'))
+
+        // btnSubmit.style.setProperty('color', 'var(--textDark)')
+        // containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+        // containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+        
+        // player1P.style.setProperty("background-color", "var(--backContainer)")
+        // player2P.style.setProperty("background-color", "var(--backContainer)")
+        
+        // player1P.style.setProperty("color", "var(--textDark)")
+        // player2P.style.setProperty("color", "var(--textDark)")
+        
+        // inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
+        // inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
+        // inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+        // inputNamePlayer2.style.setProperty("color", "var(--textDark)") 
+
+        
+    }
+}
+
+
+
+function hoverForm() {
+    
+    const containerInputs1 = document.querySelector('.containerInputs1');
+    const player1P = document.querySelector('.labelP1');
+    const inputNamePlayer1 = formMain.namePlayer1;
+    
+    const containerInputs2 = document.querySelector('.containerInputs2');
+    const player2P = document.querySelector('.labelP2');
+    const inputNamePlayer2 = formMain.namePlayer2;
+
+    const btnSubmit = formMain.submit;
+
+    // console.log('dark hoverForm');
+    // console.log(gameBoard.getCurrentTheme());
+
+
+    if (gameBoard.getCurrentTheme() === 'dark') {
+        
+        btnSubmit.addEventListener('mouseenter', () => {
+
+            btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+            btnSubmit.style.setProperty('color', 'var(--textLight)')
+            btnSubmit.style.setProperty('transform', 'scale(1.05)')
+        })
+
+        btnSubmit.addEventListener('mouseleave', () => {
+
+            btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+            btnSubmit.style.setProperty('color', 'var(--textDark)')
+            btnSubmit.style.setProperty('transform', 'scale(1)')
+
+        })
+
+        inputNamePlayer1.addEventListener('focus', () => {
+
+            containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player1P.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player1P.style.setProperty("color", "var(--textLight)")
+            
+            inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
+            inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+
+        })
+
+        inputNamePlayer1.addEventListener('blur', () => {
+
+            containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+            
+            player1P.style.setProperty("background-color", "var(--backContainer)")
+            
+            player1P.style.setProperty("color", "var(--textDark)")
+            
+            inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
+            inputNamePlayer1.style.setProperty("color", "var(--textDark)")
+
+        })
+
+        inputNamePlayer2.addEventListener('focus', () => {
+
+            containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player2P.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player2P.style.setProperty("color", "var(--textLight)")
+            
+            inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+            inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+        })
+
+        inputNamePlayer2.addEventListener('blur', () => {
+
+            containerInputs2.style.setProperty("background-color", "var(--backContainer")
+            
+            player2P.style.setProperty("background-color", "var(--backContainer)")
+            
+            player2P.style.setProperty("color", "var(--textDark)")
+            
+            inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+            inputNamePlayer2.style.setProperty("color", "var(--textDark)")
+
+        })
+
+        // console.log('light hoverForm');
+
+    }else if(gameBoard.getCurrentTheme() === 'light'){
+
+
+        btnSubmit.addEventListener('mouseenter', () => {
+
+            btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
+            btnSubmit.style.setProperty('color', 'var(--textDark)')
+            btnSubmit.style.setProperty('transform', 'scale(1.05)')
+            // console.log('dark hoverForm');
+        })
+
+        btnSubmit.addEventListener('mouseleave', () => {
+
+            btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
+            btnSubmit.style.setProperty('color', 'var(--textLight)')
+            btnSubmit.style.setProperty('transform', 'scale(1)')
+            // console.log('dark hoverForm');
+
+        })
+
+
+
+        inputNamePlayer1.addEventListener('focus', () => {
+
+            containerInputs1.style.setProperty("background-color", "var(--backContainer)")
+            
+            player1P.style.setProperty("background-color", "var(--backContainer)")
+            
+            player1P.style.setProperty("color", "var(--textDark)")
+            
+            inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")
+            inputNamePlayer1.style.setProperty("color", "var(--textDark)")
+
+        })
+
+        inputNamePlayer1.addEventListener('blur', () => {
+
+            containerInputs1.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player1P.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player1P.style.setProperty("color", "var(--textLight)")
+            
+            inputNamePlayer1.style.setProperty("background-color", "var(--backContainerLight)")
+            inputNamePlayer1.style.setProperty("color", "var(--textLight)")
+
+        })
+
+        inputNamePlayer2.addEventListener('focus', () => {
+
+            containerInputs2.style.setProperty("background-color", "var(--backContainer)")
+            
+            player2P.style.setProperty("background-color", "var(--backContainer)")
+            
+            player2P.style.setProperty("color", "var(--textDark)")
+            
+            inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
+            inputNamePlayer2.style.setProperty("color", "var(--textDark)")
+
+        })
+
+        inputNamePlayer2.addEventListener('blur', () => {
+
+            containerInputs2.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player2P.style.setProperty("background-color", "var(--backContainerLight)")
+            
+            player2P.style.setProperty("color", "var(--textLight)")
+            
+            inputNamePlayer2.style.setProperty("background-color", "var(--backContainerLight)")
+            inputNamePlayer2.style.setProperty("color", "var(--textLight)")
+
+        })
+
+
+
+        
+
+        // console.log('dark hoverForm');
+
+    }
+
+    
+}
 
 function transitionForms() {
 

@@ -575,15 +575,20 @@ const gameBoard = (function(){
             createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
 
             const continueBtn = document.querySelector('.continueBtn');
-
+            changeColorGame();
             continueBtn.classList.add('blur-in-expandTest2')
+
 
             setTimeout(() => {
                 continueBtn.classList.remove('blur-in-expandTest2')
             },505)
 
+
+
             // continueBtn.classList.remove('blur-in-expandTest2')
             continueBtn.style.pointerEvents = 'auto';
+
+           
 
         }else{
 
@@ -743,7 +748,7 @@ const gameBoard = (function(){
                 createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
                 
             });
-            
+            changeColorGame();
             animationNextRoundOrRematch()
 
             animationAndOthers();
@@ -997,6 +1002,7 @@ function registerNames() {
         // game(name1, name2)
         setTimeout(()=> {
             domElementsGame(arrDomObjGame);
+            changeColorGame();
         },411)
         
         e.preventDefault();
@@ -1325,7 +1331,7 @@ function changeTheme() {
                 changeThemeForm();
                 
             }else if(scene[0] === 'game'){
-                changeColorBoardItems();
+                changeColorGame();
             }
             
 
@@ -1351,7 +1357,7 @@ function changeTheme() {
                 changeThemeForm();
                 
             }else if(scene[0] === 'game'){
-                changeColorBoardItems();
+                changeColorGame();
 
             }
             
@@ -1431,45 +1437,111 @@ function changeThemeForm() {
 
 }
 
-function changeColorBoardItems() {
+function changeColorGame() {
     
     
     const boardItems = document.querySelectorAll('.boardItem');
+    const name1 = document.querySelector('.name1');
+    const nameScore1 = document.querySelector('.nameScore1');
+    const name2 = document.querySelector('.name2');
+    const nameScore2 = document.querySelector('.nameScore2');
+    const scoreP = document.querySelector('.scoreP');
+    const score = document.querySelector('.score');
+    const btnRematch = document.querySelector('.btnRematch');
+    const btnNewGame = document.querySelector('.btnNewGame');
+
+    const containerBtns = document.querySelector('.containerBtns');
+    const childsContainerBtns = containerBtns.querySelectorAll('*');
+
+    const btnContinue = document.querySelector('.continueBtn');
 
 
     if (gameBoard.getCurrentTheme() === 'light' ) {
-        
 
-        // boardItems.style.setProperty('background-color', 'var(--backContainerLight)');
+        childsContainerBtns.forEach( child => {
+
+            child.addEventListener('mouseenter', () => {
+
+                child.style.setProperty('background-color', 'var(--backContainer)')
+                child.style.setProperty('color', 'var(--textDark)')
+                child.style.setProperty('transform', 'scale(1.05)')
+            })
+    
+            child.addEventListener('mouseleave', () => {
+    
+                child.style.setProperty('background-color', 'var(--backContainerLight)')
+                child.style.setProperty('color', 'var(--textLight)')
+                child.style.setProperty('transform', 'scale(1)')
+    
+            })
+
+
+        })
+
+        name1.style.setProperty('background-color', 'var(--backContainerLight)');
+        nameScore1.style.setProperty('color', 'var(--textLight)');
+        name2.style.setProperty('background-color', 'var(--backContainerLight)');
+        nameScore2.style.setProperty('color', 'var(--textLight)');
+        scoreP.style.setProperty('background-color', 'var(--backContainerLight)');
+        score.style.setProperty('color', 'var(--textLight)');
+        btnNewGame.style.setProperty('background-color', 'var(--backContainerLight)');
+        btnNewGame.style.setProperty('color', 'var(--textLight)');
+        btnRematch.style.setProperty('background-color', 'var(--backContainerLight)');
+        btnRematch.style.setProperty('color', 'var(--textLight)');
+        
+        if (btnContinue) {
+            btnContinue.style.setProperty('background-color', 'var(--backContainerLight)');
+            btnContinue.style.setProperty('color', 'var(--textLight)');
+
+        }
 
         boardItems.forEach(item => item.style.setProperty('background-color', 'var(--backContainerLight)'))
-        // btnSubmit.style.setProperty('color', 'var(--textLight)');
-        // containerInputs1.style.setProperty("background-color", "var(--backContainerLight)");
-        // containerInputs2.style.setProperty("background-color", "var(--backContainerLight)");
-        
+    
         
 
     }else if(gameBoard.getCurrentTheme() === 'dark') {
 
-        
 
-        // boardItems.style.setProperty('background-color', 'var(--backContainer)')
+        childsContainerBtns.forEach( child => {
+
+            child.addEventListener('mouseenter', () => {
+
+                child.style.setProperty('background-color', 'var(--backContainerLight)')
+                child.style.setProperty('color', 'var(--textLight)')
+                child.style.setProperty('transform', 'scale(1.05)')
+            })
+    
+            child.addEventListener('mouseleave', () => {
+    
+                child.style.setProperty('background-color', 'var(--backContainer)')
+                child.style.setProperty('color', 'var(--textDark)')
+                child.style.setProperty('transform', 'scale(1)')
+    
+            })
+
+
+        })
+
+
+        name1.style.setProperty('background-color', 'var(--backContainer)');
+        nameScore1.style.setProperty('color', 'var(--textDark)');
+        name2.style.setProperty('background-color', 'var(--backContainer)');
+        nameScore2.style.setProperty('color', 'var(--textDark)');
+        scoreP.style.setProperty('background-color', 'var(--backContainer)');
+        score.style.setProperty('color', 'var(--textDark)');
+        btnNewGame.style.setProperty('background-color', 'var(--backContainer)');
+        btnNewGame.style.setProperty('color', 'var(--textDark)');
+        btnRematch.style.setProperty('background-color', 'var(--backContainer)');
+        btnRematch.style.setProperty('color', 'var(--textDark)');
+
+        if (btnContinue) {
+            btnContinue.style.setProperty('background-color', 'var(--backContainer)');
+            btnContinue.style.setProperty('color', 'var(--textDark)');
+            
+        }
+
         boardItems.forEach(item => item.style.setProperty('background-color', 'var(--backContainer)'))
 
-        // btnSubmit.style.setProperty('color', 'var(--textDark)')
-        // containerInputs1.style.setProperty("background-color", "var(--backContainer)")
-        // containerInputs2.style.setProperty("background-color", "var(--backContainer)")
-        
-        // player1P.style.setProperty("background-color", "var(--backContainer)")
-        // player2P.style.setProperty("background-color", "var(--backContainer)")
-        
-        // player1P.style.setProperty("color", "var(--textDark)")
-        // player2P.style.setProperty("color", "var(--textDark)")
-        
-        // inputNamePlayer1.style.setProperty("background-color", "var(--backContainer)")            
-        // inputNamePlayer1.style.setProperty("color", "var(--textDark)")            
-        // inputNamePlayer2.style.setProperty("background-color", "var(--backContainer)")
-        // inputNamePlayer2.style.setProperty("color", "var(--textDark)") 
 
         
     }

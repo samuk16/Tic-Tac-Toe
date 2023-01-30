@@ -1882,4 +1882,102 @@ function createXO() {
     
 }
 
+// depth,minimax,gameBoard,alfa,beta
+function minimax() {
+    //  para darle un poco de misterio al tic tac toe voy a hacer que los jugadores no tengan la opcion de jugar contra la AI 
+    // sino que tendran que encontrar los easter Eggs para poder jugar contra la AI. 
+    // pienso que sera mas divertido asi, entoences la primera idea que tengo es que voy a dejar como acertijos 
+    // para que la solucion sea tener que escribir primero en el input de nombre AI seguido de lo que el jugador quiera
+    // y asi podra jugar con la AI.
+    // otra opcion es como lo hizo wallpaper engine, hacer que el jugador haga una serie de combinaciones de teclas o acciones para desbloquear la AI.
+    // otra idea seria dejar pistas en formas de commentarios en el codigo como por ej 'mira el titulo' o algo asi 
+    // otra idea es que cuando ganes una partida en el boxShadow aparezca una pista, pero bueno esto realmente no sabria como hacerlo aunque tal vez sea posible simplemente 
+    // con un texto o algo asi con position absolute.
+    // hasta ahora eso es todo. 
+    
+
+    
+
+    let minimax = 'max';
+
+    let board =['x','null','null',
+                'null','null','null',
+                'null','null','null'
+    ];
+
+    let depth = board.filter(item => item != 'null').length + 2;
+
+    let childs = board.filter(item => item === 'null').length;
+
+
+    if (board.filter(item => item === 'null').length <= 8) {
+        console.log(`quedan ${board.filter(item => item === 'null').length} movimientos posibles `);
+        console.log(`${board.filter(item => item != 'null').length + 2}`);
+        
+    }else{
+        console.log('no funciono Sad :c');
+    }
+
+    if (minimax == 'max') {
+        
+        let depth1 = [];
+        
+        let gameTree = {
+
+            max:[],
+            depth:[],
+            
+
+        };
+    
+        
+        for (let i = 1; i <= childs; i++) {
+
+            gameTree.depth.push([]);
+
+            
+
+        }
+        childs--;
+        console.log(childs);
+
+        for (let c = 0; c < gameTree.depth.length; c++) { 
+            
+            for (let c2 = 0; c2 < childs ; c2++) {
+
+
+                gameTree.depth[c].push([]);
+            }
+                
+        }
+
+        console.log(gameTree.depth);
+        console.log(gameTree.depth[[0]]);
+
+        // for (let i = 1; i <= depth; i++) {
+
+
+        //     depth1.push([]);
+        //     for (let c = 1; c <= childs; c++) {
+                
+        //         if (depth1[i - 1]) {
+        //             depth1[i - 1].push([]);    
+        //             depth1[i - 1]
+        //         }
+        //         // depth1[0].push([]);
+                
+
+        //     }
+        //     console.log(childs);
+        //     childs -= 1;
+
+        // }
+        // console.log(depth1);
+        // console.log(childs);
+        // console.log(depth2);
+
+    }
+
+}   
+minimax();
 domElementsMenu(arrDomObjStart);

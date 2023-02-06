@@ -717,8 +717,24 @@ const gameBoard = (function(){
 
 
             if (testBtnContinue == null) {
+
                 createElementsDom('div',{class:'continueBtn'},null,'Continue',containerBtns);
+                const continueBtn = document.querySelector('.continueBtn');
+                changeColorGame();
+
+                continueBtn.classList.add('blur-in-expandTest2')
+
+
+                setTimeout(() => {
+                    continueBtn.classList.remove('blur-in-expandTest2')
+                },505)
+            }else{
+
+                testBtnContinue.style.pointerEvents = 'auto';
+
             }
+
+            // testBtnContinue.style.pointerEvents = 'auto';
 
             gameHistory.push('tie')
             console.log(gameHistory);
@@ -1548,7 +1564,6 @@ function changeColorGame() {
 }
 
 
-
 function hoverForm() {
     
     const containerInputs1 = document.querySelector('.containerInputs1');
@@ -1560,9 +1575,6 @@ function hoverForm() {
     const inputNamePlayer2 = formMain.namePlayer2;
 
     const btnSubmit = formMain.submit;
-
-    // console.log('dark hoverForm');
-    // console.log(gameBoard.getCurrentTheme());
 
 
     if (gameBoard.getCurrentTheme() === 'dark') {
@@ -1634,7 +1646,6 @@ function hoverForm() {
 
         })
 
-        // console.log('light hoverForm');
 
     }else if(gameBoard.getCurrentTheme() === 'light'){
 
@@ -1644,7 +1655,6 @@ function hoverForm() {
             btnSubmit.style.setProperty('background-color', 'var(--backContainer)')
             btnSubmit.style.setProperty('color', 'var(--textDark)')
             btnSubmit.style.setProperty('transform', 'scale(1.05)')
-            // console.log('dark hoverForm');
         })
 
         btnSubmit.addEventListener('mouseleave', () => {
@@ -1652,7 +1662,6 @@ function hoverForm() {
             btnSubmit.style.setProperty('background-color', 'var(--backContainerLight)')
             btnSubmit.style.setProperty('color', 'var(--textLight)')
             btnSubmit.style.setProperty('transform', 'scale(1)')
-            // console.log('dark hoverForm');
 
         })
 
@@ -1710,13 +1719,9 @@ function hoverForm() {
 
         })
 
-
-
-        
-
-        // console.log('dark hoverForm');
-
     }
+
+    
 
     
 }
@@ -1883,101 +1888,148 @@ function createXO() {
 }
 
 // depth,minimax,gameBoard,alfa,beta
-function minimax() {
-    //  para darle un poco de misterio al tic tac toe voy a hacer que los jugadores no tengan la opcion de jugar contra la AI 
-    // sino que tendran que encontrar los easter Eggs para poder jugar contra la AI. 
-    // pienso que sera mas divertido asi, entoences la primera idea que tengo es que voy a dejar como acertijos 
-    // para que la solucion sea tener que escribir primero en el input de nombre AI seguido de lo que el jugador quiera
-    // y asi podra jugar con la AI.
-    // otra opcion es como lo hizo wallpaper engine, hacer que el jugador haga una serie de combinaciones de teclas o acciones para desbloquear la AI.
-    // otra idea seria dejar pistas en formas de commentarios en el codigo como por ej 'mira el titulo' o algo asi 
-    // otra idea es que cuando ganes una partida en el boxShadow aparezca una pista, pero bueno esto realmente no sabria como hacerlo aunque tal vez sea posible simplemente 
-    // con un texto o algo asi con position absolute.
-    // hasta ahora eso es todo. 
+// function minimax() {
+//     //  para darle un poco de misterio al tic tac toe voy a hacer que los jugadores no tengan la opcion de jugar contra la AI 
+//     // sino que tendran que encontrar los easter Eggs para poder jugar contra la AI. 
+//     // pienso que sera mas divertido asi, entoences la primera idea que tengo es que voy a dejar como acertijos 
+//     // para que la solucion sea tener que escribir primero en el input de nombre AI seguido de lo que el jugador quiera
+//     // y asi podra jugar con la AI.
+//     // otra opcion es como lo hizo wallpaper engine, hacer que el jugador haga una serie de combinaciones de teclas o acciones para desbloquear la AI.
+//     // otra idea seria dejar pistas en formas de commentarios en el codigo como por ej 'mira el titulo' o algo asi 
+//     // otra idea es que cuando ganes una partida en el boxShadow aparezca una pista, pero bueno esto realmente no sabria como hacerlo aunque tal vez sea posible simplemente 
+//     // con un texto o algo asi con position absolute.
+//     // hasta ahora eso es todo. 
     
 
     
 
-    let minimax = 'max';
+//     let minimax = 'max';
 
-    let board =['x','null','null',
-                'null','null','null',
-                'null','null','null'
-    ];
+//     let board =['x','null','null',
+//                 'null','null','null',
+//                 'null','null','null'
+//     ];
 
-    let depth = board.filter(item => item != 'null').length + 2;
+//     let depth = board.filter(item => item != 'null').length + 2;
 
-    let childs = board.filter(item => item === 'null').length;
+//     let childs = board.filter(item => item === 'null').length;
 
 
-    if (board.filter(item => item === 'null').length <= 8) {
-        console.log(`quedan ${board.filter(item => item === 'null').length} movimientos posibles `);
-        console.log(`${board.filter(item => item != 'null').length + 2}`);
+//     if (board.filter(item => item === 'null').length <= 8) {
+//         console.log(`quedan ${board.filter(item => item === 'null').length} movimientos posibles `);
+//         console.log(`${board.filter(item => item != 'null').length + 2}`);
         
-    }else{
-        console.log('no funciono Sad :c');
-    }
+//     }else{
+//         console.log('no funciono Sad :c');
+//     }
 
-    if (minimax == 'max') {
-        
-        let depth1 = [];
-        
-        let gameTree = {
+//     let test132 = [[[[],[]],[[],[]],[[],[]]],[[[],[]],[[],[]],[[],[]]],[[[],[]],[[],[]],[[],[]]],[[[],[]],[[],[]],[[],[]]]];
 
-            max:[],
-            depth:[],
+
+//     // for (let j = 0; j < test132[0][0].length; j++) {
+
+//     //     test132[0][0].push('hola')
+        
+//     // }
+
+//     if (minimax == 'max') {
+        
+
+//         // for (let c = 0; c < test132[0].length; c++) { 
+            
+//         //     for (let j = 0; j < 5; j++) {
+
+//         //         test132[0][c].push([])
+            
+//         //     }
+                
+//         // }
+        
+
+//         console.log(test132);
+
+
+
+
+//         let depth1 = [];
+        
+//         let gameTree = {
+
+//             max:[],
+//             depth:[],
             
 
-        };
-    
+//         };
         
-        for (let i = 1; i <= childs; i++) {
+//         // let index = board.filter(item => item === 'null').findIndex;
+        
+//         // for (let i = 1; i <= childs; i++) {
 
-            gameTree.depth.push([]);
+//         //     gameTree.depth.push([]);
 
+//         // }
+
+//         // childs--;
+
+//         // console.log(childs);
+
+//         // for (let c = 0; c < gameTree.depth.length; c++) { 
+            
+//         //     for (let c2 = 0; c2 < childs ; c2++) {
+
+//         //         gameTree.depth[c].push([]);
+
+//         //     }
+                
+//         // }
+
+//         // childs--;
+
+//         // if (depth > 2) {
+            
+//         //     for (let i = 0; i < gameTree.depth.length; i++) {
+
+//         //         for (let j = 0; j < gameTree.depth[i].length; j++) {
+
+//         //             for (let k = 0; k < childs; k++) {
+
+//         //                 gameTree.depth[i][j].push([]);
+
+//         //             }
+//         //         }
+//         //     }
             
 
-        }
-        childs--;
-        console.log(childs);
-
-        for (let c = 0; c < gameTree.depth.length; c++) { 
-            
-            for (let c2 = 0; c2 < childs ; c2++) {
+//         // }
 
 
-                gameTree.depth[c].push([]);
-            }
+//         // console.log(gameTree.depth);
+//         // console.log(gameTree.depth[0]);
+
+//         // for (let i = 1; i <= depth; i++) {
+
+
+//         //     depth1.push([]);
+//         //     for (let c = 1; c <= childs; c++) {
                 
-        }
-
-        console.log(gameTree.depth);
-        console.log(gameTree.depth[[0]]);
-
-        // for (let i = 1; i <= depth; i++) {
-
-
-        //     depth1.push([]);
-        //     for (let c = 1; c <= childs; c++) {
-                
-        //         if (depth1[i - 1]) {
-        //             depth1[i - 1].push([]);    
-        //             depth1[i - 1]
-        //         }
-        //         // depth1[0].push([]);
+//         //         if (depth1[i - 1]) {
+//         //             depth1[i - 1].push([]);    
+//         //             depth1[i - 1]
+//         //         }
+//         //         // depth1[0].push([]);
                 
 
-        //     }
-        //     console.log(childs);
-        //     childs -= 1;
+//         //     }
+//         //     console.log(childs);
+//         //     childs -= 1;
 
-        // }
-        // console.log(depth1);
-        // console.log(childs);
-        // console.log(depth2);
+//         // }
+//         // console.log(depth1);
+//         // console.log(childs);
+//         // console.log(depth2);
 
-    }
+//     }
 
-}   
-minimax();
+// }   
+// minimax();
 domElementsMenu(arrDomObjStart);

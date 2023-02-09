@@ -21,7 +21,6 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    
 }
 
 
@@ -33,7 +32,6 @@ body{
     height: 100vh;
 
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
 
@@ -43,15 +41,13 @@ body{
 p{
     color: white;
     font-size: 1rem;
+    transition: all .12s ease-in-out;
 }
 h1{
     color: white;
     position: absolute;
     top: 30px;
-    /* bottom: 0; */
     left: 30px;
-    /* right: 0; */
-
     font-size: 3rem;
     letter-spacing: -1.5;
 
@@ -59,10 +55,6 @@ h1{
 
 
 }
-
-/* .miniP{
-    
-} */
 
 .miniPerfil{
 
@@ -74,8 +66,6 @@ h1{
 
     position: absolute;
     top: 30px;
-    /* bottom: 0; */
-    /* left: 0; */
     right: 30px;
 
     
@@ -86,14 +76,12 @@ h1{
 .containerTTT{
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     gap: 60px;
 }
 
 .containerTTT > div:nth-child(3){
     
     align-self: center;
-
     display: flex;
     gap: 30px;
 }
@@ -116,75 +104,20 @@ h1{
 
     padding: 0 12px;
 
-    background-color: var(--backContainerSecond);
+    background-color: var(--backContainer);
 
     cursor: pointer;
 
-    transition: all .1s ease-in-out;
+    transition: all .12s ease-in-out;
 }
-
-.containerTTT > div:nth-child(3) > div:hover{
-    transform-origin: center;
-    transform: scale(1.05);
-    background-color: var(--backHoverBtn);
-    color: #1C1B1F;
-}
-
-/* .containerTTT > div:nth-child(3){
-
-    align-self: center;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--backContainerSecond);
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-
-    cursor: pointer;
-    transition: all .2s ease-in-out;
-
-} */
-
-/* .containerTTT > div:nth-child(3):hover{
-
-    transform: scale(1.2);
-} */
 
 .containerScore{
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* width: 640px;
-    height: 100px; */
-    /* background-color: #42098B; */
-    /* border-radius: 10px; */
-
-    
 }
 
-/* .containerScore > div{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-} */
-
-/* .containerScore > div:nth-child(1){
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--backContainerSecond);
-    width: 110px;
-    height: 40px;
-    border-radius: 16px;
-
-    outline: solid 0px var(--divColorInput1);
-} */
 .containerScore > .name1{
 
     display: flex;
@@ -197,19 +130,10 @@ h1{
     border-radius: 16px;
 
     outline: solid 0px var(--divColorInput1);
+
+    transition: all .12s ease-in-out;
 }
-/* .containerScore > div:nth-child(2){
 
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-
-    background-color: var(--backContainerSecond);
-    width: 110px;
-    height: 70px;
-    border-radius: 16px;
-} */
 .containerScore > .scoreP{
 
     display: flex;
@@ -221,21 +145,10 @@ h1{
     width: 110px;
     height: 70px;
     border-radius: 16px;
+
+    transition: all .12s ease-in-out;
 }
-/* .containerScore > div:nth-child(3){
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--backContainerSecond);
-    width: 110px;
-    height: 40px;
-    border-radius: 16px;
-
-    outline: solid 0px var(--divColorInput2);
-
-} */
 .containerScore > .name2{
 
     display: flex;
@@ -249,15 +162,9 @@ h1{
 
     outline: solid 0px var(--divColorInput2);
 
-}
+    transition: all .12s ease-in-out;
 
-/* .containerScore > div > .miniPScore1{
-    background-image: url(./th\(1\).webp);
 }
-
-.containerScore > div > .miniPScore2{
-    background-image: url(./th.webp);
-} */
 
 .containerBoard{
 
@@ -270,7 +177,7 @@ h1{
     gap: 20px;
 }
 
-.containerBoard > div{
+.containerBoard > .boardItem{
     height: 200px;
     background-color: var(--backContainer);
     border-radius: 16px;
@@ -354,7 +261,7 @@ h1{
 
     background-color: var(--backContainer);
 
-    transition: all .1s ease-in-out;
+    transition: all .12s ease-in-out;
 }
 
 .themeLight{
@@ -382,36 +289,6 @@ h1{
     color: var(--textDark);
 
 }
-
-.containerStartGameLight > form > button{
-
-    align-self: center;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    user-select: none;
-
-    font-size: 1rem;
-
-    width: 100px;
-    height: 40px;
-    cursor: pointer;
-    color: white;
-    border-radius: 100px;
-    border: none;
-
-    background-color: var(--backContainer);
-
-    transition: all .1s ease-in-out;
-}
-
-/* .containerStartGame > form > button:hover{
-    transform: scale(1.05);
-    background-color: var(--backHoverBtn);
-    color: #1C1B1F;
-} */
 
 .containerStartGame > form > div > label {
     color: white;
@@ -457,14 +334,14 @@ h1{
 
     width: 30px;
     height: 30px;
-    border-radius: 50px;
-    /* background-color: #DE1616; */
-    
+    border-radius: 50px;    
 
 }
+
 .containerStartGame > form > div > label > div > .inputColor1 {
     background-color: var(--divColorInput1);
 }
+
 .containerStartGame > form > div > label > div > .inputColor2 {
     background-color: var(--divColorInput2);
 }
@@ -487,12 +364,6 @@ h1{
 
     transition: all .2s ease-in-out;
 }
-
-/* .containerStartGame > form > div > label > div > input:focus{
-
-    background-color: var(--backHoverBtn);
-    color: var(--backgroundMain);
-} */
 
 .containerStartGame > form > div > label > div > div > input{
 
@@ -533,15 +404,12 @@ h1{
 .startAnimationOutlineName{animation: startAnimationOutlineName .1s linear both}
 @keyframes startAnimationOutlineName{
     0% {
-      /* transform: scale(1); */
       outline-width:0px;
     }
     50% {
-      /* transform: scale(1.1); */
       outline-width:2px;
     }
     100% {
-      /* transform: scale(1); */
       outline-width:4px;
 
       
@@ -551,15 +419,12 @@ h1{
 .endAnimationOutlineName{animation: endAnimationOutlineName .1s linear both}
 @keyframes endAnimationOutlineName{
     0% {
-      /* transform: scale(1); */
       outline-width:4px;
     }
     50% {
-      /* transform: scale(1.1); */
       outline-width:2px;
     }
     100% {
-      /* transform: scale(1); */
       outline-width:0px;
 
       
@@ -576,19 +441,16 @@ h1{
     25%{
         transform: scale(1.1);
         outline-width:7px;
-        /* outline-color: white; */
     }
 
     50%{
         transform: scale(1);
         outline-width:7px;
-        /* outline-color: white; */
     }
 
     75%{
         transform: scale(1.1);
         outline-width:7px;
-        /* outline-color: white; */
     }
 
     100%{
@@ -697,7 +559,6 @@ h1{
 
 @keyframes blur-out-contract2{
     0%{
-        /* position: absolute; */
         transform:scale(1);
         filter:blur(.01px);
         
@@ -725,8 +586,6 @@ h1{
         transform:scale(0);
         filter:blur(12px);
         opacity:0;
-        /* width: 200px;
-        height: 70px; */
         
     }
 
@@ -734,9 +593,6 @@ h1{
         z-index: 1;
         position:absolute;
         box-shadow: 0px 0px 50px 40px rgba(0, 0, 0, 0.5);
-        /* top: 50%;  */
-        /* left: 50%; */
-        /* transform: translate(-50%, -50%);  */
         top: 0;
         left: 0;
         right: 0;
@@ -744,8 +600,6 @@ h1{
         margin: auto;
         filter:blur(12px);
         opacity:0;
-        /* width: 200px;
-        height: 70px; */
         transform:scale(1);
     }
 
@@ -758,8 +612,6 @@ h1{
     }
 
     75%{
-        /* width: 200px;
-        height: 70px; */
         transform:scale(1.2);
         filter:blur(0);
         opacity:1
@@ -767,10 +619,7 @@ h1{
 
     100%{
         z-index: 1;
-        /* position:absolute; */
         box-shadow: 0px 0px 90px 60px rgba(0, 0, 0, 0.7);
-        /* top: 50%;  */
-        /* left: 50%; */
         position: absolute;
         top: 0;
         left: 0;
@@ -784,7 +633,6 @@ h1{
         filter:blur(0);
         opacity:1;
 
-        /* transform: translate(-50%, -50%);  */
     }
 }
 .blur-in-expandTest{animation:blur-in-expandTest .30s linear both} 
@@ -818,34 +666,29 @@ h1{
         opacity:1;
     }
 }
-.blur-in-expandTest2{animation:blur-in-expandTest2 .50s linear both} 
+.blur-in-expandTest2{animation:blur-in-expandTest2 .30s linear both} 
 @keyframes blur-in-expandTest2{
     0%{
         transform:scale(0);
-        /* filter:blur(12px); */
         opacity:0;
     }
     25%{
-        /* filter:blur(12px); */
         opacity:0;
         transform:scale(.5);
     }
 
     50%{
         transform:scale(1);
-        /* filter:blur(12px); */
         opacity:1
     }
 
     75%{
         transform:scale(1.4);
-        /* filter:blur(0); */
         opacity:1
     }
 
     100%{
         transform:scale(1);
-        /* filter:blur(0); */
         opacity:1;
     }
 }

@@ -4,7 +4,6 @@ import createElementsDom from './domCreation.js';
 
 let player1;
 let player2;
-
 let scene = ['start'];
 
 const arr = (function () {
@@ -516,8 +515,6 @@ const gameBoard = (function(){
             
             board.splice(dataId,1,xo);
             moveCount++
-            console.log(board);     
-            console.log(moveCount);     
         }
 
     };
@@ -595,12 +592,7 @@ const gameBoard = (function(){
                 continueBtn.classList.remove('blur-in-expandTest2')
             },505)
 
-
-
-            // continueBtn.classList.remove('blur-in-expandTest2')
-            continueBtn.style.pointerEvents = 'auto';
-
-           
+            continueBtn.style.pointerEvents = 'auto';         
 
         }else{
 
@@ -610,18 +602,13 @@ const gameBoard = (function(){
         boardItems.forEach(item => item.style.pointerEvents = 'none')
 
         gameHistory.push('win')
-
-        console.log(gameHistory);
         
         updatePoints(player1,player2);
 
         cleanBoard();
         
         nextRound();    
-        // clearCurrentWinner();
         btnRematch.style.pointerEvents = 'auto';
-        // testBtnContinue.style.pointerEvents = 'auto';
-        console.log('WIN!');
         countWin++;
         winGame();
     }
@@ -649,8 +636,6 @@ const gameBoard = (function(){
 
         if (player1.getWins() == 3) {
 
-            // console.log(`The winner is ${player1.getName()}`);
-
             btnRematch.classList.remove('blur-in-expandTest2')
             continueBtn.classList.remove('blur-in-expandTest2')
         
@@ -669,8 +654,6 @@ const gameBoard = (function(){
             containerScore.insertBefore(replacement,containerScore.firstChild);
 
         }else if(player2.getWins() == 3){
-
-            // console.log(`The winner is ${player2.getName()}`);
             
             btnRematch.classList.remove('blur-in-expandTest2')
             continueBtn.classList.remove('blur-in-expandTest2')
@@ -692,10 +675,7 @@ const gameBoard = (function(){
                 nameScore2.textContent = `The Winner is ${player2.getName()}`;
             
             },170);
-
-            // containerScore.insertBefore(replacement2,containerScore.firstChild);
             
-
         }
     }
 
@@ -715,8 +695,6 @@ const gameBoard = (function(){
             let boardItems = document.querySelectorAll('.boardItem');
 
             boardItems.forEach(item => item.style.animation = 'tieandWin .8s ease-in-out both')
-            // boardItems.forEach(item => item.classList.add('tieandWin'))
-
 
         }
         
@@ -740,16 +718,14 @@ const gameBoard = (function(){
                 setTimeout(() => {
                     continueBtn.classList.remove('blur-in-expandTest2')
                 },505)
+
             }else{
 
                 testBtnContinue.style.pointerEvents = 'auto';
 
             }
 
-            // testBtnContinue.style.pointerEvents = 'auto';
-
             gameHistory.push('tie')
-            console.log(gameHistory);
             nextRound();
         }
 
@@ -964,12 +940,9 @@ const styles = (function () {
         animationOutlineNames();
         btnRematch.style.pointerEvents = 'none';
         scoreP.innerText = `${player1.getWins()} - ${player2.getWins()}`;
-        //  Esto posiblemente funcione mal
     }
     
     function domElementsMenu(arr) {
-        // const btnTestAnime = document.querySelector('.btnTestAnime');
-        // const testAnime = document.querySelector('.testAnime');
         
         arr.forEach(elementObject => {
         
@@ -993,11 +966,7 @@ const styles = (function () {
         registerNames();
         changeColor1();
         changeColor2();
-        // transitionForms();
         changeTheme();
-        // changeThemeForm();
-        // 2(); 
-        // hoverForm();
     
     }
     
@@ -1014,8 +983,6 @@ const styles = (function () {
             let color1 = e.target.elements['color1'].value ;
             let color2 = e.target.elements['color2'].value ;
     
-            // arrDomObjGame[5].innerText = name1;
-            // arrDomObjGame[9].innerText = name2;
             arr.getArrDomObjGame()[5].innerText = name1;
             arr.getArrDomObjGame()[9].innerText = name2;
             player1 = players(name1,color1);
@@ -1026,7 +993,6 @@ const styles = (function () {
             scene.pop();
             scene.push('game');
             delDomElementsMenu()
-            // game(name1, name2)
             setTimeout(()=> {
                 domElementsGame(arr.getArrDomObjGame());
                 changeColorGame();
@@ -1039,22 +1005,17 @@ const styles = (function () {
     function changeColor1() {
     
         const inputColor = formMain.color1;
-        // let divColorInput1 = document.querySelector('.inputColor1');
+
         inputColor.addEventListener('input', ()=> {
-            document.documentElement.style.setProperty("--divColorInput1", inputColor.value);
-    
-                // divColorInput1.style.backgroundColor = '#DE1616';
-    
+            document.documentElement.style.setProperty("--divColorInput1", inputColor.value);    
         })
     }
     function changeColor2() {
     
         const inputColor2 = formMain.color2;
-        // let divColorInput2 = document.querySelector('.inputColor2');
+
         inputColor2.addEventListener('input', ()=> {
-            document.documentElement.style.setProperty("--divColorInput2", inputColor2.value);
-    
-            // divColorInput2.style.backgroundColor = inputColor2.value;
+            document.documentElement.style.setProperty("--divColorInput2", inputColor2.value);    
         })
     }
     
@@ -1067,14 +1028,8 @@ const styles = (function () {
     
         setTimeout(() => {
     
-            // while (formStart.hasChildNodes()) {
-            //     formStart.removeChild(formStart.firstChild);
-            // }
-    
-            // document.body.removeChild(formStart)
             formStart.remove();
-            // document.body.removeChild(title)
-            // document.body.removeChild(miniPerfil)
+
         },410)
         
     
@@ -1089,8 +1044,6 @@ const styles = (function () {
     
         document.body.removeChild(containerGame)
         document.body.removeChild(containerSvgTheme)
-        // document.body.removeChild(title)
-        // document.body.removeChild(miniPerfil)
     }
     
     function animationAndOthers() {
@@ -1174,18 +1127,11 @@ const styles = (function () {
     
         btnNewGame.addEventListener('click', ()=> {
     
-            // if (gameBoard.getCurrentTheme() == 'light') {
-            //     arrDomObjStart[3].innerHTML = svgThemeDark;
-                
-            // }
             gameBoard.getCurrentTheme() == 'light' ? arr.getArrDomFormStart()[0].innerHTML = svgThemeDark: arr.getArrDomFormStart()[0].innerHTML = svgThemeLight;
             delDomElementsGame()
             gameBoard.cleanBoard();
-            // domElementsMenu(arrDomObjStart);
             domElementsMenu(arr.getArrDomFormStart());
             changeThemeForm();
-            // console.log(gameBoard.getCurrentTheme());
-            // changeTheme()
             scene.pop();
             scene.push('start')
     
@@ -1204,14 +1150,12 @@ const styles = (function () {
     
         btnRematch.addEventListener('click', ()=> {
     
-            // delDomElementsGame();
             while (containerBoard.hasChildNodes()) {
                 containerBoard.removeChild(containerBoard.firstChild);
             }
             gameBoard.cleanBoard();
-            rematchUpdatePoints();
-            // domElementsGame(arrDomObjGame)        
-    
+            rematchUpdatePoints();     
+
             arr.getArrItemsBoard().forEach(elementObject => {
     
                 createElementsDom(elementObject.elementType,elementObject.attributes,null,elementObject.innerText,document.querySelector(elementObject.appendChild));
@@ -1253,10 +1197,6 @@ const styles = (function () {
         const containerBtns = document.querySelector('.containerBtns');
         let btnsChildren = containerBtns.children;
     
-    
-        // console.log(btnsChildren);
-    
-        // Recorrer cada hijo del contenedor
         for (let i = 0; i < btnsChildren.length; i++) {
           let child = btnsChildren[i];
     
@@ -1270,15 +1210,16 @@ const styles = (function () {
         }
         for (let i = 0; i < boardItemchildren.length; i++) {
           let child = boardItemchildren[i];
-          // Programar la animación de cada hijo con un delay de 500 milisegundos
+          
           setTimeout(function() {
-            // child.classList.add("blur-in-expandTest2");
+
             child.classList.add("blur-in");
+
           }, 100 * i);
         }
     
         setTimeout(() => {
-            // boardItem.forEach(item => console.log(item))
+
             boardItem.forEach(item => item.classList.remove('blur-in-expandTest2'))
             boardItem.forEach(item => item.style.opacity = '1')
             
@@ -1291,18 +1232,16 @@ const styles = (function () {
         let children = containerBoard.children;
         const boardItem = document.querySelectorAll('.boardItem');
     
-        // Recorrer cada hijo del contenedor
+      
         for (let i = 0; i < children.length; i++) {
+
           let child = children[i];
-          // Programar la animación de cada hijo con un delay de 500 milisegundos
+       
           child.classList.add("blur-in");
-        //   setTimeout(function() {
-        //     child.classList.add("blur-in");
-        //   }, 100 * i);
         }
     
         setTimeout(() => {
-            // boardItem.forEach(item => console.log(item))
+
             boardItem.forEach(item => item.classList.remove('blur-in'))
             boardItem.forEach(item => item.style.opacity = '1')
             
@@ -1735,77 +1674,6 @@ const styles = (function () {
         
     }
     
-    // function transitionForms() {
-    
-    //     const containerInputs1 = document.querySelector('.containerInputs1');
-    //     const player1P = document.querySelector('.labelP1');
-    
-    //     const inputNamePlayer1 = formMain.namePlayer1;
-        
-    
-    //     const containerInputs2 = document.querySelector('.containerInputs2');
-    //     const player2P = document.querySelector('.labelP2');
-    
-    //     const inputNamePlayer2 = formMain.namePlayer2;
-    
-    
-    //     inputNamePlayer1.addEventListener('focus', ()=> {
-    
-    
-    //         inputNamePlayer1.style.backgroundColor = '#9A82DB';
-    //         inputNamePlayer1.style.color = '#1C1B1F';
-    
-    //         containerInputs1.style.backgroundColor = '#9A82DB';
-    
-    //         player1P.style.backgroundColor = '#9A82DB';
-    //         player1P.style.color = '#1C1B1F';
-    
-    //     })
-    
-    //     inputNamePlayer1.addEventListener('blur', ()=> {
-    
-    
-    //         inputNamePlayer1.style.backgroundColor = '#381E72';
-    //         inputNamePlayer1.style.color = 'white';
-    
-    //         containerInputs1.style.backgroundColor = '#381E72';
-    
-    //         player1P.style.backgroundColor = '#381E72';
-    //         player1P.style.color = 'white';
-    
-    //     })
-    
-    
-        
-    
-    
-    //     inputNamePlayer2.addEventListener('focus', ()=> {
-    
-    
-    //         inputNamePlayer2.style.backgroundColor = '#9A82DB';
-    //         inputNamePlayer2.style.color = '#1C1B1F';
-    
-    //         containerInputs2.style.backgroundColor = '#9A82DB';
-    
-    //         player2P.style.backgroundColor = '#9A82DB';
-    //         player2P.style.color = '#1C1B1F';
-    
-    //     })
-    
-    //     inputNamePlayer2.addEventListener('blur', ()=> {
-    
-    
-    //         inputNamePlayer2.style.backgroundColor = '#381E72';
-    //         inputNamePlayer2.style.color = 'white';
-    
-    //         containerInputs2.style.backgroundColor = '#381E72';
-    
-    //         player2P.style.backgroundColor = '#381E72';
-    //         player2P.style.color = 'white';
-    
-    //     })
-    // }
-    
     function createXO() {
         
         const boardItem = document.querySelectorAll('.boardItem');
@@ -1818,7 +1686,6 @@ const styles = (function () {
         const element = document.querySelector('.boardItem');
     
         const computedStyle = window.getComputedStyle(element);
-        // let colorPrimary = computedStyle.getPropertyValue('--color-primary');
     
         let color1 = computedStyle.getPropertyValue('--divColorInput1');
         let color2 = computedStyle.getPropertyValue('--divColorInput2');
@@ -1829,7 +1696,7 @@ const styles = (function () {
              
             if (count.length == 0) {
     
-                // divName1.style.animation = 'animationOutlineName .2s linear both';
+         
     
                 createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
     
@@ -1837,8 +1704,7 @@ const styles = (function () {
                 item.setAttribute('data-board','x');
                 count.push('x');
     
-                // console.log(count);
-                // console.log(count[count.length - 1]);
+               
                 item.style.outlineColor = color1;
                 item.style.pointerEvents = 'none';
                 
@@ -1861,7 +1727,7 @@ const styles = (function () {
     
                     count.push('o');
                     
-                    // console.log(count);
+             
                     item.style.outlineColor = color2;
                     item.style.pointerEvents = 'none';
     
@@ -1877,7 +1743,7 @@ const styles = (function () {
                     item.setAttribute('data-board','x');
     
                     count.push('x');
-                    // console.log(count);
+              
                     item.style.outlineColor = color1;
                     item.style.pointerEvents = 'none';
     
@@ -1895,19 +1761,10 @@ const styles = (function () {
         
         
     }
-    
+    //SAD
     // depth,minimax,gameBoard,alfa,beta
     // function minimax() {
-    //     //  para darle un poco de misterio al tic tac toe voy a hacer que los jugadores no tengan la opcion de jugar contra la AI 
-    //     // sino que tendran que encontrar los easter Eggs para poder jugar contra la AI. 
-    //     // pienso que sera mas divertido asi, entoences la primera idea que tengo es que voy a dejar como acertijos 
-    //     // para que la solucion sea tener que escribir primero en el input de nombre AI seguido de lo que el jugador quiera
-    //     // y asi podra jugar con la AI.
-    //     // otra opcion es como lo hizo wallpaper engine, hacer que el jugador haga una serie de combinaciones de teclas o acciones para desbloquear la AI.
-    //     // otra idea seria dejar pistas en formas de commentarios en el codigo como por ej 'mira el titulo' o algo asi 
-    //     // otra idea es que cuando ganes una partida en el boxShadow aparezca una pista, pero bueno esto realmente no sabria como hacerlo aunque tal vez sea posible simplemente 
-    //     // con un texto o algo asi con position absolute.
-    //     // hasta ahora eso es todo. 
+    //   
         
     
         

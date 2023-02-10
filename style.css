@@ -173,7 +173,7 @@ h1{
     grid-template-columns: repeat(auto-fit, minmax(200px,max-content));
 
     width: 640px;
-    height: 640px; 
+    /* height: 640px;  */
     gap: 20px;
 }
 
@@ -193,6 +193,7 @@ h1{
 .containerBoard > div > div {
 
     transition: all .1s ease-in-out;
+    display: flex;
 }
 
 
@@ -723,4 +724,78 @@ h1{
 .containerSvgTheme:hover > svg > .pathTheme{
     stroke: #1C1B1F;
 }
+
+
+
+@media screen and (max-width: 768px) and (max-width: 1060px){
+    
+    .containerBoard{
+
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px,max-content));
+        justify-content: center;
+        width: 640px;
+        /* height: 640px;  */
+        gap: 20px;
+    }
+
+
+    .containerBoard > .boardItem{
+        height: 200px;
+    }
+
+
+}
+@media screen and (max-width: 620px) and (max-width: 768px){
+    
+    .containerBoard{
+
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px,max-content));
+        justify-content: center;
+        width: 450px;
+        gap: 20px;
+    }
+
+
+    .containerBoard > .boardItem{
+        height: 100px;
+    }
+
+
+    .containerStartGame > form > div{
+        flex-direction: column;
+    }
+
+    .containerScore{
+        justify-content: center;
+        gap: 20px;
+    }
+
+}
+
+@media screen and (max-width: 456px) and (max-width: 620px){
+    
+    .containerBoard{
+
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px,max-content));
+        justify-content: center;
+        width: 100vw;
+        gap: 20px;
+    }
+
+
+    .containerBoard > .boardItem{
+        height: 100px;
+        width: 100px;
+    }
+
+
+}
+
+
 

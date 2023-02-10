@@ -1677,10 +1677,15 @@ const styles = (function () {
     function createXO() {
         
         const boardItem = document.querySelectorAll('.boardItem');
-    
+        
+        const boardItemN1 = boardItem[0];
+
         const x = '<svg width="255" height="255" viewBox="0 0 255 255" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="183.848" y="56.5685" width="20" height="180" rx="10" transform="rotate(45 183.848 56.5685)" fill="white"/><rect x="197.99" y="183.848" width="20" height="180" rx="10" transform="rotate(135 197.99 183.848)" fill="white"/></svg>'
         const o = '<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="80" stroke="white" stroke-width="20"/></svg>';
-    
+        
+        const oMobile = '<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="35.5" stroke="white" stroke-width="9"/></svg>';
+        const xMobile = '<svg width="114" height="114" viewBox="0 0 114 114" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="81.709" y="25.1411" width="8.88889" height="80" rx="4.44444" transform="rotate(45 81.709 25.1411)" fill="white"/><rect x="87.9961" y="81.7099" width="8.88889" height="80" rx="4.44444" transform="rotate(135 87.9961 81.7099)" fill="white"/></svg>';
+
         let count = [];
     
         const element = document.querySelector('.boardItem');
@@ -1690,16 +1695,21 @@ const styles = (function () {
         let color1 = computedStyle.getPropertyValue('--divColorInput1');
         let color2 = computedStyle.getPropertyValue('--divColorInput2');
         
+        let boardItemWidth = boardItemN1.offsetWidth;
+
         boardItem.forEach(e => e.addEventListener('click', (e) => {
     
             let item = e.target;
              
             if (count.length == 0) {
     
-         
-    
-                createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
-    
+                if (boardItemWidth == 200) {
+                    createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+                }else{
+                    createElementsDom('div',{class:'x blur-in-expand'},xMobile,null,item);
+
+                }
+                
                 item.classList.add('x');
                 item.setAttribute('data-board','x');
                 count.push('x');
@@ -1719,8 +1729,13 @@ const styles = (function () {
             }else{
             
                 if(!item.classList.contains('x') && count[count.length - 1] == 'x'){
+                    
+                    if (boardItemWidth == 200) {
+                        createElementsDom('div',{class:'x blur-in-expand'},o,null,item);
+                    }else{
+                        createElementsDom('div',{class:'x blur-in-expand'},oMobile,null,item);
     
-                    createElementsDom('div',{class:'o blur-in-expand'},o,null,item);
+                    }
     
                     item.classList.add('o');
                     item.setAttribute('data-board','o');
@@ -1736,8 +1751,13 @@ const styles = (function () {
     
     
                 }else if(count[count.length - 1] == 'o'){
+                    
+                    if (boardItemWidth == 200) {
+                        createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+                    }else{
+                        createElementsDom('div',{class:'x blur-in-expand'},xMobile,null,item);
     
-                    createElementsDom('div',{class:'x blur-in-expand'},x,null,item);
+                    }
     
                     item.classList.add('x');
                     item.setAttribute('data-board','x');
